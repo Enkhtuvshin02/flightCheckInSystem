@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "D+lzSkM6L0n+DyTq2A1mbSVfCSq8QhmXKcf91UcFGKE=",
+  "Source": "FlightCheckInSystem.Server",
+  "BasePath": "_content/FlightCheckInSystem.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
