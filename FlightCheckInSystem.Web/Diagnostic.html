@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SignalR Connection Diagnostic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .panel {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+            button:hover {
+                background-color: #0069d9;
+            }
+
+            button:disabled {
+                background-color: #6c757d;
+                cursor: not-allowed;
+            }
+
+        #log {
+            height: 300px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .log-time {
+            color: #6c757d;
+            margin-right: 10px;
+        }
+    </style>
+    <!-- Import SignalR client library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.6/signalr.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>SignalR Connection Diagnostic</h1>
+
+        <div class="panel">
+            <h2>Server Configuration</h2>
+            <div>
+                <label for="serverUrl">Server URL:</label>
+                <input type="text" id="serverUrl" value="https://localhost:7001" style="width: 300px;" />
+                <button id="updateUrl">Update URL</button>
+            </div>
+        </div>
+
+        <div class="panel" id="statusPanel">
+            <h2>Connection Status</h2>
+            <div id="connectionStatus">Disconnected</div>
+        </div>
+
+        <div class="panel">
+            <h2>Test Actions</h2>
+            <button id="testCors">Test CORS</button>
+            <button id="connectHub">Connect to SignalR Hub</button>
+            <button id="disconnectHub">Disconnect</button>
+            <button id="pingHub">Ping Hub</button>
+            <button id="testSubscribe">Subscribe to Updates</button>
+            <button id="testApi">Test API</button>
+        </div>
+
+        <div class="panel">
+            <h2>Log</h2>
+            <div id="log"></div>
+        </div>
+    </div>
+
+    <script>
+        let connection = null;
+        let serverUrl = document.getElementById('serverUrl').value;
+
+        // Log function
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+
+            const time = document.createElement('span');
+            time.className = 'log-time';
+            time.textContent = new Date().toLocaleTimeString();
+
+            const msg = document.createElement('span');
+            msg.textContent = message;
+
+            if (type === 'error') {
+                msg.style.color = '#dc3545';
+            } else if (type === 'success') {
+                msg.style.color = '#28a745';
+            } else if (type === 'warning') {
+                msg.style.color = '#ffc107';
+            }
+
+            entry.appendChild(time);
+            entry.appendChild(msg);
+            logContainer.appendChild(entry);
+
+            // Auto-scroll to bottom
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // Update connection status
+        function updateStatus(status, type = 'info') {
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.textContent = status;
+
+            const panel = document.getElementById('statusPanel');
+            panel.className = 'panel';
+
+            if (type === 'success') {
+                panel.classList.add('success');
+            } else if (type === 'error') {
+                panel.classList.add('error');
+            } else if (type === 'warning') {
+                panel.classList.add('warning');
+            }
+        }
+
+        // Update server URL
+        document.getElementById('updateUrl').addEventListener('click', function() {
+            serverUrl = document.getElementById('serverUrl').value;
+            log(`Server URL updated to: ${serverUrl}`);
+        });
+
+        // Test CORS
+        document.getElementById('testCors').addEventListener('click', async function() {
+            try {
+                log(`Testing CORS with OPTIONS request to ${serverUrl}/flighthub...`);
+
+                // Create a temporary connection to trigger an OPTIONS request
+                const tempConnection = new signalR.HubConnectionBuilder()
+                    .withUrl(`${serverUrl}/flighthub`)
+                    .configureLogging(signalR.LogLevel.Trace)
+                    .build();
+
+                log('CORS pre-flight check initiated...');
+
+                // Attempt to start the connection (this will trigger the OPTIONS request)
+                try {
+                    await tempConnection.start();
+                    log('CORS test passed! Connection established.', 'success');
+                    await tempConnection.stop();
+                } catch (err) {
+                    log(`CORS or connection error: ${err.message}`, 'error');
+                    if (err.message.includes('Failed to fetch') || err.message.includes('CORS')) {
+                        log('This may be a CORS issue. Check your server CORS configuration.', 'error');
+                    }
+                }
+            } catch (error) {
+                log(`Error testing CORS: ${error.message}`, 'error');
+            }
+        });
+
+        // Connect to SignalR Hub
+        document.getElementById('connectHub').addEventListener('click', async function() {
+            if (connection) {
+                log('Already connected. Disconnect first.');
+                return;
+            }
+
+            try {
+                log(`Connecting to SignalR hub at ${serverUrl}/flighthub...`);
+                updateStatus('Connecting...', 'warning');
+
+                // Create hub connection
+                connection = new signalR.HubConnectionBuilder()
+                    .withUrl(`${serverUrl}/flighthub`)
+                    .withAutomaticReconnect([0, 2000, 5000, 10000])
+                    .configureLogging(signalR.LogLevel.Trace)
+                    .build();
+
+                // Set up event handlers
+                connection.onclose((error) => {
+                    log(`Connection closed: ${error ? error.message : 'No error'}`, error ? 'error' : 'info');
+                    updateStatus('Disconnected', 'error');
+                });
+
+                connection.onreconnecting((error) => {
+                    log(`Reconnecting: ${error ? error.message : 'No error'}`, 'warning');
+                    updateStatus('Reconnecting...', 'warning');
+                });
+
+                connection.onreconnected((connectionId) => {
+                    log(`Reconnected with ID: ${connectionId}`, 'success');
+                    updateStatus('Connected', 'success');
+                });
+
+                // Set up message handlers
+                connection.on('FlightStatusUpdated', (flightNumber, status) => {
+                    log(`Received flight status update: ${flightNumber} - ${status}`, 'success');
+                });
+
+                connection.on('SubscriptionConfirmed', (groupName) => {
+                    log(`Subscription confirmed: ${groupName}`, 'success');
+                });
+
+                // Start the connection
+                await connection.start();
+                log(`Connected to SignalR hub with ID: ${connection.connectionId}`, 'success');
+                updateStatus('Connected', 'success');
+            } catch (error) {
+                log(`Error connecting to SignalR hub: ${error.message}`, 'error');
+                updateStatus('Connection Failed', 'error');
+
+                if (error.message.includes('Failed to fetch')) {
+                    log('This may indicate a CORS issue or the server is not running.', 'error');
+                } else if (error.message.includes('Response status code does not indicate success: 405')) {
+                    log('HTTP 405 Method Not Allowed error. Check your server middleware configuration.', 'error');
+                    log('Ensure you have app.UseRouting() before app.UseCors() and app.UseEndpoints() after.', 'error');
+                }
+
+                connection = null;
+            }
+        });
+
+        // Disconnect from SignalR Hub
+        document.getElementById('disconnectHub').addEventListener('click', async function() {
+            if (!connection) {
+                log('Not connected.', 'warning');
+                return;
+            }
+
+            try {
+                await connection.stop();
+                log('Disconnected from SignalR hub.', 'success');
+                updateStatus('Disconnected');
+                connection = null;
+            } catch (error) {
+                log(`Error disconnecting: ${error.message}`, 'error');
+            }
+        });
+
+        // Ping the Hub
+        document.getElementById('pingHub').addEventListener('click', async function() {
+            if (!connection) {
+                log('Not connected. Connect first.', 'warning');
+                return;
+            }
+
+            try {
+                log('Sending ping to hub...');
+                const result = await connection.invoke('Ping');
+                log(`Received response: ${result}`, 'success');
+            } catch (error) {
+                log(`Error pinging hub: ${error.message}`, 'error');
+            }
+        });
+
+        // Subscribe to updates
+        document.getElementById('testSubscribe').addEventListener('click', async function() {
+            if (!connection) {
+                log('Not connected. Connect first.', 'warning');
+                return;
+            }
+
+            try {
+                log('Subscribing to flight status board...');
+                await connection.invoke('SubscribeToFlightStatusBoard');
+                log('Subscription request sent.', 'success');
+            } catch (error) {
+                log(`Error subscribing: ${error.message}`, 'error');
+            }
+        });
+
+        // Test API
+        document.getElementById('testApi').addEventListener('click', async function() {
+            try {
+                log(`Testing API endpoint: ${serverUrl}/api/flights`);
+
+                const response = await fetch(`${serverUrl}/api/flights`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    log(`API request failed with status: ${response.status} ${response.statusText}`, 'error');
+                    const text = await response.text();
+                    log(`Response body: ${text}`, 'error');
+                    return;
+                }
+
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    log(`Warning: Response is not JSON. Content-Type: ${contentType}`, 'warning');
+                    const text = await response.text();
+                    log(`Response body: ${text}`, 'warning');
+                    return;
+                }
+
+                const data = await response.json();
+                log(`API request successful. Received ${data.data ? data.data.length : 0} flights.`, 'success');
+                log(`Response: ${JSON.stringify(data).substring(0, 200)}...`, 'success');
+            } catch (error) {
+                log(`Error testing API: ${error.message}`, 'error');
+
+                if (error.message.includes('JSON')) {
+                    log('This may indicate the API is returning HTML instead of JSON. Check for API routing issues.', 'error');
+                }
+            }
+        });
+
+        // Initialize
+        log('Diagnostic tool initialized.');
+        log(`Default server URL: ${serverUrl}`);
+        updateStatus('Disconnected');
+    </script>
+</body>
+</html>

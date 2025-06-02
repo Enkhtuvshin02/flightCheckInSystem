@@ -8,8 +8,8 @@ namespace FlightCheckInSystem.Data.Interfaces
     {
         Task<Passenger> GetPassengerByIdAsync(int passengerId);
         Task<Passenger> GetPassengerByPassportAsync(string passportNumber);
+        Task<Passenger> GetPassengerByPassportNumberAsync(string passportNumber);
+        Task<Passenger> CreatePassengerAsync(Passenger passenger);
         Task<int> AddPassengerAsync(Passenger passenger);
-        Task<bool> UpdatePassengerAsync(Passenger passenger);
-        Task<bool> DeletePassengerAsync(int passengerId);
     }
 }

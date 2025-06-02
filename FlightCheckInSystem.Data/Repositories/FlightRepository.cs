@@ -136,30 +136,6 @@ namespace FlightCheckInSystem.Data.Repositories
             }
         }
 
-        public async Task<bool> UpdateFlightStatusAsync(int flightId, FlightStatus newStatus)
-        {
-            using (var connection = GetConnection())
-            {
-                await connection.OpenAsync();
-                var command = new SQLiteCommand("UPDATE Flights SET Status = @Status WHERE FlightId = @FlightId", connection);
-                command.Parameters.AddWithValue("@Status", newStatus.ToString());
-                command.Parameters.AddWithValue("@FlightId", flightId);
-                return await command.ExecuteNonQueryAsync() > 0;
-            }
-        }
-
-        public async Task<bool> DeleteFlightAsync(int flightId)
-        {
-            using (var connection = GetConnection())
-            {
-                await connection.OpenAsync();
-                // Foreign key constraints with ON DELETE CASCADE should handle related bookings and seats
-                var command = new SQLiteCommand("DELETE FROM Flights WHERE FlightId = @FlightId", connection);
-                command.Parameters.AddWithValue("@FlightId", flightId);
-                return await command.ExecuteNonQueryAsync() > 0;
-            }
-        }
-
         private Flight MapToFlight(DbDataReader reader)
         {
             return new Flight
@@ -173,5 +149,17 @@ namespace FlightCheckInSystem.Data.Repositories
                 Status = Enum.Parse<FlightStatus>(reader.GetString(reader.GetOrdinal("Status")))
             };
         }
+        public async Task<bool> UpdateFlightStatusAsync(int flightId, FlightStatus newStatus)
+        {
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+                var command = new SQLiteCommand("UPDATE Flights SET Status = @Status WHERE FlightId = @FlightId", connection);
+                command.Parameters.AddWithValue("@Status", newStatus.ToString());
+                command.Parameters.AddWithValue("@FlightId", flightId);
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
+        }
+
     }
 }

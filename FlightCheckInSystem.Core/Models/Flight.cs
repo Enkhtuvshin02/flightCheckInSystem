@@ -7,6 +7,8 @@ namespace FlightCheckInSystem.Core.Models
 {
     public class Flight
     {
+        public string Gate { get; set; } // Gate for the flight
+        public int Id { get; set; } // Primary Key
         public int FlightId { get; set; } // Primary Key
         public string FlightNumber { get; set; }
         public string DepartureAirport { get; set; }

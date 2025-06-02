@@ -1,0 +1,355 @@
+@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@using FlightCheckInSystem.Core.Models
+@using FlightCheckInSystem.Core.Enums
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject HubConnection HubConnection
+@implements IAsyncDisposable
+
+<div class="flight-status-container">
+    <div class="header">
+        <h1>Flight Status Board</h1>
+        <div class="time-display">@DateTime.Now.ToString("HH:mm:ss")</div>
+    </div>
+
+    <div class="connection-status @_connectionStatusClass">
+        SignalR: @_connectionStatus
+    </div>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="error-message">
+            <p>@_errorMessage</p>
+            <button @onclick="ClearError">Clear</button>
+        </div>
+    }
+
+    <div class="flight-table-container">
+        <table class="flight-table">
+            <thead>
+                <tr>
+                    <th>Flight</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Departure</th>
+                    <th>Status</th>
+                    <th>Gate</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (flights != null && flights.Any())
+                {
+                    @foreach (var flight in flights)
+                    {
+                        <tr class="@GetRowClass(flight.Status)">
+                            <td>@flight.FlightNumber</td>
+                            <td>@flight.DepartureAirport</td>
+                            <td>@flight.ArrivalAirport</td>
+                            <td>@(flight.DepartureTime.ToString("HH:mm"))</td>
+                            <td>
+                                <span class="status-badge @GetStatusClass(flight.Status)">
+                                    @GetStatusText(flight.Status)
+                                </span>
+                            </td>
+                            <td>@flight.Gate</td>
+                        </tr>
+                    }
+                }
+                else if (_isLoading)
+                {
+                    <tr>
+                        <td colspan="6">Loading flight information...</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6">No flights available. Please check back later.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@code {
+    private List<Flight> flights;
+    private System.Threading.Timer timer;
+    private string _connectionStatus = "Disconnected";
+    private string _connectionStatusClass = "disconnected";
+    private string _errorMessage = string.Empty;
+    private string _connectionId = "None";
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine($"FlightStatusBoard initializing. Server base address: {Http.BaseAddress}");
+        
+        SetupSignalRHandlers();
+        await LoadFlightsAsync();
+        await ConnectToHubAsync();
+
+        timer = new System.Threading.Timer(_ =>
+        {
+            InvokeAsync(StateHasChanged);
+        }, null, 0, 1000);
+    }
+
+    private void SetupSignalRHandlers()
+    {
+        Console.WriteLine("Setting up SignalR handlers");
+        
+        HubConnection.On<string, FlightStatus>("FlightStatusUpdated", (flightNumber, newStatus) =>
+        {
+            Console.WriteLine($"Received update for flight {flightNumber}: new status = {newStatus}");
+            
+            if (flights != null)
+            {
+                var flight = flights.FirstOrDefault(f => f.FlightNumber == flightNumber);
+                if (flight != null)
+                {
+                    flight.Status = newStatus;
+                    InvokeAsync(StateHasChanged);
+                }
+            }
+        });
+
+        HubConnection.Closed += async (error) =>
+        {
+            _connectionStatus = "Disconnected";
+            _connectionStatusClass = "disconnected";
+            _connectionId = "None";
+            
+            if (error != null)
+            {
+                Console.WriteLine($"SignalR connection closed with error: {error.Message}");
+                _errorMessage = $"Connection closed: {error.Message}";
+            }
+            else
+            {
+                Console.WriteLine("SignalR connection closed");
+            }
+            
+            await InvokeAsync(StateHasChanged);
+            
+            await Task.Delay(5000);
+            await ConnectToHubAsync();
+        };
+        
+        HubConnection.Reconnecting += (error) =>
+        {
+            _connectionStatus = "Reconnecting";
+            _connectionStatusClass = "reconnecting";
+            Console.WriteLine($"Attempting to reconnect to SignalR: {error?.Message}");
+            return InvokeAsync(StateHasChanged);
+        };
+        
+        HubConnection.Reconnected += (connectionId) =>
+        {
+            _connectionStatus = "Connected";
+            _connectionStatusClass = "connected";
+            _connectionId = connectionId ?? "Unknown";
+            _errorMessage = string.Empty;
+            Console.WriteLine($"Reconnected to SignalR with connection ID: {connectionId}");
+            return InvokeAsync(StateHasChanged);
+        };
+    }
+
+    private async Task ConnectToHubAsync()
+    {
+        if (HubConnection.State == HubConnectionState.Connected)
+        {
+            return;
+        }
+
+        try
+        {
+            _connectionStatus = "Connecting";
+            _connectionStatusClass = "connecting";
+            await InvokeAsync(StateHasChanged);
+            
+            Console.WriteLine($"Connecting to SignalR hub at {HubConnection.ConnectionId}...");
+            
+            await HubConnection.StartAsync();
+            
+            _connectionStatus = "Connected";
+            _connectionStatusClass = "connected";
+            _connectionId = HubConnection.ConnectionId ?? "Unknown";
+            _errorMessage = string.Empty;
+            
+            Console.WriteLine($"Connected to SignalR hub with ID: {HubConnection.ConnectionId}");
+            
+            await HubConnection.SendAsync("SubscribeToFlightStatusBoard");
+            Console.WriteLine("Sent subscription request for flight status board");
+            
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            _connectionStatus = "Failed";
+            _connectionStatusClass = "failed";
+            _errorMessage = $"Error connecting to SignalR hub: {ex.Message}";
+            
+            Console.WriteLine($"Error connecting to SignalR hub: {ex.Message}");
+            Console.WriteLine($"Stack trace: {ex.StackTrace}");
+            
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task ReconnectToHub()
+    {
+        try
+        {
+            if (HubConnection.State != HubConnectionState.Disconnected)
+            {
+                await HubConnection.StopAsync();
+                _connectionStatus = "Disconnected";
+                _connectionStatusClass = "disconnected";
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error stopping connection: {ex.Message}");
+        }
+        
+        await ConnectToHubAsync();
+    }
+    
+    private async Task PingHub()
+    {
+        if (HubConnection.State != HubConnectionState.Connected)
+        {
+            _errorMessage = "Cannot ping: Not connected to SignalR hub";
+            return;
+        }
+        
+        try
+        {
+            Console.WriteLine("Sending ping to hub...");
+            var result = await HubConnection.InvokeAsync<string>("Ping");
+            Console.WriteLine($"Received ping response: {result}");
+            _errorMessage = $"Ping successful: {result}";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Error pinging hub: {ex.Message}";
+            Console.WriteLine($"Error pinging hub: {ex.Message}");
+        }
+    }
+
+    private async Task LoadFlightsAsync()
+    {
+        _isLoading = true;
+        await InvokeAsync(StateHasChanged);
+        
+        try
+        {
+            Console.WriteLine($"Loading flights from API at {Http.BaseAddress}api/flights");
+            var response = await Http.GetFromJsonAsync<ApiResponse<List<Flight>>>("api/flights");
+            
+            if (response != null && response.Success)
+            {
+                flights = response.Data;
+                Console.WriteLine($"Successfully loaded {flights.Count} flights");
+            }
+            else
+            {
+                _errorMessage = "Failed to load flights: " + (response?.Message ?? "Unknown error");
+                Console.WriteLine(_errorMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Error loading flights: {ex.Message}";
+            Console.WriteLine(_errorMessage);
+            Console.WriteLine($"Stack trace: {ex.StackTrace}");
+            
+            if (flights == null)
+            {
+                flights = new List<Flight>();
+            }
+        }
+        finally
+        {
+            _isLoading = false;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private void ClearError()
+    {
+        _errorMessage = string.Empty;
+    }
+
+    private string GetRowClass(FlightStatus status)
+    {
+        return status switch
+        {
+            FlightStatus.Delayed => "delayed-row",
+            FlightStatus.Cancelled => "cancelled-row",
+            _ => ""
+        };
+    }
+
+    private string GetStatusClass(FlightStatus status)
+    {
+        return status switch
+        {
+            FlightStatus.Scheduled => "status-scheduled",
+            FlightStatus.CheckingIn => "status-checking-in",
+            FlightStatus.Boarding => "status-boarding",
+            FlightStatus.GateClosed => "status-gate-closed",
+            FlightStatus.Departed => "status-departed",
+            FlightStatus.Delayed => "status-delayed",
+            FlightStatus.Cancelled => "status-cancelled",
+            _ => ""
+        };
+    }
+
+    private string GetStatusText(FlightStatus status)
+    {
+        return status switch
+        {
+            FlightStatus.Scheduled => "SCHEDULED",
+            FlightStatus.CheckingIn => "CHECK IN",
+            FlightStatus.Boarding => "BOARDING",
+            FlightStatus.GateClosed => "GATE CLOSED",
+            FlightStatus.Departed => "DEPARTED",
+            FlightStatus.Delayed => "DELAYED",
+            FlightStatus.Cancelled => "CANCELLED",
+            _ => status.ToString().ToUpper()
+        };
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (timer != null)
+        {
+            await timer.DisposeAsync();
+        }
+
+        if (HubConnection is not null)
+        {
+            try
+            {
+                await HubConnection.DisposeAsync();
+            }
+            catch
+            {
+                // Ignore disposal errors
+            }
+        }
+    }
+
+    // API response model to match server response format
+    private class ApiResponse<T>
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; }
+        public T Data { get; set; }
+    }
+}

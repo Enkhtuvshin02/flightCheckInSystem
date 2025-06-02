@@ -25,6 +25,8 @@ namespace FlightCheckInSystem.Business.Services
             _seatRepository = seatRepository;
             _bookingRepository = bookingRepository;
         }
+        
+      
 
         public async Task<IEnumerable<Flight>> GetAllFlightsAsync()
         {
@@ -40,17 +42,6 @@ namespace FlightCheckInSystem.Business.Services
                 flight.Bookings = (await _bookingRepository.GetBookingsByFlightIdAsync(flightId)).ToList();
             }
             return flight;
-        }
-
-        public async Task<bool> UpdateFlightStatusAsync(int flightId, FlightStatus newStatus)
-        {
-            var flight = await _flightRepository.GetFlightByIdAsync(flightId);
-            if (flight == null) return false;
-
-            // Add any business rules here before updating, e.g.,
-            // if (flight.Status == FlightStatus.Departed && newStatus != FlightStatus.Arrived) return false;
-
-            return await _flightRepository.UpdateFlightStatusAsync(flightId, newStatus);
         }
 
         public async Task<(bool success, string message, Flight createdFlight)> CreateFlightWithSeatLayoutAsync(

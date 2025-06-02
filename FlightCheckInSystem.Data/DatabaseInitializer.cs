@@ -49,7 +49,9 @@ namespace FlightCheckInSystem.Data
                     PassengerId INTEGER PRIMARY KEY AUTOINCREMENT,
                     PassportNumber TEXT UNIQUE NOT NULL,
                     FirstName TEXT NOT NULL,
-                    LastName TEXT NOT NULL
+                    LastName TEXT NOT NULL,
+                    Email TEXT,
+                    Phone TEXT
                 );";
 
                 string createFlightsTable = @"
@@ -114,12 +116,12 @@ namespace FlightCheckInSystem.Data
             {
                 await connection.OpenAsync();
 
-                // Seed Passengers
-                var passengerCmd = new SQLiteCommand(@"
-                    INSERT OR IGNORE INTO Passengers (PassportNumber, FirstName, LastName) VALUES 
-                    ('A1234567', 'John', 'Doe'), ('B8901234', 'Jane', 'Smith');", connection);
-                await passengerCmd.ExecuteNonQueryAsync();
-
+                // Only seed if Flights table is empty
+                var checkFlightsCmd = new SQLiteCommand("SELECT COUNT(*) FROM Flights;", connection);
+                var flightCount = Convert.ToInt32(await checkFlightsCmd.ExecuteScalarAsync());
+                if (flightCount == 0)
+                {
+             
                 // Seed Flights
                 var flightCmdText = @"
                     INSERT OR IGNORE INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status) VALUES 
@@ -185,15 +187,7 @@ namespace FlightCheckInSystem.Data
                     }
                 }
 
-                // Seed Bookings (Passenger 1 on Flight 1, Passenger 2 on Flight 2)
-                // Assuming Passenger IDs are 1 and 2 from the seed.
-                var bookingCmd = new SQLiteCommand(@"
-                    INSERT OR IGNORE INTO Bookings (PassengerId, FlightId, ReservationDate, IsCheckedIn) VALUES
-                    (1, @Flight1Id, @ResDate, 0), (2, @Flight2Id, @ResDate, 0);", connection);
-                bookingCmd.Parameters.AddWithValue("@Flight1Id", flight1Id);
-                bookingCmd.Parameters.AddWithValue("@Flight2Id", flight2Id);
-                bookingCmd.Parameters.AddWithValue("@ResDate", DateTime.UtcNow.ToString("o"));
-                await bookingCmd.ExecuteNonQueryAsync();
+                }
             }
         }
     }

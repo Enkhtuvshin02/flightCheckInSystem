@@ -1,48 +1,86 @@
-// FlightCheckInSystem.Server/Program.cs
-
-// ... other using statements ...
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using FlightCheckInSystem.Business.Interfaces;
 using FlightCheckInSystem.Business.Services;
-using FlightCheckInSystem.Data; // For DatabaseInitializer
+using FlightCheckInSystem.Data;
 using FlightCheckInSystem.Data.Interfaces;
 using FlightCheckInSystem.Data.Repositories;
-// ...
+using FlightCheckInSystem.Server.Hubs;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Define Database Path and Connection String CONSISTENTLY ---
-var dbFileName = "flight_checkin_system.db"; // The actual file name
-
-// Path for the database file within the server project's content root
-// ContentRootPath is typically the root directory of your Server project.
+var dbFileName = "flight_checkin_system.db";
 string dbFilePath = Path.Combine(builder.Environment.ContentRootPath, dbFileName);
 Console.WriteLine($"Application ContentRootPath: {builder.Environment.ContentRootPath}");
 Console.WriteLine($"Database file path determined as: {dbFilePath}");
 
 string connectionString = $"Data Source={dbFilePath};Version=3;foreign keys=true;";
 
-// --- Dependency Injection ---
-// Pass the consistent dbFilePath to DatabaseInitializer
-builder.Services.AddSingleton<DatabaseInitializer>(sp => new DatabaseInitializer(dbFilePath));
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 
-// Repositories use the connectionString that points to dbFilePath
+builder.Services.AddSignalR(options => 
+{
+    options.EnableDetailedErrors = true;
+    options.KeepAliveInterval = TimeSpan.FromSeconds(15);
+    options.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
+    options.MaximumReceiveMessageSize = 102400;
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials()
+              .SetIsOriginAllowed(origin => true);
+    });
+});
+
+builder.Services.AddSingleton<DatabaseInitializer>(sp => new DatabaseInitializer(dbFilePath));
 builder.Services.AddScoped<IPassengerRepository, PassengerRepository>(sp => new PassengerRepository(connectionString));
 builder.Services.AddScoped<IFlightRepository, FlightRepository>(sp => new FlightRepository(connectionString));
 builder.Services.AddScoped<ISeatRepository, SeatRepository>(sp => new SeatRepository(connectionString));
 builder.Services.AddScoped<IBookingRepository, BookingRepository>(sp => new BookingRepository(connectionString));
 
-// ... register your Business services, controllers, WebSocket manager, etc. ...
 builder.Services.AddScoped<ICheckInService, CheckInService>();
 builder.Services.AddScoped<IFlightManagementService, FlightManagementService>();
-builder.Services.AddSingleton<FlightCheckInSystem.Server.Sockets.WebSocketConnectionManager>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks()
+    .AddCheck("Database", () => {
+        try {
+            using (var connection = new System.Data.SQLite.SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT 1";
+                    command.ExecuteScalar();
+                }
+            }
+            return HealthCheckResult.Healthy();
+        }
+        catch (Exception ex)
+        {
+            return HealthCheckResult.Unhealthy(exception: ex);
+        }
+    });
+
 var app = builder.Build();
 
-// --- Initialize the database (MUST be done AFTER builder.Build() and BEFORE app.Run()) ---
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -51,7 +89,7 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine("Program.cs: Attempting to get DatabaseInitializer service.");
         var databaseInitializer = services.GetRequiredService<DatabaseInitializer>();
         Console.WriteLine("Program.cs: DatabaseInitializer service retrieved. Calling InitializeAsync().");
-        await databaseInitializer.InitializeAsync(); // Creates schema using the _dbFilePath set in its constructor
+        await databaseInitializer.InitializeAsync();
 
         if (app.Environment.IsDevelopment())
         {
@@ -64,47 +102,36 @@ using (var scope = app.Services.CreateScope())
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while initializing the DB.");
         Console.WriteLine($"Program.cs: ERROR during DB initialization: {ex.Message}");
-        // Consider throwing the exception here if the app cannot run without the DB
-        // throw;
     }
 }
 Console.WriteLine("Program.cs: Database initialization step completed.");
 
-
-// --- Configure the HTTP request pipeline ---
-// ... (your app.UseSwagger, UseHttpsRedirection, UseRouting, UseWebSockets, UseEndpoints, etc.)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
+
 app.UseHttpsRedirection();
 app.UseRouting();
-var webSocketOptions = new WebSocketOptions { KeepAliveInterval = TimeSpan.FromMinutes(2) };
-app.UseWebSockets(webSocketOptions);
+app.UseCors("CorsPolicy");
+app.UseWebSockets(new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2)
+});
+
 app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapGet("/ws_checkin", async context =>
-    {
-        // ... your WebSocket mapping logic ...
-        if (context.WebSockets.IsWebSocketRequest)
-        {
-            var serviceProvider = context.RequestServices;
-            var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-            var connectionManager = serviceProvider.GetRequiredService<FlightCheckInSystem.Server.Sockets.WebSocketConnectionManager>();
-            using var webSocket = await context.WebSockets.AcceptWebSocketAsync();
-            var handler = new FlightCheckInSystem.Server.Sockets.WebSocketHandler(webSocket, serviceProvider, connectionManager, logger);
-            await handler.HandleConnectionAsync();
-        }
-        else
-        {
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-        }
-    });
+    endpoints.MapHub<FlightHub>("/flighthub");
+    endpoints.MapHealthChecks("/health");
 });
 
+var urls = string.Join(", ", app.Urls);
+Console.WriteLine($"Program.cs: Starting application (app.Run()) on URLs: {urls}");
+Console.WriteLine("IMPORTANT: Make sure your client is using the correct URL: https://localhost:7106/");
 
-Console.WriteLine("Program.cs: Starting application (app.Run()).");
 app.Run();

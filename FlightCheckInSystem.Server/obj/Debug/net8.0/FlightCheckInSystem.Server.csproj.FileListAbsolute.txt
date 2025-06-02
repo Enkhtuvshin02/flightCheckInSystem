@@ -5,7 +5,6 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\De
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.csproj.CoreCompileInputs.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.sourcelink.json
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\appsettings.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\FlightCheckInSystem.Server.staticwebassets.endpoints.json
@@ -28,6 +27,7 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\De
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\System.Data.SqlClient.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\System.Data.SQLite.EF6.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\System.Security.Permissions.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\bin\Debug\net8.0\System.Windows.Extensions.dll
@@ -61,10 +61,11 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\De
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FlightCheckInSystem.Server.props
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FlightCheckInSystem.Server.props
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCh.15CD00CA.Up2Date
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\refint\FlightCheckInSystem.Server.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.pdb
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.genruntimeconfig.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\ref\FlightCheckInSystem.Server.dll
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

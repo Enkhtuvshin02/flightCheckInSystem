@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightCheckInSystem.Core", "FlightCheckInSystem.Core\FlightCheckInSystem.Core.csproj", "{37B88AEB-9596-44E3-A6F3-F366A83D3439}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightCheckInSystem.Business", "FlightCheckInSystem.Business\FlightCheckInSystem.Business.csproj", "{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightCheckInSystem.Server", "FlightCheckInSystem.Server\FlightCheckInSystem.Server.csproj", "{66A23CC3-9E3F-426C-B503-63AC48A68D01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightCheckInSystem.FormsApp", "FlightCheckInSystem.FormsApp\FlightCheckInSystem.FormsApp.csproj", "{627BB6D2-C963-4592-AA89-9B440E876C65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientLauncher", "ClientLauncher\ClientLauncher.csproj", "{1657BB96-378C-4730-985C-B715DFE384EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightCheckInSystem.Web", "FlightCheckInSystem.Web\FlightCheckInSystem.Web.csproj", "{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{66A23CC3-9E3F-426C-B503-63AC48A68D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66A23CC3-9E3F-426C-B503-63AC48A68D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66A23CC3-9E3F-426C-B503-63AC48A68D01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{627BB6D2-C963-4592-AA89-9B440E876C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{627BB6D2-C963-4592-AA89-9B440E876C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{627BB6D2-C963-4592-AA89-9B440E876C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{627BB6D2-C963-4592-AA89-9B440E876C65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1657BB96-378C-4730-985C-B715DFE384EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1657BB96-378C-4730-985C-B715DFE384EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1657BB96-378C-4730-985C-B715DFE384EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1657BB96-378C-4730-985C-B715DFE384EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

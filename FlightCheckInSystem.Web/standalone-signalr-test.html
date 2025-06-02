@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SignalR Simple Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #status {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .connected {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .disconnected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .connecting {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        #log {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>SignalR Simple Test</h1>
+    
+    <div>
+        <label for="serverUrl">Server URL:</label>
+        <input type="text" id="serverUrl" value="https://localhost:7106/flighthub" style="width: 300px;" />
+    </div>
+    
+    <div id="status" class="disconnected">Disconnected</div>
+    
+    <div>
+        <button id="connect">Connect</button>
+        <button id="disconnect">Disconnect</button>
+        <button id="ping">Ping</button>
+    </div>
+    
+    <div>
+        <h3>Log</h3>
+        <div id="log"></div>
+    </div>
+    
+    <!-- SignalR client library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.6/signalr.min.js"></script>
+    
+    <script>
+        let connection;
+        const statusEl = document.getElementById('status');
+        const logEl = document.getElementById('log');
+        
+        function log(message) {
+            const item = document.createElement('div');
+            item.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            logEl.appendChild(item);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+        
+        function updateStatus(status) {
+            statusEl.textContent = status;
+            statusEl.className = status.toLowerCase();
+        }
+        
+        document.getElementById('connect').addEventListener('click', async () => {
+            const serverUrl = document.getElementById('serverUrl').value;
+            
+            try {
+                log(`Connecting to ${serverUrl}...`);
+                updateStatus('Connecting');
+                
+                connection = new signalR.HubConnectionBuilder()
+                    .withUrl(serverUrl)
+                    .configureLogging(signalR.LogLevel.Information)
+                    .build();
+                
+                connection.onclose(error => {
+                    updateStatus('Disconnected');
+                    log(`Connection closed: ${error ? error.message : 'No error'}`);
+                });
+                
+                await connection.start();
+                updateStatus('Connected');
+                log('Connected successfully!');
+                
+            } catch (error) {
+                updateStatus('Disconnected');
+                log(`Error connecting: ${error.message}`);
+            }
+        });
+        
+        document.getElementById('disconnect').addEventListener('click', async () => {
+            if (!connection) {
+                log('Not connected');
+                return;
+            }
+            
+            try {
+                await connection.stop();
+                log('Disconnected');
+                updateStatus('Disconnected');
+            } catch (error) {
+                log(`Error disconnecting: ${error.message}`);
+            }
+        });
+        
+        document.getElementById('ping').addEventListener('click', async () => {
+            if (!connection || connection.state !== signalR.HubConnectionState.Connected) {
+                log('Not connected');
+                return;
+            }
+            
+            try {
+                log('Sending ping...');
+                const result = await connection.invoke('Ping');
+                log(`Received: ${result}`);
+            } catch (error) {
+                log(`Error pinging: ${error.message}`);
+            }
+        });
+        
+        log('Page loaded');
+    </script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+﻿namespace FlightCheckInSystem.FormsApp
+{
+    partial class FlightManagementForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.dgvFlights = new System.Windows.Forms.DataGridView();
+            this.FlightIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FlightNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DepartureAirportColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArrivalAirportColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DepartureTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArrivalTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnAddFlight = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblBookings = new System.Windows.Forms.Label();
+            this.lblSeats = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpArrivalTime = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dtpDepartureTime = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtArrivalAirport = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtDepartureAirport = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtFlightNumber = new System.Windows.Forms.TextBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFlights)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.SuspendLayout();
+            //
+            // splitContainer1
+            //
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            //
+            // splitContainer1.Panel1
+            //
+            this.splitContainer1.Panel1.Controls.Add(this.dgvFlights);
+            this.splitContainer1.Panel1.Controls.Add(this.panel1);
+            //
+            // splitContainer1.Panel2
+            //
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Size = new System.Drawing.Size(1000, 500);
+            this.splitContainer1.SplitterDistance = 500;
+            this.splitContainer1.TabIndex = 0;
+            //
+            // dgvFlights
+            //
+            this.dgvFlights.AllowUserToAddRows = false;
+            this.dgvFlights.AllowUserToDeleteRows = false;
+            this.dgvFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFlights.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FlightIdColumn,
+            this.FlightNumberColumn,
+            this.DepartureAirportColumn,
+            this.ArrivalAirportColumn,
+            this.DepartureTimeColumn,
+            this.ArrivalTimeColumn,
+            this.StatusColumn});
+            this.dgvFlights.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvFlights.Location = new System.Drawing.Point(0, 40);
+            this.dgvFlights.Name = "dgvFlights";
+            this.dgvFlights.ReadOnly = true;
+            this.dgvFlights.RowHeadersWidth = 51;
+            this.dgvFlights.RowTemplate.Height = 24;
+            this.dgvFlights.Size = new System.Drawing.Size(500, 460);
+            this.dgvFlights.TabIndex = 1;
+            //
+            // FlightIdColumn
+            //
+            this.FlightIdColumn.DataPropertyName = "FlightId";
+            this.FlightIdColumn.HeaderText = "ID";
+            this.FlightIdColumn.MinimumWidth = 6;
+            this.FlightIdColumn.Name = "FlightIdColumn";
+            this.FlightIdColumn.ReadOnly = true;
+            this.FlightIdColumn.Width = 50;
+            //
+            // FlightNumberColumn
+            //
+            this.FlightNumberColumn.DataPropertyName = "FlightNumber";
+            this.FlightNumberColumn.HeaderText = "Flight #";
+            this.FlightNumberColumn.MinimumWidth = 6;
+            this.FlightNumberColumn.Name = "FlightNumberColumn";
+            this.FlightNumberColumn.ReadOnly = true;
+            this.FlightNumberColumn.Width = 80;
+            //
+            // DepartureAirportColumn
+            //
+            this.DepartureAirportColumn.DataPropertyName = "DepartureAirport";
+            this.DepartureAirportColumn.HeaderText = "From";
+            this.DepartureAirportColumn.MinimumWidth = 6;
+            this.DepartureAirportColumn.Name = "DepartureAirportColumn";
+            this.DepartureAirportColumn.ReadOnly = true;
+            this.DepartureAirportColumn.Width = 70;
+            //
+            // ArrivalAirportColumn
+            //
+            this.ArrivalAirportColumn.DataPropertyName = "ArrivalAirport";
+            this.ArrivalAirportColumn.HeaderText = "To";
+            this.ArrivalAirportColumn.MinimumWidth = 6;
+            this.ArrivalAirportColumn.Name = "ArrivalAirportColumn";
+            this.ArrivalAirportColumn.ReadOnly = true;
+            this.ArrivalAirportColumn.Width = 70;
+            //
+            // DepartureTimeColumn
+            //
+            this.DepartureTimeColumn.DataPropertyName = "DepartureTime";
+            this.DepartureTimeColumn.HeaderText = "Departure";
+            this.DepartureTimeColumn.MinimumWidth = 6;
+            this.DepartureTimeColumn.Name = "DepartureTimeColumn";
+            this.DepartureTimeColumn.ReadOnly = true;
+            this.DepartureTimeColumn.Width = 125;
+            //
+            // ArrivalTimeColumn
+            //
+            this.ArrivalTimeColumn.DataPropertyName = "ArrivalTime";
+            this.ArrivalTimeColumn.HeaderText = "Arrival";
+            this.ArrivalTimeColumn.MinimumWidth = 6;
+            this.ArrivalTimeColumn.Name = "ArrivalTimeColumn";
+            this.ArrivalTimeColumn.ReadOnly = true;
+            this.ArrivalTimeColumn.Width = 125;
+            //
+            // StatusColumn
+            //
+            this.StatusColumn.DataPropertyName = "Status";
+            this.StatusColumn.HeaderText = "Status";
+            this.StatusColumn.MinimumWidth = 6;
+            this.StatusColumn.Name = "StatusColumn";
+            this.StatusColumn.ReadOnly = true;
+            this.StatusColumn.Width = 90;
+            //
+            // panel1
+            //
+            this.panel1.Controls.Add(this.btnRefresh);
+            this.panel1.Controls.Add(this.btnAddFlight);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(500, 40);
+            this.panel1.TabIndex = 0;
+            //
+            // btnRefresh
+            //
+            this.btnRefresh.Location = new System.Drawing.Point(120, 8);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(100, 25);
+            this.btnRefresh.TabIndex = 1;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            //
+            // btnAddFlight
+            //
+            this.btnAddFlight.Location = new System.Drawing.Point(12, 8);
+            this.btnAddFlight.Name = "btnAddFlight";
+            this.btnAddFlight.Size = new System.Drawing.Size(100, 25);
+            this.btnAddFlight.TabIndex = 0;
+            this.btnAddFlight.Text = "Add Flight";
+            this.btnAddFlight.UseVisualStyleBackColor = true;
+            //
+            // groupBox1
+            //
+            this.groupBox1.Controls.Add(this.lblBookings);
+            this.groupBox1.Controls.Add(this.lblSeats);
+            this.groupBox1.Controls.Add(this.btnSave);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.cmbStatus);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.dtpArrivalTime);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.dtpDepartureTime);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtArrivalAirport);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.txtDepartureAirport);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtFlightNumber);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(496, 500);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Flight Details";
+            //
+            // lblBookings
+            //
+            this.lblBookings.AutoSize = true;
+            this.lblBookings.Location = new System.Drawing.Point(20, 370);
+            this.lblBookings.Name = "lblBookings";
+            this.lblBookings.Size = new System.Drawing.Size(95, 16);
+            this.lblBookings.TabIndex = 14;
+            this.lblBookings.Text = "Bookings: N/A";
+            //
+            // lblSeats
+            //
+            this.lblSeats.AutoSize = true;
+            this.lblSeats.Location = new System.Drawing.Point(20, 340);
+            this.lblSeats.Name = "lblSeats";
+            this.lblSeats.Size = new System.Drawing.Size(74, 16);
+            this.lblSeats.TabIndex = 13;
+            this.lblSeats.Text = "Seats: N/A";
+            //
+            // btnSave
+            //
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(20, 400);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(150, 30);
+            this.btnSave.TabIndex = 12;
+            this.btnSave.Text = "Save Changes";
+            this.btnSave.UseVisualStyleBackColor = true;
+            //
+            // label6
+            //
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(20, 280);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 16);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Status";
+            //
+            // cmbStatus
+            //
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatus.Enabled = false;
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Location = new System.Drawing.Point(150, 280);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(200, 24);
+            this.cmbStatus.TabIndex = 10;
+            //
+            // label5
+            //
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(20, 240);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 16);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Arrival Time";
+            //
+            // dtpArrivalTime
+            //
+            this.dtpArrivalTime.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.dtpArrivalTime.Enabled = false;
+            this.dtpArrivalTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpArrivalTime.Location = new System.Drawing.Point(150, 240);
+            this.dtpArrivalTime.Name = "dtpArrivalTime";
+            this.dtpArrivalTime.Size = new System.Drawing.Size(200, 22);
+            this.dtpArrivalTime.TabIndex = 8;
+            //
+            // label4
+            //
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 200);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 16);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Departure Time";
+            //
+            // dtpDepartureTime
+            //
+            this.dtpDepartureTime.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.dtpDepartureTime.Enabled = false;
+            this.dtpDepartureTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDepartureTime.Location = new System.Drawing.Point(150, 200);
+            this.dtpDepartureTime.Name = "dtpDepartureTime";
+            this.dtpDepartureTime.Size = new System.Drawing.Size(200, 22);
+            this.dtpDepartureTime.TabIndex = 6;
+            //
+            // label3
+            //
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 160);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 16);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Arrival Airport";
+            //
+            // txtArrivalAirport
+            //
+            this.txtArrivalAirport.Enabled = false;
+            this.txtArrivalAirport.Location = new System.Drawing.Point(150, 160);
+            this.txtArrivalAirport.Name = "txtArrivalAirport";
+            this.txtArrivalAirport.Size = new System.Drawing.Size(200, 22);
+            this.txtArrivalAirport.TabIndex = 4;
+            //
+            // label2
+            //
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 120);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 16);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Departure Airport";
+            //
+            // txtDepartureAirport
+            //
+            this.txtDepartureAirport.Enabled = false;
+            this.txtDepartureAirport.Location = new System.Drawing.Point(150, 120);
+            this.txtDepartureAirport.Name = "txtDepartureAirport";
+            this.txtDepartureAirport.Size = new System.Drawing.Size(200, 22);
+            this.txtDepartureAirport.TabIndex = 2;
+            //
+            // label1
+            //
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 80);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 16);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Flight Number";
+            //
+            // txtFlightNumber
+            //
+            this.txtFlightNumber.Enabled = false;
+            this.txtFlightNumber.Location = new System.Drawing.Point(150, 80);
+            this.txtFlightNumber.Name = "txtFlightNumber";
+            this.txtFlightNumber.Size = new System.Drawing.Size(200, 22);
+            this.txtFlightNumber.TabIndex = 0;
+            //
+            // statusStrip1
+            //
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 500);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1000, 26);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            //
+            // lblStatus
+            //
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(49, 20);
+            this.lblStatus.Text = "Ready";
+            //
+            // FlightManagementForm
+            //
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1000, 526);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.statusStrip1);
+            this.Name = "FlightManagementForm";
+            this.Text = "Flight Management";
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFlights)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnAddFlight;
+        private System.Windows.Forms.DataGridView dgvFlights;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtFlightNumber;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtArrivalAirport;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtDepartureAirport;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker dtpDepartureTime;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dtpArrivalTime;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblBookings;
+        private System.Windows.Forms.Label lblSeats;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FlightIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FlightNumberColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DepartureAirportColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArrivalAirportColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DepartureTimeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArrivalTimeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusColumn;
+    }
+}

@@ -11,7 +11,6 @@ namespace FlightCheckInSystem.Business.Interfaces
     {
         Task<IEnumerable<Flight>> GetAllFlightsAsync();
         Task<Flight> GetFlightDetailsAsync(int flightId); // Should include seats and bookings
-        Task<bool> UpdateFlightStatusAsync(int flightId, FlightStatus newStatus);
         Task<(bool success, string message, Flight createdFlight)> CreateFlightWithSeatLayoutAsync(
             string flightNumber, string departureAirport, string arrivalAirport,
             DateTime departureTime, DateTime arrivalTime,

@@ -1,0 +1,190 @@
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .time-display {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .flight-table th, 
+    .flight-table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+}
+
+.flight-status-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.time-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.connection-status {
+    padding: 8px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.connection-status.connected {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.connection-status.connecting, 
+.connection-status.reconnecting {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.connection-status.disconnected,
+.connection-status.failed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.flight-table-container {
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flight-table th, 
+.flight-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.flight-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.flight-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.delayed-row {
+    background-color: #fff3cd;
+}
+
+.cancelled-row {
+    background-color: #f8d7da;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+    min-width: 90px;
+}
+
+.status-scheduled {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.status-checking-in {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-boarding {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-gate-closed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-departed {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-delayed {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.refresh-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.refresh-section button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.refresh-section button:hover {
+    background-color: #0069d9;
+}
+
+.refresh-section button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.debug-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.debug-section button {
+    margin-top: 10px;
+}

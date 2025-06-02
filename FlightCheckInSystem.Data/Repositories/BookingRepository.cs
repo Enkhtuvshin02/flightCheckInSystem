@@ -14,6 +14,45 @@ namespace FlightCheckInSystem.Data.Repositories
     {
         public BookingRepository(string connectionString) : base(connectionString) { }
 
+        public async Task<Booking> CreateBookingAsync(Booking booking)
+        {
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var command = new SQLiteCommand(@"
+                            INSERT INTO Bookings (PassengerId, FlightId, SeatId, BookingReference, BookingStatus, BookingDate, ReservationDate, IsCheckedIn, CheckInTime)
+                            VALUES (@PassengerId, @FlightId, @SeatId, @BookingReference, @BookingStatus, @BookingDate, @ReservationDate, @IsCheckedIn, @CheckInTime);
+                            SELECT last_insert_rowid();", connection, transaction);
+
+                        command.Parameters.AddWithValue("@PassengerId", booking.PassengerId);
+                        command.Parameters.AddWithValue("@FlightId", booking.FlightId);
+                        command.Parameters.AddWithValue("@SeatId", booking.SeatId.HasValue ? (object)booking.SeatId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@BookingReference", booking.BookingReference);
+                        command.Parameters.AddWithValue("@BookingStatus", (int)booking.BookingStatus);
+                        command.Parameters.AddWithValue("@BookingDate", booking.BookingDate.ToString("o"));
+                        command.Parameters.AddWithValue("@ReservationDate", booking.ReservationDate.ToString("o"));
+                        command.Parameters.AddWithValue("@IsCheckedIn", booking.IsCheckedIn);
+                        command.Parameters.AddWithValue("@CheckInTime", booking.CheckInTime.HasValue ? (object)booking.CheckInTime.Value.ToString("o") : DBNull.Value);
+
+                        var bookingId = Convert.ToInt32(await command.ExecuteScalarAsync());
+                        booking.BookingId = bookingId;
+
+                        transaction.Commit();
+                        return booking;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
             using (var connection = GetConnection())

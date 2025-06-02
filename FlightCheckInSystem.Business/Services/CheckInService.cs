@@ -1,12 +1,11 @@
-﻿// FlightCheckInSystem.Business/Services/CheckInService.cs
-using FlightCheckInSystem.Business.Interfaces;
+﻿using FlightCheckInSystem.Business.Interfaces;
 using FlightCheckInSystem.Core.Models;
 using FlightCheckInSystem.Core.Enums;
-using FlightCheckInSystem.Data.Interfaces; // Ensure this using directive is present
+using FlightCheckInSystem.Data.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
-using System.Linq; // For FirstOrDefault
+using System.Linq;
 
 namespace FlightCheckInSystem.Business.Services
 {
@@ -38,8 +37,6 @@ namespace FlightCheckInSystem.Business.Services
                 return (null, "Passenger with this passport number not found.");
             }
 
-            // Find the flight by flight number - requires iterating or a specific repo method
-            // For simplicity, assuming flightNumber is unique enough for now, or add a method to IFlightRepository
             var allFlights = await _flightRepository.GetAllFlightsAsync();
             var flight = allFlights.FirstOrDefault(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
 
@@ -55,7 +52,6 @@ namespace FlightCheckInSystem.Business.Services
             }
             if (booking.IsCheckedIn)
             {
-                // Optionally regenerate boarding pass if already checked in
                 return (booking, "Passenger is already checked in.");
             }
             if (flight.Status != FlightStatus.CheckingIn && flight.Status != FlightStatus.Scheduled && flight.Status != FlightStatus.Boarding && flight.Status != FlightStatus.Delayed)
@@ -73,13 +69,10 @@ namespace FlightCheckInSystem.Business.Services
 
         public async Task<(bool success, string message, BoardingPass boardingPass)> AssignSeatToBookingAsync(int bookingId, int seatId)
         {
-            // Critical section for assigning a seat to prevent race conditions
             bool seatSuccessfullyBooked = false;
             bool bookingSuccessfullyUpdated = false;
             BoardingPass generatedBoardingPass = null;
 
-            // Fetch booking and seat details outside the lock if possible, to minimize lock duration
-            // However, their state (IsBooked, IsCheckedIn) must be re-verified inside the lock
             Booking booking = await _bookingRepository.GetBookingByIdAsync(bookingId);
             if (booking == null) return (false, "Booking not found.", null);
             if (booking.IsCheckedIn) return (false, "Passenger is already checked in for this booking.", await GenerateBoardingPassAsync(bookingId));
@@ -91,7 +84,6 @@ namespace FlightCheckInSystem.Business.Services
 
             lock (_seatAssignmentLock)
             {
-                // Re-verify seat availability and booking status inside the lock
                 var currentSeatState = Task.Run(async () => await _seatRepository.GetSeatByIdAsync(seatId)).Result;
                 if (currentSeatState == null || currentSeatState.IsBooked)
                 {
@@ -101,18 +93,15 @@ namespace FlightCheckInSystem.Business.Services
                 var currentBookingState = Task.Run(async () => await _bookingRepository.GetBookingByIdAsync(bookingId)).Result;
                 if (currentBookingState == null || currentBookingState.IsCheckedIn)
                 {
-                    // This check is somewhat redundant if the initial check passed, but good for safety
                     return (false, "Booking state changed; passenger might be already checked in.", null);
                 }
 
-                // Attempt to book the seat
                 seatSuccessfullyBooked = Task.Run(async () => await _seatRepository.BookSeatAsync(seatId, bookingId)).Result;
                 if (!seatSuccessfullyBooked)
                 {
                     return (false, "Failed to book the seat. It might have been taken concurrently.", null);
                 }
 
-                // If seat booking was successful, update the booking record
                 currentBookingState.SeatId = seatId;
                 currentBookingState.IsCheckedIn = true;
                 currentBookingState.CheckInTime = DateTime.UtcNow;
@@ -120,20 +109,17 @@ namespace FlightCheckInSystem.Business.Services
 
                 if (!bookingSuccessfullyUpdated)
                 {
-                    // Rollback: Unbook the seat if booking update failed
-                    Task.Run(async () => await _seatRepository.UnbookSeatAsync(seatId)).Wait(); // Best effort rollback
+                    Task.Run(async () => await _seatRepository.UnbookSeatAsync(seatId)).Wait();
                     return (false, "Seat was booked, but failed to update booking details. Please try again.", null);
                 }
 
-                // Generate boarding pass information
-                generatedBoardingPass = Task.Run(async () => await GenerateBoardingPassAsync(bookingId)).Result; // Pass the original bookingId
-            } // End lock
+                generatedBoardingPass = Task.Run(async () => await GenerateBoardingPassAsync(bookingId)).Result;
+            }
 
             if (seatSuccessfullyBooked && bookingSuccessfullyUpdated)
             {
                 return (true, "Check-in successful. Seat assigned.", generatedBoardingPass);
             }
-            // This path should ideally not be reached if logic inside lock is correct
             return (false, "An unexpected error occurred during seat assignment.", null);
         }
 
@@ -143,7 +129,6 @@ namespace FlightCheckInSystem.Business.Services
             var booking = await _bookingRepository.GetBookingByIdAsync(bookingId);
             if (booking == null || !booking.IsCheckedIn || !booking.SeatId.HasValue || booking.Passenger == null || booking.Flight == null || booking.Seat == null)
             {
-                // If any related entity is null (should be loaded by GetBookingByIdAsync), something is wrong
                 return null;
             }
 
@@ -156,7 +141,7 @@ namespace FlightCheckInSystem.Business.Services
                 ArrivalAirport = booking.Flight.ArrivalAirport,
                 DepartureTime = booking.Flight.DepartureTime,
                 SeatNumber = booking.Seat.SeatNumber,
-                BoardingTime = booking.Flight.DepartureTime.AddMinutes(-45), // Example: 45 mins before departure
+BoardingTime = booking.Flight.DepartureTime.AddMinutes(-45),
             };
         }
     }

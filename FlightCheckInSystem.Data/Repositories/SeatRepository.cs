@@ -81,25 +81,6 @@ namespace FlightCheckInSystem.Data.Repositories
             return seats;
         }
 
-        public async Task<bool> BookSeatAsync(int seatId, int bookingId)
-        {
-            // This method updates the seat's IsBooked status.
-            // The booking itself is updated in BookingRepository to link to this seatId.
-            // The 'bookingId' parameter here is for logging or future referential integrity if needed,
-            // but the primary update for linking booking to seat happens in BookingRepository.
-            // The critical part is ensuring IsBooked is 0 before updating.
-            using (var connection = GetConnection())
-            {
-                await connection.OpenAsync();
-                var command = new SQLiteCommand("UPDATE Seats SET IsBooked = 1 WHERE SeatId = @SeatId AND IsBooked = 0", connection);
-                command.Parameters.AddWithValue("@SeatId", seatId);
-                // We don't store bookingId directly in Seats table in this simplified model,
-                // but it is good practice to have it if you want a direct link or for audit.
-                // For now, it just sets IsBooked = 1.
-                return await command.ExecuteNonQueryAsync() > 0;
-            }
-        }
-
         public async Task<bool> UnbookSeatAsync(int seatId)
         {
             using (var connection = GetConnection())
@@ -121,5 +102,16 @@ namespace FlightCheckInSystem.Data.Repositories
                 IsBooked = reader.GetInt32(reader.GetOrdinal("IsBooked")) == 1
             };
         }
+        public async Task<bool> BookSeatAsync(int seatId, int bookingId)
+        {
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+                var command = new SQLiteCommand("UPDATE Seats SET IsBooked = 1 WHERE SeatId = @SeatId", connection);
+                command.Parameters.AddWithValue("@SeatId", seatId);
+                return await command.ExecuteNonQueryAsync() > 0;
+            }
+        }
+
     }
 }

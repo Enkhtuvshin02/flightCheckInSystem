@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\bin\Debug\net8.0\ClientLauncher.exe
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\bin\Debug\net8.0\ClientLauncher.deps.json
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\bin\Debug\net8.0\ClientLauncher.runtimeconfig.json
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\bin\Debug\net8.0\ClientLauncher.dll
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\bin\Debug\net8.0\ClientLauncher.pdb
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.AssemblyInfo.cs
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.sourcelink.json
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.dll
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\refint\ClientLauncher.dll
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.pdb
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ClientLauncher.genruntimeconfig.cache
+C:\Users\user\source\repos\FlightCheckInSystem\ClientLauncher\obj\Debug\net8.0\ref\ClientLauncher.dll

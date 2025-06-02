@@ -1,0 +1,387 @@
+﻿namespace FlightCheckInSystem.FormsApp
+{
+    partial class CheckInForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+      
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            lblTitle = new Label();
+            grpSearch = new GroupBox();
+            btnSearch = new Button();
+            txtPassportNumber = new TextBox();
+            lblPassportNumber = new Label();
+            grpBookingDetails = new GroupBox();
+            lblFlightInfo = new Label();
+            lblPassengerInfo = new Label();
+            lblBookingRef = new Label();
+            grpSeatSelection = new GroupBox();
+            lblSelectedSeat = new Label();
+            pnlSeats = new Panel();
+            btnCheckIn = new Button();
+            btnCancel = new Button();
+            grpBoardingPass = new GroupBox();
+            lblBPName = new Label();
+            lblBPFlight = new Label();
+            lblBPSeat = new Label();
+            lblBPGate = new Label();
+            lblBPDeparture = new Label();
+            lblBPArrival = new Label();
+            lblBPBoardingTime = new Label();
+            lblBoardingPassInfo = new Label();
+            btnPrintBoardingPass = new Button();
+            grpSearch.SuspendLayout();
+            grpBookingDetails.SuspendLayout();
+            grpSeatSelection.SuspendLayout();
+            grpBoardingPass.SuspendLayout();
+            SuspendLayout();
+            //
+            // lblTitle
+            //
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.Location = new Point(14, 12);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(209, 37);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Flight Check-In";
+            //
+            // grpSearch
+            //
+            grpSearch.Controls.Add(btnSearch);
+            grpSearch.Controls.Add(txtPassportNumber);
+            grpSearch.Controls.Add(lblPassportNumber);
+            grpSearch.Location = new Point(14, 53);
+            grpSearch.Margin = new Padding(3, 4, 3, 4);
+            grpSearch.Name = "grpSearch";
+            grpSearch.Padding = new Padding(3, 4, 3, 4);
+            grpSearch.Size = new Size(887, 103);
+            grpSearch.TabIndex = 1;
+            grpSearch.TabStop = false;
+            grpSearch.Text = "Search Booking";
+            //
+            // btnSearch
+            //
+            btnSearch.BackColor = Color.FromArgb(0, 122, 204);
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnSearch.ForeColor = Color.White;
+            btnSearch.Location = new Point(449, 43);
+            btnSearch.Margin = new Padding(3, 4, 3, 4);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(114, 40);
+            btnSearch.TabIndex = 2;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += btnSearch_Click;
+            //
+            // txtPassportNumber
+            //
+            txtPassportNumber.Location = new Point(171, 48);
+            txtPassportNumber.Margin = new Padding(3, 4, 3, 4);
+            txtPassportNumber.Name = "txtPassportNumber";
+            txtPassportNumber.Size = new Size(270, 27);
+            txtPassportNumber.TabIndex = 1;
+            //
+            // lblPassportNumber
+            //
+            lblPassportNumber.AutoSize = true;
+            lblPassportNumber.Location = new Point(23, 52);
+            lblPassportNumber.Name = "lblPassportNumber";
+            lblPassportNumber.Size = new Size(125, 20);
+            lblPassportNumber.TabIndex = 0;
+            lblPassportNumber.Text = "Passport Number:";
+            //
+            // grpBookingDetails
+            //
+            grpBookingDetails.Controls.Add(lblFlightInfo);
+            grpBookingDetails.Controls.Add(lblPassengerInfo);
+            grpBookingDetails.Controls.Add(lblBookingRef);
+            grpBookingDetails.Location = new Point(14, 164);
+            grpBookingDetails.Margin = new Padding(3, 4, 3, 4);
+            grpBookingDetails.Name = "grpBookingDetails";
+            grpBookingDetails.Padding = new Padding(3, 4, 3, 4);
+            grpBookingDetails.Size = new Size(430, 200);
+            grpBookingDetails.TabIndex = 2;
+            grpBookingDetails.TabStop = false;
+            grpBookingDetails.Text = "Booking Details";
+            grpBookingDetails.Visible = false;
+            //
+            // lblFlightInfo
+            //
+            lblFlightInfo.AutoSize = true;
+            lblFlightInfo.Location = new Point(23, 145);
+            lblFlightInfo.Name = "lblFlightInfo";
+            lblFlightInfo.Size = new Size(79, 20);
+            lblFlightInfo.TabIndex = 2;
+            lblFlightInfo.Text = "Flight Info:";
+            //
+            // lblPassengerInfo
+            //
+            lblPassengerInfo.AutoSize = true;
+            lblPassengerInfo.Location = new Point(23, 92);
+            lblPassengerInfo.Name = "lblPassengerInfo";
+            lblPassengerInfo.Size = new Size(107, 20);
+            lblPassengerInfo.TabIndex = 1;
+            lblPassengerInfo.Text = "Passenger Info:";
+            //
+            // lblBookingRef
+            //
+            lblBookingRef.AutoSize = true;
+            lblBookingRef.Location = new Point(23, 39);
+            lblBookingRef.Name = "lblBookingRef";
+            lblBookingRef.Size = new Size(137, 20);
+            lblBookingRef.TabIndex = 0;
+            lblBookingRef.Text = "Booking Reference:";
+            //
+            // grpSeatSelection
+            //
+            grpSeatSelection.Controls.Add(lblSelectedSeat);
+            grpSeatSelection.Controls.Add(pnlSeats);
+            grpSeatSelection.Location = new Point(450, 164);
+            grpSeatSelection.Margin = new Padding(3, 4, 3, 4);
+            grpSeatSelection.Name = "grpSeatSelection";
+            grpSeatSelection.Padding = new Padding(3, 4, 3, 4);
+            grpSeatSelection.Size = new Size(450, 400);
+            grpSeatSelection.TabIndex = 3;
+            grpSeatSelection.TabStop = false;
+            grpSeatSelection.Text = "Seat Selection";
+            grpSeatSelection.Visible = false;
+            //
+            // lblSelectedSeat
+            //
+            lblSelectedSeat.AutoSize = true;
+            lblSelectedSeat.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblSelectedSeat.Location = new Point(23, 39);
+            lblSelectedSeat.Name = "lblSelectedSeat";
+            lblSelectedSeat.Size = new Size(159, 20);
+            lblSelectedSeat.TabIndex = 1;
+            lblSelectedSeat.Text = "Selected Seat: (None)";
+            //
+            // pnlSeats
+            //
+            pnlSeats.BorderStyle = BorderStyle.FixedSingle;
+            pnlSeats.Location = new Point(23, 75);
+            pnlSeats.Margin = new Padding(3, 4, 3, 4);
+            pnlSeats.Name = "pnlSeats";
+            pnlSeats.Size = new Size(400, 299);
+            pnlSeats.TabIndex = 0;
+            //
+            // btnCheckIn
+            //
+            btnCheckIn.BackColor = Color.FromArgb(0, 122, 204);
+            btnCheckIn.FlatStyle = FlatStyle.Flat;
+            btnCheckIn.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnCheckIn.ForeColor = Color.White;
+            btnCheckIn.Location = new Point(804, 605);
+            btnCheckIn.Margin = new Padding(3, 4, 3, 4);
+            btnCheckIn.Name = "btnCheckIn";
+            btnCheckIn.Size = new Size(96, 47);
+            btnCheckIn.TabIndex = 4;
+            btnCheckIn.Text = "Check In";
+            btnCheckIn.UseVisualStyleBackColor = false;
+            btnCheckIn.Visible = false;
+            btnCheckIn.Click += btnCheckIn_Click;
+            //
+            // btnCancel
+            //
+            btnCancel.BackColor = Color.FromArgb(192, 0, 0);
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(450, 600);
+            btnCancel.Margin = new Padding(3, 4, 3, 4);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(104, 47);
+            btnCancel.TabIndex = 5;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
+            //
+            // grpBoardingPass
+            //
+            grpBoardingPass.Controls.Add(lblBPName);
+            grpBoardingPass.Controls.Add(lblBPFlight);
+            grpBoardingPass.Controls.Add(lblBPSeat);
+            grpBoardingPass.Controls.Add(lblBPGate);
+            grpBoardingPass.Controls.Add(lblBPDeparture);
+            grpBoardingPass.Controls.Add(lblBPArrival);
+            grpBoardingPass.Controls.Add(lblBPBoardingTime);
+            grpBoardingPass.Controls.Add(lblBoardingPassInfo);
+            grpBoardingPass.Location = new Point(12, 372);
+            grpBoardingPass.Margin = new Padding(3, 4, 3, 4);
+            grpBoardingPass.Name = "grpBoardingPass";
+            grpBoardingPass.Padding = new Padding(3, 4, 3, 4);
+            grpBoardingPass.Size = new Size(430, 280);
+            grpBoardingPass.TabIndex = 6;
+            grpBoardingPass.TabStop = false;
+            grpBoardingPass.Text = "Boarding Pass";
+            grpBoardingPass.Visible = false;
+            //
+            // lblBPName
+            //
+            lblBPName.AutoSize = true;
+            lblBPName.Font = new Font("Segoe UI", 10F);
+            lblBPName.Location = new Point(23, 40);
+            lblBPName.Name = "lblBPName";
+            lblBPName.Size = new Size(86, 23);
+            lblBPName.TabIndex = 0;
+            lblBPName.Text = "Name: ---";
+            //
+            // lblBPFlight
+            //
+            lblBPFlight.AutoSize = true;
+            lblBPFlight.Font = new Font("Segoe UI", 10F);
+            lblBPFlight.Location = new Point(23, 73);
+            lblBPFlight.Name = "lblBPFlight";
+            lblBPFlight.Size = new Size(82, 23);
+            lblBPFlight.TabIndex = 1;
+            lblBPFlight.Text = "Flight: ---";
+            //
+            // lblBPSeat
+            //
+            lblBPSeat.AutoSize = true;
+            lblBPSeat.Font = new Font("Segoe UI", 10F);
+            lblBPSeat.Location = new Point(23, 107);
+            lblBPSeat.Name = "lblBPSeat";
+            lblBPSeat.Size = new Size(73, 23);
+            lblBPSeat.TabIndex = 2;
+            lblBPSeat.Text = "Seat: ---";
+            //
+            // lblBPGate
+            //
+            lblBPGate.AutoSize = true;
+            lblBPGate.Font = new Font("Segoe UI", 10F);
+            lblBPGate.Location = new Point(23, 140);
+            lblBPGate.Name = "lblBPGate";
+            lblBPGate.Size = new Size(76, 23);
+            lblBPGate.TabIndex = 3;
+            lblBPGate.Text = "Gate: ---";
+            //
+            // lblBPDeparture
+            //
+            lblBPDeparture.AutoSize = true;
+            lblBPDeparture.Font = new Font("Segoe UI", 10F);
+            lblBPDeparture.Location = new Point(23, 173);
+            lblBPDeparture.Name = "lblBPDeparture";
+            lblBPDeparture.Size = new Size(117, 23);
+            lblBPDeparture.TabIndex = 4;
+            lblBPDeparture.Text = "Departure: ---";
+            //
+            // lblBPArrival
+            //
+            lblBPArrival.AutoSize = true;
+            lblBPArrival.Font = new Font("Segoe UI", 10F);
+            lblBPArrival.Location = new Point(23, 207);
+            lblBPArrival.Name = "lblBPArrival";
+            lblBPArrival.Size = new Size(88, 23);
+            lblBPArrival.TabIndex = 5;
+            lblBPArrival.Text = "Arrival: ---";
+            //
+            // lblBPBoardingTime
+            //
+            lblBPBoardingTime.AutoSize = true;
+            lblBPBoardingTime.Font = new Font("Segoe UI", 10F);
+            lblBPBoardingTime.Location = new Point(23, 240);
+            lblBPBoardingTime.Name = "lblBPBoardingTime";
+            lblBPBoardingTime.Size = new Size(109, 23);
+            lblBPBoardingTime.TabIndex = 6;
+            lblBPBoardingTime.Text = "Boarding: ---";
+            //
+            // lblBoardingPassInfo
+            //
+            lblBoardingPassInfo.AutoSize = true;
+            lblBoardingPassInfo.Location = new Point(23, 39);
+            lblBoardingPassInfo.Name = "lblBoardingPassInfo";
+            lblBoardingPassInfo.Size = new Size(0, 20);
+            lblBoardingPassInfo.TabIndex = 1;
+            //
+            // btnPrintBoardingPass
+            //
+            btnPrintBoardingPass.BackColor = Color.FromArgb(0, 122, 204);
+            btnPrintBoardingPass.FlatStyle = FlatStyle.Flat;
+            btnPrintBoardingPass.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnPrintBoardingPass.ForeColor = Color.White;
+            btnPrintBoardingPass.Location = new Point(596, 601);
+            btnPrintBoardingPass.Margin = new Padding(3, 4, 3, 4);
+            btnPrintBoardingPass.Name = "btnPrintBoardingPass";
+            btnPrintBoardingPass.Size = new Size(158, 48);
+            btnPrintBoardingPass.TabIndex = 0;
+            btnPrintBoardingPass.Text = "Print Boarding Pass";
+            btnPrintBoardingPass.UseVisualStyleBackColor = false;
+            btnPrintBoardingPass.Click += btnPrintBoardingPass_Click;
+            //
+            // CheckInForm
+            //
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(950, 665);
+            Controls.Add(grpBoardingPass);
+            Controls.Add(btnCancel);
+            Controls.Add(btnCheckIn);
+            Controls.Add(grpSeatSelection);
+            Controls.Add(grpBookingDetails);
+            Controls.Add(grpSearch);
+            Controls.Add(lblTitle);
+            Controls.Add(btnPrintBoardingPass);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            Name = "CheckInForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Flight Check-In";
+            Load += CheckInForm_Load;
+            grpSearch.ResumeLayout(false);
+            grpSearch.PerformLayout();
+            grpBookingDetails.ResumeLayout(false);
+            grpBookingDetails.PerformLayout();
+            grpSeatSelection.ResumeLayout(false);
+            grpSeatSelection.PerformLayout();
+            grpBoardingPass.ResumeLayout(false);
+            grpBoardingPass.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.GroupBox grpSearch;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtPassportNumber;
+        private System.Windows.Forms.Label lblPassportNumber;
+        private System.Windows.Forms.GroupBox grpBookingDetails;
+        private System.Windows.Forms.Label lblFlightInfo;
+        private System.Windows.Forms.Label lblPassengerInfo;
+        private System.Windows.Forms.Label lblBookingRef;
+        private System.Windows.Forms.GroupBox grpSeatSelection;
+        private System.Windows.Forms.Label lblSelectedSeat;
+        private System.Windows.Forms.Panel pnlSeats;
+        private System.Windows.Forms.Button btnCheckIn;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.GroupBox grpBoardingPass;
+        private System.Windows.Forms.Label lblBoardingPassInfo;
+        private System.Windows.Forms.Button btnPrintBoardingPass;
+        private System.Windows.Forms.Label lblBPArrival;
+        private System.Windows.Forms.Label lblBPBoardingTime;
+        private System.Windows.Forms.Label lblBPDeparture;
+        private System.Windows.Forms.Label lblBPFlight;
+        private System.Windows.Forms.Label lblBPGate;
+        private System.Windows.Forms.Label lblBPName;
+        private System.Windows.Forms.Label lblBPSeat;
+    }
+}
