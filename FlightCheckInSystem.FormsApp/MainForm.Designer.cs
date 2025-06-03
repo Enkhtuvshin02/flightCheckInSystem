@@ -2,9 +2,9 @@
 {
     partial class MainForm
     {
-                                private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
-                                        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -14,107 +14,86 @@
         }
 
         #region Windows Form Designer generated code
-
-                                        private void InitializeComponent()
+        private void InitializeComponent()
         {
-            pnlNavigation = new Panel();
-            btnFlightManagement = new Button();
-            btnCheckIn = new Button();
-            btnBooking = new Button();
-            pnlMain = new Panel();
-            lblTitle = new Label();
-            statusStrip = new StatusStrip();
-            lblStatus = new ToolStripStatusLabel();
-            pnlNavigation.SuspendLayout();
-            statusStrip.SuspendLayout();
-            SuspendLayout();
-                                                pnlNavigation.BackColor = Color.FromArgb(0, 122, 204);
-            pnlNavigation.Controls.Add(btnFlightManagement);
-            pnlNavigation.Controls.Add(btnCheckIn);
-            pnlNavigation.Controls.Add(btnBooking);
-            pnlNavigation.Controls.Add(lblTitle);
-            pnlNavigation.Dock = DockStyle.Top;
-            pnlNavigation.Location = new Point(0, 0);
-            pnlNavigation.Name = "pnlNavigation";
-            pnlNavigation.Size = new Size(1024, 60);
-            pnlNavigation.TabIndex = 0;
-                                                pnlMain.BackColor = Color.White;
-            pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(0, 60);
-            pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(1024, 578);
-            pnlMain.TabIndex = 1;
-                                                btnBooking.BackColor = Color.FromArgb(0, 122, 204);
-            btnBooking.FlatAppearance.BorderSize = 0;
-            btnBooking.FlatStyle = FlatStyle.Flat;
-            btnBooking.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnBooking.ForeColor = Color.White;
-            btnBooking.Location = new Point(200, 10);
-            btnBooking.Name = "btnBooking";
-            btnBooking.Size = new Size(150, 40);
-            btnBooking.TabIndex = 0;
-            btnBooking.Text = "Booking";
-            btnBooking.UseVisualStyleBackColor = false;
-                                                btnCheckIn.BackColor = Color.FromArgb(0, 122, 204);
-            btnCheckIn.FlatAppearance.BorderSize = 0;
-            btnCheckIn.FlatStyle = FlatStyle.Flat;
-            btnCheckIn.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCheckIn.ForeColor = Color.White;
-            btnCheckIn.Location = new Point(360, 10);
-            btnCheckIn.Name = "btnCheckIn";
-            btnCheckIn.Size = new Size(150, 40);
-            btnCheckIn.TabIndex = 1;
-            btnCheckIn.Text = "Check-In";
-            btnCheckIn.UseVisualStyleBackColor = false;
-                                                btnFlightManagement.BackColor = Color.FromArgb(0, 122, 204);
-            btnFlightManagement.FlatAppearance.BorderSize = 0;
-            btnFlightManagement.FlatStyle = FlatStyle.Flat;
-            btnFlightManagement.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnFlightManagement.ForeColor = Color.White;
-            btnFlightManagement.Location = new Point(520, 10);
-            btnFlightManagement.Name = "btnFlightManagement";
-            btnFlightManagement.Size = new Size(180, 40);
-            btnFlightManagement.TabIndex = 2;
-            btnFlightManagement.Text = "Flight Management";
-            btnFlightManagement.UseVisualStyleBackColor = false;
-            
-                                    lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(20, 15);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(170, 28);
-            lblTitle.TabIndex = 3;
-            lblTitle.Text = "Flight Check-In System";
-            
-                                    statusStrip.ImageScalingSize = new Size(20, 20);
-            statusStrip.Items.AddRange(new ToolStripItem[] { lblStatus });
-            statusStrip.Location = new Point(0, 638);
-            statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(1024, 26);
-            statusStrip.TabIndex = 2;
-            statusStrip.Text = "statusStrip";
-            
-                                    lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(50, 20);
-            lblStatus.Text = "Ready";
-                                                AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1024, 664);
-            Controls.Add(pnlMain);
-            Controls.Add(pnlNavigation);
-            Controls.Add(statusStrip);
-            Name = "MainForm";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Flight Check-In System";
-            pnlNavigation.ResumeLayout(false);
-            pnlNavigation.PerformLayout();
-            statusStrip.ResumeLayout(false);
-            statusStrip.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
-        }
+            this.Size = new Size(1200, 800);
+            this.Text = "Нислэгийн бүртгэлийн систем";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
+            this.BackColor = Color.FromArgb(52, 73, 94);
 
+            // Create navigation panel
+            var navPanel = new Panel
+            {
+                Height = 80,
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(44, 62, 80)
+            };
+
+            // Title label
+            var titleLabel = new Label
+            {
+                Text = "Нислэгийн бүртгэлийн систем",
+                Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(20, 20),
+                Size = new Size(400, 40)
+            };
+            navPanel.Controls.Add(titleLabel);
+
+            // Navigation buttons
+            _bookingButton = new Button
+            {
+                Text = "Захиалга",
+                Size = new Size(120, 50),
+                Location = new Point(450, 15),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                BackColor = Color.FromArgb(39, 174, 96),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            _bookingButton.Click += BookingButton_Click;
+            navPanel.Controls.Add(_bookingButton);
+
+            _checkInButton = new Button
+            {
+                Text = "Бүртгэл",
+                Size = new Size(120, 50),
+                Location = new Point(580, 15),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                BackColor = Color.FromArgb(52, 152, 219),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            _checkInButton.Click += CheckInButton_Click;
+            navPanel.Controls.Add(_checkInButton);
+
+            _flightManagementButton = new Button
+            {
+                Text = "Нислэг удирдлага",
+                Size = new Size(140, 50),
+                Location = new Point(710, 15),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                BackColor = Color.FromArgb(155, 89, 182),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            _flightManagementButton.Click += FlightManagementButton_Click;
+            navPanel.Controls.Add(_flightManagementButton);
+
+            // Content panel
+            _contentPanel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.White
+            };
+
+            this.Controls.Add(_contentPanel);
+            this.Controls.Add(navPanel);
+
+            // Load booking form by default
+            LoadBookingForm();
+        }
         #endregion
 
         private Panel pnlNavigation;

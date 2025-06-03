@@ -198,33 +198,81 @@ namespace FlightCheckInSystem.Data
                 using var transaction = connection.BeginTransaction();
                 try
                 {
-                    await using var cmd = connection.CreateCommand();
-                    cmd.Transaction = transaction;
-                    cmd.CommandText = @"
-                        SELECT COUNT(*) FROM Flights;
-                        
-                        INSERT INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status)
-                        SELECT 'OM201', 'ULN', 'ICN', @DepartureTime, @ArrivalTime, 'Scheduled'
-                        WHERE NOT EXISTS (SELECT 1 FROM Flights);
-                        
-                        INSERT INTO Seats (FlightId, SeatNumber, Class, Price)
-                        SELECT last_insert_rowid(), '1A', 'First', 1000
-                        WHERE last_insert_rowid() > 0
-                        UNION ALL
-                        SELECT last_insert_rowid(), '1B', 'First', 1000
-                        WHERE last_insert_rowid() > 0
-                        UNION ALL
-                        SELECT last_insert_rowid(), '2A', 'Business', 500
-                        WHERE last_insert_rowid() > 0
-                        UNION ALL
-                        SELECT last_insert_rowid(), '2B', 'Business', 500
-                        WHERE last_insert_rowid() > 0;";
+                    // First check if we have any flights
+                    var checkCommand = connection.CreateCommand();
+                    checkCommand.Transaction = transaction;
+                    checkCommand.CommandText = "SELECT COUNT(*) FROM Flights;";
+                    var count = Convert.ToInt32(await checkCommand.ExecuteScalarAsync());
 
-                    var departure = DateTime.UtcNow.AddDays(1);
-                    cmd.Parameters.AddWithValue("@DepartureTime", departure.ToString("O"));
-                    cmd.Parameters.AddWithValue("@ArrivalTime", departure.AddHours(3).ToString("O"));
+                    if (count == 0)
+                    {
+                        _logger?.LogInformation("No flights found, seeding initial flight data...");
+                        
+                        // Add initial flight
+                        var flightCommand = connection.CreateCommand();
+                        flightCommand.Transaction = transaction;
+                        flightCommand.CommandText = @"
+                            INSERT INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status)
+                            VALUES (@FlightNumber, @DepartureAirport, @ArrivalAirport, @DepartureTime, @ArrivalTime, @Status);
+                            SELECT last_insert_rowid();";
 
-                    await cmd.ExecuteNonQueryAsync();
+                        var departure = DateTime.UtcNow.AddDays(1);
+                        flightCommand.Parameters.AddWithValue("@FlightNumber", "OM201");
+                        flightCommand.Parameters.AddWithValue("@DepartureAirport", "ULN");
+                        flightCommand.Parameters.AddWithValue("@ArrivalAirport", "ICN");
+                        flightCommand.Parameters.AddWithValue("@DepartureTime", departure.ToString("O"));
+                        flightCommand.Parameters.AddWithValue("@ArrivalTime", departure.AddHours(3).ToString("O"));
+                        flightCommand.Parameters.AddWithValue("@Status", "Scheduled");
+
+                        var flightId = Convert.ToInt32(await flightCommand.ExecuteScalarAsync());
+                        _logger?.LogInformation("Created flight with ID: {FlightId}", flightId);
+
+                        // Add seats for the flight
+                        var seatCommand = connection.CreateCommand();
+                        seatCommand.Transaction = transaction;
+                        seatCommand.CommandText = @"
+                            INSERT INTO Seats (FlightId, SeatNumber, IsBooked, Class, Price)
+                            VALUES (@FlightId, @SeatNumber, 0, @Class, @Price);";
+                        seatCommand.Parameters.AddWithValue("@FlightId", flightId);
+                        seatCommand.Parameters.Add("@SeatNumber", Microsoft.Data.Sqlite.SqliteType.Text);
+                        seatCommand.Parameters.Add("@Class", Microsoft.Data.Sqlite.SqliteType.Text);
+                        seatCommand.Parameters.Add("@Price", Microsoft.Data.Sqlite.SqliteType.Real);
+
+                        // Create seats for each row
+                        for (int row = 1; row <= 20; row++) // 20 rows total
+                        {
+                            string seatClass;
+                            decimal price;
+                            
+                            if (row <= 2) // First 2 rows are First Class
+                            {
+                                seatClass = "First";
+                                price = 1000.00m;
+                            }
+                            else if (row <= 6) // Next 4 rows are Business Class
+                            {
+                                seatClass = "Business";
+                                price = 500.00m;
+                            }
+                            else // Remaining rows are Economy
+                            {
+                                seatClass = "Economy";
+                                price = 200.00m;
+                            }
+
+                            // Create seats A through F for each row
+                            for (char seatLetter = 'A'; seatLetter <= 'F'; seatLetter++)
+                            {
+                                seatCommand.Parameters["@SeatNumber"].Value = $"{row}{seatLetter}";
+                                seatCommand.Parameters["@Class"].Value = seatClass;
+                                seatCommand.Parameters["@Price"].Value = price;
+                                await seatCommand.ExecuteNonQueryAsync();
+                            }
+                        }
+
+                        _logger?.LogInformation("Created seats for flight {FlightId}", flightId);
+                    }
+
                     transaction.Commit();
                     _logger?.LogInformation("Database seeding completed");
                 }

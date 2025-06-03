@@ -17,13 +17,11 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using System.Threading;
 
-// Initialize SQLitePCL with the correct provider
 SQLitePCL.Batteries_V2.Init();
 raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
@@ -33,11 +31,9 @@ var dbFileName = "flightCheckInSystem.db";
 var dataDirectory = Path.Combine(builder.Environment.ContentRootPath, "Data");
 string dbFilePath = Path.Combine(dataDirectory, dbFileName);
 
-// Ensure Data directory exists with proper permissions
 if (!Directory.Exists(dataDirectory))
 {
     Directory.CreateDirectory(dataDirectory);
-    // Set directory permissions to allow read/write
     var directoryInfo = new DirectoryInfo(dataDirectory);
     var directorySecurity = directoryInfo.GetAccessControl();
     directorySecurity.AddAccessRule(new System.Security.AccessControl.FileSystemAccessRule(
@@ -49,7 +45,6 @@ if (!Directory.Exists(dataDirectory))
     directoryInfo.SetAccessControl(directorySecurity);
 }
 
-// Log the database file path
 var startupLogger = LoggerFactory.Create(config =>
 {
     config.AddConsole();
@@ -57,12 +52,10 @@ var startupLogger = LoggerFactory.Create(config =>
 }).CreateLogger("Program");
 
 startupLogger.LogInformation("Application starting...");
-startupLogger.LogInformation("Content Root Path: {ContentRootPath}", builder.Environment.ContentRootPath);
 startupLogger.LogInformation("Database file path: {DbFilePath}", dbFilePath);
 
 string connectionString = $"Data Source={dbFilePath};Mode=ReadWriteCreate;Cache=Shared;Foreign Keys=True";
 
-// Register DatabaseInitializer with DI
 builder.Services.AddSingleton<DatabaseInitializer>(sp => 
 {
     var logger = sp.GetRequiredService<ILogger<DatabaseInitializer>>();
@@ -77,25 +70,16 @@ builder.Services.AddSignalR(options =>
     options.MaximumReceiveMessageSize = 102400;
 });
 
-// Configure HTTPS - Removed for development
-// if (builder.Environment.IsDevelopment())
-// {
-//     builder.Services.AddHttpsRedirection(options =>
-//     {
-//         options.HttpsPort = 7106;
-//     });
-// }
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
     {
         policy.WithOrigins(
-                "http://localhost:7039",  // Web client HTTP
-                "https://localhost:7039", // Web client HTTPS
-                "http://localhost:5177",  // Web client alternative HTTP
-                "http://localhost:5001",  // API server
-                "http://localhost:5000"   // Forms app
+                "http://localhost:7039",
+                "https://localhost:7039",
+                "http://localhost:5177",
+                "http://localhost:5001",
+                "http://localhost:5000"
             )
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -103,13 +87,11 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Register repositories
 builder.Services.AddScoped<IPassengerRepository, PassengerRepository>(sp => new PassengerRepository(connectionString));
 builder.Services.AddScoped<IFlightRepository, FlightRepository>(sp => new FlightRepository(connectionString));
 builder.Services.AddScoped<ISeatRepository, SeatRepository>(sp => new SeatRepository(connectionString));
 builder.Services.AddScoped<IBookingRepository, BookingRepository>(sp => new BookingRepository(connectionString));
 
-// Register services
 builder.Services.AddScoped<ICheckInService, CheckInService>();
 builder.Services.AddScoped<IFlightManagementService, FlightManagementService>();
 
@@ -122,7 +104,6 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 
-// Initialize and seed database
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -136,29 +117,6 @@ using (var scope = app.Services.CreateScope())
             startupLogger.LogInformation("Initializing database (Attempt {RetryCount}/{MaxRetries})...", retryCount + 1, maxRetries);
             var databaseInitializer = services.GetRequiredService<DatabaseInitializer>();
             
-            // Ensure directory exists and is writable
-            var dbDirectory = Path.GetDirectoryName(dbFilePath);
-            if (!Directory.Exists(dbDirectory))
-            {
-                Directory.CreateDirectory(dbDirectory);
-                startupLogger.LogInformation("Created database directory: {Directory}", dbDirectory);
-            }
-            
-            // Test write permissions
-            try
-            {
-                using (var fs = File.Create(Path.Combine(dbDirectory, "test.txt")))
-                {
-                    fs.Close();
-                }
-                File.Delete(Path.Combine(dbDirectory, "test.txt"));
-                startupLogger.LogInformation("Directory write permissions verified");
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Cannot write to database directory: {dbDirectory}", ex);
-            }
-            
             await databaseInitializer.InitializeAsync();
 
             if (app.Environment.IsDevelopment())
@@ -167,12 +125,10 @@ using (var scope = app.Services.CreateScope())
                 await databaseInitializer.SeedDataAsync();
             }
             
-            // Verify database state after initialization
             using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
             {
                 await connection.OpenAsync();
                 
-                // Check table structure
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT name FROM sqlite_master WHERE type='table';";
@@ -185,7 +141,6 @@ using (var scope = app.Services.CreateScope())
                     startupLogger.LogInformation("Database tables created: {Tables}", string.Join(", ", tables));
                 }
 
-                // Check seeded flights
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"
@@ -201,22 +156,20 @@ using (var scope = app.Services.CreateScope())
                         GROUP BY f.FlightId;";
 
                     using var reader = await command.ExecuteReaderAsync();
-                    startupLogger.LogInformation("Verifying seeded flight data:");
                     while (await reader.ReadAsync())
                     {
                         startupLogger.LogInformation(
                             "Flight: {FlightNumber} ({FlightId}) | Route: {Departure}-{Arrival} | Seats: {BookedSeats}/{TotalSeats}",
-                            reader.GetString(1),  // FlightNumber
-                            reader.GetInt32(0),   // FlightId
-                            reader.GetString(2),  // DepartureAirport
-                            reader.GetString(3),  // ArrivalAirport
-                            reader.GetInt32(5),   // BookedSeats
-                            reader.GetInt32(4)    // TotalSeats
+                            reader.GetString(1),
+                            reader.GetInt32(0),
+                            reader.GetString(2),
+                            reader.GetString(3),
+                            reader.GetInt32(5),
+                            reader.GetInt32(4)
                         );
                     }
                 }
 
-                // Check seat distribution
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"
@@ -229,62 +182,31 @@ using (var scope = app.Services.CreateScope())
                         GROUP BY Class;";
 
                     using var reader = await command.ExecuteReaderAsync();
-                    startupLogger.LogInformation("Seat class distribution:");
                     while (await reader.ReadAsync())
                     {
                         startupLogger.LogInformation(
                             "Class: {Class} | Total Seats: {Total} | Booked: {Booked} | Avg Price: ${AvgPrice:F2}",
-                            reader.GetString(0),  // Class
-                            reader.GetInt32(1),   // SeatCount
-                            reader.GetInt32(2),   // BookedCount
-                            reader.GetDouble(3)   // AveragePrice
+                            reader.GetString(0),
+                            reader.GetInt32(1),
+                            reader.GetInt32(2),
+                            reader.GetDouble(3)
                         );
                     }
                 }
 
-                // Verify database constraints
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "PRAGMA foreign_key_check;";
                     using var reader = await command.ExecuteReaderAsync();
-                    var hasRows = false;
-                    if (await reader.ReadAsync())
-                    {
-                        hasRows = true;
-                        startupLogger.LogWarning("Foreign key constraint violations detected!");
-                        do
-                        {
-                            startupLogger.LogWarning(
-                                "Constraint violation in table {Table} for row {RowId}",
-                                reader.GetString(0),  // Table
-                                reader.GetInt64(1)    // RowId
-                            );
-                        } while (await reader.ReadAsync());
-                    }
-                    else
+                    if (!await reader.ReadAsync())
                     {
                         startupLogger.LogInformation("All foreign key constraints are valid");
                     }
                 }
-
-                // Check database size and page stats
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "PRAGMA page_count; PRAGMA page_size;";
-                    var pageCount = Convert.ToInt64(await command.ExecuteScalarAsync());
-                    command.CommandText = "PRAGMA page_size;";
-                    var pageSize = Convert.ToInt64(await command.ExecuteScalarAsync());
-                    var dbSizeInMB = (pageCount * pageSize) / (1024.0 * 1024.0);
-                    
-                    startupLogger.LogInformation(
-                        "Database size: {Size:F2} MB (Pages: {Pages:N0}, Page Size: {PageSize:N0} bytes)",
-                        dbSizeInMB, pageCount, pageSize
-                    );
-                }
             }
             
-            startupLogger.LogInformation("Database initialization and verification completed successfully.");
-            break; // Success - exit the retry loop
+            startupLogger.LogInformation("Database initialization completed successfully.");
+            break;
         }
         catch (Exception ex)
         {
@@ -293,11 +215,11 @@ using (var scope = app.Services.CreateScope())
             {
                 startupLogger.LogError(ex, "Failed to initialize database after {RetryCount} attempts. Last error: {Error}", 
                     retryCount, ex.Message);
-                throw; // Rethrow after all retries are exhausted
+                throw;
             }
             
             startupLogger.LogWarning(ex, "Database initialization attempt {RetryCount} failed. Retrying...", retryCount);
-            await Task.Delay(TimeSpan.FromSeconds(2 * retryCount)); // Exponential backoff
+            await Task.Delay(TimeSpan.FromSeconds(2 * retryCount));
         }
     }
 }
@@ -305,16 +227,19 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Flight Check-In System API v1");
+        options.RoutePrefix = "swagger";
+        options.ConfigObject.DisplayOperationId = true;
+        options.ConfigObject.TryItOutEnabled = true;
+        options.ConfigObject.DefaultModelsExpandDepth = -1;
+    });
     app.UseDeveloperExceptionPage();
 }
 
-// Configure middleware in the correct order
 app.UseRouting();
-
 app.UseHttpsRedirection();
-
-// Configure CORS after routing but before endpoints
 app.UseCors("CorsPolicy");
 
 app.UseWebSockets(new WebSocketOptions
@@ -324,7 +249,6 @@ app.UseWebSockets(new WebSocketOptions
 
 app.UseAuthorization();
 
-// Configure endpoints last
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
@@ -332,7 +256,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHealthChecks("/health");
 });
 
-// Log the URLs the server is listening on
 var urls = app.Urls.ToList();
 if (!urls.Any())
 {
@@ -346,7 +269,6 @@ foreach (var url in urls)
 
 app.Run();
 
-// Add the DatabaseHealthCheck class right after the health check registration
 public class DatabaseHealthCheck : IHealthCheck
 {
     private readonly string _connectionString;
@@ -367,14 +289,12 @@ public class DatabaseHealthCheck : IHealthCheck
             {
                 await connection.OpenAsync(cancellationToken);
                 
-                // Test basic query
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT 1;";
                     await command.ExecuteScalarAsync(cancellationToken);
                 }
                 
-                // Test table existence
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"

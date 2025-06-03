@@ -52,20 +52,77 @@ namespace FlightCheckInSystem.Data.Repositories
             using (var connection = GetConnection())
             {
                 await connection.OpenAsync();
-                var command = new SqliteCommand(@"
-                    INSERT INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status) 
-                    VALUES (@FlightNumber, @DepartureAirport, @ArrivalAirport, @DepartureTime, @ArrivalTime, @Status);
-                    SELECT last_insert_rowid();", connection);
-                command.Parameters.AddWithValue("@FlightNumber", flight.FlightNumber);
-                command.Parameters.AddWithValue("@DepartureAirport", flight.DepartureAirport);
-                command.Parameters.AddWithValue("@ArrivalAirport", flight.ArrivalAirport);
-                command.Parameters.AddWithValue("@DepartureTime", flight.DepartureTime.ToString("o"));                 command.Parameters.AddWithValue("@ArrivalTime", flight.ArrivalTime.ToString("o"));                   command.Parameters.AddWithValue("@Status", flight.Status.ToString());
-                var newId = await command.ExecuteScalarAsync();
-                return Convert.ToInt32(newId);
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var command = new SqliteCommand(@"
+                            INSERT INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status) 
+                            VALUES (@FlightNumber, @DepartureAirport, @ArrivalAirport, @DepartureTime, @ArrivalTime, @Status);
+                            SELECT last_insert_rowid();", connection, transaction);
+                        command.Parameters.AddWithValue("@FlightNumber", flight.FlightNumber);
+                        command.Parameters.AddWithValue("@DepartureAirport", flight.DepartureAirport);
+                        command.Parameters.AddWithValue("@ArrivalAirport", flight.ArrivalAirport);
+                        command.Parameters.AddWithValue("@DepartureTime", flight.DepartureTime.ToString("o"));
+                        command.Parameters.AddWithValue("@ArrivalTime", flight.ArrivalTime.ToString("o"));
+                        command.Parameters.AddWithValue("@Status", flight.Status.ToString());
+                        var flightId = Convert.ToInt32(await command.ExecuteScalarAsync());
+                        flight.FlightId = flightId;
+
+                        // Create seats for the flight
+                        var seatCommand = new SqliteCommand(@"
+                            INSERT INTO Seats (FlightId, SeatNumber, IsBooked, Class, Price)
+                            VALUES (@FlightId, @SeatNumber, 0, @Class, @Price);", connection, transaction);
+                        seatCommand.Parameters.AddWithValue("@FlightId", flightId);
+                        seatCommand.Parameters.Add("@SeatNumber", Microsoft.Data.Sqlite.SqliteType.Text);
+                        seatCommand.Parameters.Add("@Class", Microsoft.Data.Sqlite.SqliteType.Text);
+                        seatCommand.Parameters.Add("@Price", Microsoft.Data.Sqlite.SqliteType.Real);
+
+                        // Create seats for each row
+                        for (int row = 1; row <= 20; row++) // 20 rows total
+                        {
+                            string seatClass;
+                            decimal price;
+                            
+                            if (row <= 2) // First 2 rows are First Class
+                            {
+                                seatClass = "First";
+                                price = 1000.00m;
+                            }
+                            else if (row <= 6) // Next 4 rows are Business Class
+                            {
+                                seatClass = "Business";
+                                price = 500.00m;
+                            }
+                            else // Remaining rows are Economy
+                            {
+                                seatClass = "Economy";
+                                price = 200.00m;
+                            }
+
+                            // Create seats A through F for each row
+                            for (char seatLetter = 'A'; seatLetter <= 'F'; seatLetter++)
+                            {
+                                seatCommand.Parameters["@SeatNumber"].Value = $"{row}{seatLetter}";
+                                seatCommand.Parameters["@Class"].Value = seatClass;
+                                seatCommand.Parameters["@Price"].Value = price;
+                                await seatCommand.ExecuteNonQueryAsync();
+                            }
+                        }
+
+                        transaction.Commit();
+                        return flightId;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
         }
 
-        public async Task CreateFlightWithSeatsAsync(Flight flight, int totalRows, char lastSeatLetterInRow)
+        public async Task CreateFlightWithSeatsAsync(Flight flight, int totalRows = 20, char lastSeatLetterInRow = 'F')
         {
             using (var connection = GetConnection())
             {
@@ -74,7 +131,7 @@ namespace FlightCheckInSystem.Data.Repositories
                 {
                     try
                     {
-                                                var flightCommand = new SqliteCommand(@"
+                        var flightCommand = new SqliteCommand(@"
                             INSERT INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status) 
                             VALUES (@FlightNumber, @DepartureAirport, @ArrivalAirport, @DepartureTime, @ArrivalTime, @Status);
                             SELECT last_insert_rowid();", connection, transaction);
@@ -87,15 +144,40 @@ namespace FlightCheckInSystem.Data.Repositories
                         var flightId = Convert.ToInt32(await flightCommand.ExecuteScalarAsync());
                         flight.FlightId = flightId;
 
-                                                var seatCommand = new SqliteCommand("INSERT INTO Seats (FlightId, SeatNumber, IsBooked) VALUES (@FlightId, @SeatNumber, 0)", connection, transaction);
+                        var seatCommand = new SqliteCommand(@"
+                            INSERT INTO Seats (FlightId, SeatNumber, IsBooked, Class, Price)
+                            VALUES (@FlightId, @SeatNumber, 0, @Class, @Price);", connection, transaction);
                         seatCommand.Parameters.AddWithValue("@FlightId", flightId);
                         seatCommand.Parameters.Add("@SeatNumber", Microsoft.Data.Sqlite.SqliteType.Text);
+                        seatCommand.Parameters.Add("@Class", Microsoft.Data.Sqlite.SqliteType.Text);
+                        seatCommand.Parameters.Add("@Price", Microsoft.Data.Sqlite.SqliteType.Real);
 
                         for (int row = 1; row <= totalRows; row++)
                         {
+                            string seatClass;
+                            decimal price;
+                            
+                            if (row <= 2) // First 2 rows are First Class
+                            {
+                                seatClass = "First";
+                                price = 1000.00m;
+                            }
+                            else if (row <= 6) // Next 4 rows are Business Class
+                            {
+                                seatClass = "Business";
+                                price = 500.00m;
+                            }
+                            else // Remaining rows are Economy
+                            {
+                                seatClass = "Economy";
+                                price = 200.00m;
+                            }
+
                             for (char seatLetter = 'A'; seatLetter <= lastSeatLetterInRow; seatLetter++)
                             {
                                 seatCommand.Parameters["@SeatNumber"].Value = $"{row}{seatLetter}";
+                                seatCommand.Parameters["@Class"].Value = seatClass;
+                                seatCommand.Parameters["@Price"].Value = price;
                                 await seatCommand.ExecuteNonQueryAsync();
                             }
                         }
@@ -109,7 +191,6 @@ namespace FlightCheckInSystem.Data.Repositories
                 }
             }
         }
-
 
         public async Task<bool> UpdateFlightAsync(Flight flight)
         {

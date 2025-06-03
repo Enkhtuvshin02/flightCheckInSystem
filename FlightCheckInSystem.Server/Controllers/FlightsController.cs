@@ -271,24 +271,25 @@ namespace FlightCheckInSystem.Server.Controllers
             
             try
             {
-                                if (!Enum.IsDefined(typeof(FlightStatus), flight.Status))
+                // Set default status if not valid
+                if (!Enum.IsDefined(typeof(FlightStatus), flight.Status))
                 {
                     flight.Status = FlightStatus.Scheduled;
                 }
                 
-                                int flightId = await _flightRepository.AddFlightAsync(flight);
-                flight.FlightId = flightId;
+                // Create flight with seats (20 rows, seats A through F)
+                await _flightRepository.CreateFlightWithSeatsAsync(flight, 20, 'F');
                 
-                                await _flightRepository.CreateFlightWithSeatsAsync(flight, 10, 'F');
+                _logger.LogInformation($"Successfully created flight {flight.FlightNumber} with ID {flight.FlightId}");
                 
-                _logger.LogInformation($"Successfully created flight {flight.FlightNumber} with ID {flightId}");
-                
-                                return CreatedAtAction(nameof(GetFlight), new { id = flightId }, new ApiResponse<Flight>
-                {
-                    Success = true,
-                    Data = flight,
-                    Message = $"Flight {flight.FlightNumber} created successfully with ID {flightId}"
-                });
+                return CreatedAtAction(nameof(GetFlight), 
+                    new { id = flight.FlightId }, 
+                    new ApiResponse<Flight>
+                    {
+                        Success = true,
+                        Data = flight,
+                        Message = $"Flight {flight.FlightNumber} created successfully with ID {flight.FlightId}"
+                    });
             }
             catch (Exception ex)
             {

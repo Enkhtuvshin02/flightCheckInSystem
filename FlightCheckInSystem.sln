@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientLauncher", "ClientLau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightCheckInSystem.Web", "FlightCheckInSystem.Web\FlightCheckInSystem.Web.csproj", "{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightCheckInSystem.Test", "FlightCheckInSystem.Test\FlightCheckInSystem.Test.csproj", "{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

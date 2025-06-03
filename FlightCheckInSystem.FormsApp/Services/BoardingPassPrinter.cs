@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using FlightCheckInSystem.Core.Models;
 using System.Diagnostics;
+using System.Linq;
 using System.Drawing.Drawing2D;
 
 namespace FlightCheckInSystem.FormsApp.Services
@@ -13,10 +14,13 @@ namespace FlightCheckInSystem.FormsApp.Services
     {
         private BoardingPass _boardingPass;
         private Font _headerFont;
-        private Font _regularFont;
-        private Font _boldFont;
+        private Font _labelFont;
+        private Font _dataFont;
+        private Font _largeFont;
         private Font _smallFont;
         private Brush _blackBrush;
+        private Brush _whiteBrush;
+        private Brush _grayBrush;
         private Brush _blueBrush;
         
         public BoardingPassPrinter()
@@ -26,31 +30,34 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         private void InitializeFonts()
         {
-            _headerFont = new Font("Arial", 16, FontStyle.Bold);
-            _regularFont = new Font("Arial", 10, FontStyle.Regular);
-            _boldFont = new Font("Arial", 10, FontStyle.Bold);
+            _headerFont = new Font("Arial", 18, FontStyle.Bold);
+            _labelFont = new Font("Arial", 9, FontStyle.Regular);
+            _dataFont = new Font("Arial", 12, FontStyle.Bold);
+            _largeFont = new Font("Arial", 16, FontStyle.Bold);
             _smallFont = new Font("Arial", 8, FontStyle.Regular);
             _blackBrush = new SolidBrush(Color.Black);
-            _blueBrush = new SolidBrush(Color.Blue);
+            _whiteBrush = new SolidBrush(Color.White);
+            _grayBrush = new SolidBrush(Color.FromArgb(100, 100, 100));
+            _blueBrush = new SolidBrush(Color.FromArgb(41, 128, 185));
         }
 
         public void PrintBoardingPass(BoardingPass boardingPass)
         {
             if (boardingPass == null)
             {
-                MessageBox.Show("No boarding pass data to print.", "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Хэвлэх тасалбарын мэдээлэл байхгүй байна.", "Хэвлэх алдаа", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             _boardingPass = boardingPass;
 
-                        PrintDialog printDialog = new PrintDialog();
+            PrintDialog printDialog = new PrintDialog();
             PrintDocument printDocument = new PrintDocument();
             
             printDocument.PrintPage += PrintDocument_PrintPage;
             printDialog.Document = printDocument;
 
-                        printDocument.DocumentName = $"BoardingPass_{boardingPass.FlightNumber}_{boardingPass.SeatNumber}";
+            printDocument.DocumentName = $"BoardingPass_{boardingPass.FlightNumber}_{boardingPass.SeatNumber}";
 
             DialogResult result = printDialog.ShowDialog();
             if (result == DialogResult.OK)
@@ -58,12 +65,12 @@ namespace FlightCheckInSystem.FormsApp.Services
                 try
                 {
                     printDocument.Print();
-                    Debug.WriteLine($"[BoardingPassPrinter] Successfully printed boarding pass for {boardingPass.PassengerName}");
+                    Debug.WriteLine($"[BoardingPassPrinter] {boardingPass.PassengerName}-ийн суудлын тасалбарыг амжилттай хэвлэлээ");
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"[BoardingPassPrinter] Error printing boarding pass: {ex.Message}");
-                    MessageBox.Show($"Error printing boarding pass: {ex.Message}", "Print Error", 
+                    Debug.WriteLine($"[BoardingPassPrinter] Суудлын тасалбар хэвлэхэд алдаа: {ex.Message}");
+                    MessageBox.Show($"Суудлын тасалбар хэвлэхэд алдаа гарлаа: {ex.Message}", "Хэвлэх алдаа", 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -73,7 +80,7 @@ namespace FlightCheckInSystem.FormsApp.Services
         {
             if (boardingPass == null)
             {
-                MessageBox.Show(owner, "No boarding pass data to preview.", "Preview Error", 
+                MessageBox.Show(owner, "Урьдчилан харах тасалбарын мэдээлэл байхгүй байна.", "Урьдчилан харах алдаа", 
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -99,13 +106,13 @@ namespace FlightCheckInSystem.FormsApp.Services
                     Document = printDocument,
                     WindowState = FormWindowState.Maximized,
                     StartPosition = FormStartPosition.CenterParent,
-                    Text = $"Boarding Pass - {boardingPass.FlightNumber} - {boardingPass.PassengerName}",
+                    Text = $"Суудлын тасалбар - {boardingPass.FlightNumber} - {boardingPass.PassengerName}",
                     ShowIcon = true,
                     ShowInTaskbar = true,
                     UseAntiAlias = true
                 };
 
-                                var printButton = new ToolStripButton("Print", null, (s, e) =>
+                var printButton = new ToolStripButton("Хэвлэх", null, (s, e) =>
                 {
                     try
                     {
@@ -113,8 +120,8 @@ namespace FlightCheckInSystem.FormsApp.Services
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(previewDialog, $"Error printing: {ex.Message}", 
-                            "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(previewDialog, $"Хэвлэхэд алдаа: {ex.Message}", 
+                            "Хэвлэх алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 })
                 {
@@ -129,21 +136,21 @@ namespace FlightCheckInSystem.FormsApp.Services
                     toolStrip.Items.Add(printButton);
                 }
 
-                                previewDialog.FormClosing += (s, e) =>
+                previewDialog.FormClosing += (s, e) =>
                 {
                     printDocument.PrintPage -= PrintDocument_PrintPage;
                     printDocument.Dispose();
                     previewDialog.Dispose();
                 };
 
-                Debug.WriteLine($"[BoardingPassPrinter] Showing print preview for {boardingPass.PassengerName}");
+                Debug.WriteLine($"[BoardingPassPrinter] {boardingPass.PassengerName}-ийн хэвлэх урьдчилан харах харуулж байна");
                 previewDialog.ShowDialog(owner);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[BoardingPassPrinter] Error in ShowPrintPreview: {ex}");
-                MessageBox.Show(owner, $"Error showing boarding pass preview: {ex.Message}", 
-                    "Preview Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"[BoardingPassPrinter] ShowPrintPreview алдаа: {ex}");
+                MessageBox.Show(owner, $"Суудлын тасалбар урьдчилан харахад алдаа гарлаа: {ex.Message}", 
+                    "Урьдчилан харах алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 printDocument?.Dispose();
                 previewDialog?.Dispose();
             }
@@ -160,145 +167,121 @@ namespace FlightCheckInSystem.FormsApp.Services
             try
             {
                 Graphics g = e.Graphics;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-                                RectangleF bounds = e.MarginBounds;
+                RectangleF bounds = e.MarginBounds;
                 float x = bounds.Left;
                 float y = bounds.Top;
                 float width = bounds.Width;
 
-                                DrawBoardingPassContent(g, x, y, width);
+                DrawModernBoardingPass(g, x, y, width);
                 
                 e.HasMorePages = false;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[BoardingPassPrinter] Error in PrintDocument_PrintPage: {ex}");
+                Debug.WriteLine($"[BoardingPassPrinter] PrintDocument_PrintPage алдаа: {ex}");
                 e.Cancel = true;
                 throw;
             }
         }
 
-        private void DrawBoardingPassContent(Graphics g, float x, float y, float width)
+        private void DrawModernBoardingPass(Graphics g, float x, float y, float width)
         {
-            float currentY = y;
-            float lineHeight = _regularFont.Height;
-            float sectionSpacing = 20;
-            float padding = 15f;
-            float boxWidth = width - (padding * 2);
+            float padding = 25;
+            float bpWidth = Math.Min(650, width - 40);
+            float bpHeight = 300;
             
-                                    using (var bgBrush = new SolidBrush(Color.FromArgb(245, 245, 245)))
-            using (var borderPen = new Pen(Color.FromArgb(200, 200, 200), 1.5f))
+            RectangleF mainRect = new RectangleF(x + 20, y, bpWidth, bpHeight);
+            
+            using (var shadowBrush = new SolidBrush(Color.FromArgb(50, 0, 0, 0)))
+            using (var backgroundBrush = new SolidBrush(Color.White))
+            using (var blueBrush = new LinearGradientBrush(
+                new RectangleF(mainRect.X, mainRect.Y, mainRect.Width, 60),
+                Color.FromArgb(41, 128, 185),
+                Color.FromArgb(52, 152, 219),
+                LinearGradientMode.Horizontal))
+            using (var borderPen = new Pen(Color.FromArgb(189, 195, 199), 2))
             {
-                RectangleF borderRect = new RectangleF(x, y, width, 500);
-                g.FillRectangle(bgBrush, borderRect);
-                g.DrawRectangle(borderPen, Rectangle.Round(borderRect));
+                RectangleF shadowRect = new RectangleF(mainRect.X + 3, mainRect.Y + 3, mainRect.Width, mainRect.Height);
+                g.FillRectangle(shadowBrush, shadowRect);
                 
-                                x += padding;
-                currentY += padding;
-                width -= padding * 2;
-            }
-
-                        using (var headerBrush = new LinearGradientBrush(
-                new RectangleF(x, currentY, width, 40),
-                Color.FromArgb(0, 0, 128),                  Color.FromArgb(30, 144, 255),                 LinearGradientMode.Horizontal))
-            {
-                g.FillRectangle(headerBrush, x, currentY, width, 40);
+                g.FillRectangle(backgroundBrush, mainRect);
+                g.DrawRectangle(borderPen, Rectangle.Round(mainRect));
                 
-                string header = "BOARDING PASS";
-                var headerSize = g.MeasureString(header, _headerFont);
-                float headerX = x + (width - headerSize.Width) / 2;
-                g.DrawString(header, _headerFont, Brushes.White, headerX, currentY + 5);
+                RectangleF headerRect = new RectangleF(mainRect.X, mainRect.Y, mainRect.Width, 60);
+                g.FillRectangle(blueBrush, headerRect);
                 
-                currentY += 45;             }
-
-                        try
-            {
-                var airlineIcon = SystemIcons.Information;
-                g.DrawIcon(airlineIcon, (int)x, (int)currentY);
-            }
-            catch
-            {
-                            }
-
-                        using (var passengerTitleFont = new Font(_boldFont.FontFamily, 11, FontStyle.Bold))
-            {
-                g.DrawString("PASSENGER", passengerTitleFont, _blackBrush, x, currentY);
-                currentY += lineHeight;
+                string airlineName = "MONGOLIAN AIRLINES";
+                SizeF airlineSize = g.MeasureString(airlineName, _headerFont);
+                float airlineX = mainRect.X + (mainRect.Width - airlineSize.Width) / 2;
+                g.DrawString(airlineName, _headerFont, _whiteBrush, airlineX, mainRect.Y + 8);
                 
-                using (var passengerNameFont = new Font(_regularFont.FontFamily, 14, FontStyle.Bold))
+                string subtitle = "СУУДЛЫН ТАСАЛБАР / BOARDING PASS";
+                SizeF subtitleSize = g.MeasureString(subtitle, _dataFont);
+                float subtitleX = mainRect.X + (mainRect.Width - subtitleSize.Width) / 2;
+                g.DrawString(subtitle, _dataFont, _whiteBrush, subtitleX, mainRect.Y + 32);
+                
+                float contentY = mainRect.Y + 80;
+                float leftCol = mainRect.X + padding;
+                float rightCol = mainRect.X + mainRect.Width * 0.7f;
+                float rowHeight = 35;
+                
+                g.DrawString("ЗОРЧИГЧ / PASSENGER", _labelFont, _grayBrush, leftCol, contentY);
+                g.DrawString(_boardingPass.PassengerName.ToUpper(), _largeFont, _blackBrush, leftCol, contentY + 12);
+                contentY += rowHeight + 10;
+                
+                g.DrawString("ХӨДӨЛГӨХ / FROM", _labelFont, _grayBrush, leftCol, contentY);
+                g.DrawString(_boardingPass.DepartureAirport, _dataFont, _blackBrush, leftCol, contentY + 12);
+                
+                g.DrawString("ИРЭХ / TO", _labelFont, _grayBrush, leftCol + 120, contentY);
+                g.DrawString(_boardingPass.ArrivalAirport, _dataFont, _blackBrush, leftCol + 120, contentY + 12);
+                
+                g.DrawString("НИСЛЭГ / FLIGHT", _labelFont, _grayBrush, rightCol, contentY);
+                g.DrawString(_boardingPass.FlightNumber, _largeFont, _blackBrush, rightCol, contentY + 12);
+                contentY += rowHeight;
+                
+                g.DrawString("ОГНОО / DATE", _labelFont, _grayBrush, leftCol, contentY);
+                g.DrawString(_boardingPass.DepartureTime.ToString("dd-MMM-yyyy"), _dataFont, _blackBrush, leftCol, contentY + 12);
+                
+                g.DrawString("ЦАГ / TIME", _labelFont, _grayBrush, leftCol + 120, contentY);
+                g.DrawString(_boardingPass.DepartureTime.ToString("HH:mm"), _dataFont, _blackBrush, leftCol + 120, contentY + 12);
+                
+                g.DrawString("СУУДАЛ / SEAT", _labelFont, _grayBrush, rightCol, contentY);
+                g.DrawString(_boardingPass.SeatNumber, _largeFont, _blackBrush, rightCol, contentY + 12);
+                contentY += rowHeight;
+                
+                g.DrawString("СУУХ ЦАГ / BOARDING TIME", _labelFont, _grayBrush, leftCol, contentY);
+                g.DrawString(_boardingPass.BoardingTime.ToString("HH:mm"), _dataFont, _blackBrush, leftCol, contentY + 12);
+                
+                g.DrawString("ХААЛГА / GATE", _labelFont, _grayBrush, leftCol + 150, contentY);
+                g.DrawString("TBD", _dataFont, _blackBrush, leftCol + 150, contentY + 12);
+                contentY += rowHeight + 15;
+                
+                using (var separatorPen = new Pen(Color.FromArgb(189, 195, 199), 1))
                 {
-                    g.DrawString(_boardingPass.PassengerName.ToUpper(), passengerNameFont, _blackBrush, x, currentY);
-                    currentY += lineHeight * 1.5f;
+                    g.DrawLine(separatorPen, leftCol, contentY, mainRect.Right - padding, contentY);
                 }
+                contentY += 15;
                 
-                                if (!string.IsNullOrEmpty(_boardingPass.PassportNumber))
-                {
-                    g.DrawString($"PASSPORT: {_boardingPass.PassportNumber}", _smallFont, _blackBrush, x, currentY);
-                    currentY += lineHeight * 0.8f;
-                }
+                g.DrawString($"ПАСПОРТ: {_boardingPass.PassportNumber}", _smallFont, _grayBrush, leftCol, contentY);
+                string printTime = $"ХЭВЛЭСЭН: {DateTime.Now:dd-MMM-yyyy HH:mm}";
+                SizeF printSize = g.MeasureString(printTime, _smallFont);
+                g.DrawString(printTime, _smallFont, _grayBrush, mainRect.Right - padding - printSize.Width, contentY);
             }
-
-                        g.DrawString("FLIGHT DETAILS", _boldFont, _blackBrush, x, currentY);
-            currentY += lineHeight;
-
-                        float col1X = x + 20;
-            float col2X = x + width / 2;
-
-            g.DrawString($"Flight: {_boardingPass.FlightNumber}", _regularFont, _blackBrush, col1X, currentY);
-            g.DrawString($"Seat: {_boardingPass.SeatNumber}", _regularFont, _blackBrush, col2X, currentY);
-            currentY += lineHeight;
-
-            g.DrawString($"From: {_boardingPass.DepartureAirport}", _regularFont, _blackBrush, col1X, currentY);
-            g.DrawString($"To: {_boardingPass.ArrivalAirport}", _regularFont, _blackBrush, col2X, currentY);
-            currentY += lineHeight + sectionSpacing;
-
-                        g.DrawString("TIME DETAILS", _boldFont, _blackBrush, x, currentY);
-            currentY += lineHeight;
-
-            g.DrawString($"Departure: {_boardingPass.DepartureTime:MMM dd, yyyy HH:mm}", _regularFont, _blackBrush, col1X, currentY);
-            g.DrawString($"Boarding: {_boardingPass.BoardingTime:MMM dd, yyyy HH:mm}", _regularFont, _blackBrush, col2X, currentY);
-            currentY += lineHeight + sectionSpacing;
-
-                        g.DrawString($"Passport: {_boardingPass.PassportNumber}", _regularFont, _blackBrush, x + 20, currentY);
-            currentY += lineHeight + sectionSpacing;
-
-                        g.DrawLine(new Pen(Color.Gray, 1), x, currentY, x + width - 20, currentY);
-            currentY += 10;
-
-                        g.DrawString("IMPORTANT NOTICES:", _boldFont, _blackBrush, x, currentY);
-            currentY += lineHeight;
-
-            string[] notices = {
-                "â€¢ Please arrive at the gate 30 minutes before boarding time",
-                "â€¢ Valid photo ID and boarding pass required",
-                "â€¢ Check airline policies for baggage restrictions",
-                "â€¢ Gate information may change - check displays"
-            };
-
-            foreach (string notice in notices)
-            {
-                g.DrawString(notice, _smallFont, _blackBrush, x + 10, currentY);
-                currentY += 15;
-            }
-
-            currentY += 10;
-
-                        string footer = $"Generated on: {DateTime.Now:MMM dd, yyyy HH:mm} | Have a pleasant flight!";
-            SizeF footerSize = g.MeasureString(footer, _smallFont);
-            float footerX = x + (width - footerSize.Width) / 2;
-            g.DrawString(footer, _smallFont, _blackBrush, footerX, currentY);
-
-                    }
+        }
 
         public void Dispose()
         {
             _headerFont?.Dispose();
-            _regularFont?.Dispose();
-            _boldFont?.Dispose();
+            _labelFont?.Dispose();
+            _dataFont?.Dispose();
+            _largeFont?.Dispose();
             _smallFont?.Dispose();
             _blackBrush?.Dispose();
+            _whiteBrush?.Dispose();
+            _grayBrush?.Dispose();
             _blueBrush?.Dispose();
         }
     }

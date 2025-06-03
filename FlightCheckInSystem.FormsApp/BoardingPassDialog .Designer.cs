@@ -10,144 +10,116 @@ namespace FlightCheckInSystem.FormsApp
 {
     partial class BoardingPassDialog
     {
-                private Panel pnlMain;
+        private TableLayoutPanel mainLayout;
         private Label lblTitle;
-        private TextBox txtBoardingPassInfo;
+        private Panel pnlBoardingPass;
+        private Panel pnlButtons;
         private Button btnPrint;
         private Button btnPreview;
         private Button btnClose;
-        private Button btnNewCheckIn;
-        private Panel pnlButtons;
-        private GroupBox grpBoardingPass;
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
 
-                        this.Text = "Boarding Pass";
-            this.Size = new Size(600, 500);
+            this.Text = "Суудлын тасалбар";
+            this.Size = new Size(900, 600);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.ShowInTaskbar = false;
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(236, 240, 241);
 
-                        pnlMain = new Panel
+            mainLayout = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
+                ColumnCount = 1,
+                RowCount = 3,
                 Padding = new Padding(20)
             };
+            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
 
-                        lblTitle = new Label
+            lblTitle = new Label
             {
-                Text = "✈ BOARDING PASS GENERATED ✈",
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                ForeColor = Color.DarkBlue,
+                Text = "✈ СУУДЛЫН ТАСАЛБАР АМЖИЛТТАЙ ҮҮСЛЭЭ ✈",
+                Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                ForeColor = Color.FromArgb(39, 174, 96),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Dock = DockStyle.Top,
-                Height = 50
+                Dock = DockStyle.Fill
             };
 
-                        grpBoardingPass = new GroupBox
+            pnlBoardingPass = new Panel
             {
-                Text = "Boarding Pass Details",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                ForeColor = Color.DarkBlue,
-                Location = new Point(20, 70),
-                Size = new Size(540, 300),
-                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+                Dock = DockStyle.Fill,
+                BackColor = Color.FromArgb(236, 240, 241),
+                Padding = new Padding(20),
+                AutoScroll = false
             };
 
-                        txtBoardingPassInfo = new TextBox
+            pnlButtons = new Panel
             {
-                Multiline = true,
-                ReadOnly = true,
-                ScrollBars = ScrollBars.Vertical,
-                Font = new Font("Consolas", 10, FontStyle.Regular),
-                BackColor = Color.WhiteSmoke,
-                ForeColor = Color.Black,
-                Location = new Point(15, 25),
-                Size = new Size(510, 260),
-                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
+                Dock = DockStyle.Fill,
+                BackColor = Color.FromArgb(236, 240, 241)
             };
 
-                        pnlButtons = new Panel
+            btnPrint = new Button
             {
-                Height = 60,
-                Dock = DockStyle.Bottom,
-                Padding = new Padding(20, 10, 20, 10)
-            };
-
-                        btnPrint = new Button
-            {
-                Text = "🖨 Print Boarding Pass",
-                Size = new Size(140, 40),
-                Location = new Point(20, 10),
-                BackColor = Color.DarkGreen,
+                Text = "🖨 Хэвлэх",
+                Size = new Size(140, 60),
+                Location = new Point(180, 20),
+                BackColor = Color.FromArgb(39, 174, 96),
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false
+                UseVisualStyleBackColor = false,
+                Cursor = Cursors.Hand
             };
-            btnPrint.FlatAppearance.BorderColor = Color.DarkGreen;
+            btnPrint.FlatAppearance.BorderSize = 0;
             btnPrint.Click += BtnPrint_Click;
 
-                        btnPreview = new Button
+            btnPreview = new Button
             {
-                Text = "👁 Print Preview",
-                Size = new Size(120, 40),
-                Location = new Point(170, 10),
-                BackColor = Color.DarkBlue,
+                Text = "👁 Урьдчилан харах",
+                Size = new Size(180, 60),
+                Location = new Point(340, 20),
+                BackColor = Color.FromArgb(52, 152, 219),
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false
+                UseVisualStyleBackColor = false,
+                Cursor = Cursors.Hand
             };
-            btnPreview.FlatAppearance.BorderColor = Color.DarkBlue;
+            btnPreview.FlatAppearance.BorderSize = 0;
             btnPreview.Click += BtnPreview_Click;
 
-                        btnNewCheckIn = new Button
+            btnClose = new Button
             {
-                Text = "➕ New Check-In",
-                Size = new Size(120, 40),
-                Location = new Point(300, 10),
-                BackColor = Color.Orange,
+                Text = "✓ Дуусгах",
+                Size = new Size(140, 60),
+                Location = new Point(540, 20),
+                BackColor = Color.FromArgb(149, 165, 166),
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false
+                UseVisualStyleBackColor = false,
+                Cursor = Cursors.Hand
             };
-            btnNewCheckIn.FlatAppearance.BorderColor = Color.Orange;
-            btnNewCheckIn.Click += BtnNewCheckIn_Click;
-
-                        btnClose = new Button
-            {
-                Text = "❌ Close",
-                Size = new Size(80, 40),
-                Location = new Point(430, 10),
-                BackColor = Color.Gray,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false
-            };
-            btnClose.FlatAppearance.BorderColor = Color.Gray;
+            btnClose.FlatAppearance.BorderSize = 0;
             btnClose.Click += BtnClose_Click;
 
-                        grpBoardingPass.Controls.Add(txtBoardingPassInfo);
-
-                        pnlButtons.Controls.Add(btnPrint);
+            pnlButtons.Controls.Add(btnPrint);
             pnlButtons.Controls.Add(btnPreview);
-            pnlButtons.Controls.Add(btnNewCheckIn);
             pnlButtons.Controls.Add(btnClose);
 
-                        pnlMain.Controls.Add(grpBoardingPass);
-            pnlMain.Controls.Add(lblTitle);
+            mainLayout.Controls.Add(lblTitle, 0, 0);
+            mainLayout.Controls.Add(pnlBoardingPass, 0, 1);
+            mainLayout.Controls.Add(pnlButtons, 0, 2);
 
-                        this.Controls.Add(pnlMain);
-            this.Controls.Add(pnlButtons);
-
+            this.Controls.Add(mainLayout);
             this.ResumeLayout(false);
         }
 
@@ -155,96 +127,171 @@ namespace FlightCheckInSystem.FormsApp
         {
             if (_boardingPass == null)
             {
-                txtBoardingPassInfo.Text = "Error: No boarding pass data available.";
-                btnPrint.Enabled = false;
-                btnPreview.Enabled = false;
                 return;
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("═══════════════════════════════════════════════════════════");
-            sb.AppendLine("                    ✈ BOARDING PASS ✈");
-            sb.AppendLine("═══════════════════════════════════════════════════════════");
-            sb.AppendLine();
+            pnlBoardingPass.Controls.Clear();
+            
+            Panel boardingPassCard = new Panel
+            {
+                Size = new Size(800, 320),
+                Location = new Point((pnlBoardingPass.Width - 800) / 2, (pnlBoardingPass.Height - 320) / 2),
+                BackColor = Color.White,
+                Anchor = AnchorStyles.None
+            };
 
-            sb.AppendLine("PASSENGER INFORMATION:");
-            sb.AppendLine($"  Name:         {_boardingPass.PassengerName.ToUpper()}");
-            sb.AppendLine($"  Passport:     {_boardingPass.PassportNumber}");
-            sb.AppendLine();
+            boardingPassCard.Paint += (s, e) =>
+            {
+                DrawBoardingPassCard(e.Graphics, boardingPassCard.ClientRectangle);
+            };
 
-            sb.AppendLine("FLIGHT INFORMATION:");
-            sb.AppendLine($"  Flight:       {_boardingPass.FlightNumber}");
-            sb.AppendLine($"  From:         {_boardingPass.DepartureAirport}");
-            sb.AppendLine($"  To:           {_boardingPass.ArrivalAirport}");
-            sb.AppendLine($"  Seat:         {_boardingPass.SeatNumber}");
-            sb.AppendLine();
+            pnlBoardingPass.Controls.Add(boardingPassCard);
+            pnlBoardingPass.Resize += (s, e) =>
+            {
+                boardingPassCard.Location = new Point((pnlBoardingPass.Width - 800) / 2, (pnlBoardingPass.Height - 320) / 2);
+            };
+            
+            Debug.WriteLine($"[BoardingPassDialog] {_boardingPass.PassengerName}-ийн суудлын тасалбарын мэдээлэл ачааллав");
+        }
 
-            sb.AppendLine("TIMING INFORMATION:");
-            sb.AppendLine($"  Departure:    {_boardingPass.DepartureTime:dddd, MMMM dd, yyyy}");
-            sb.AppendLine($"                {_boardingPass.DepartureTime:HH:mm}");
-            sb.AppendLine($"  Boarding:     {_boardingPass.BoardingTime:dddd, MMMM dd, yyyy}");
-            sb.AppendLine($"                {_boardingPass.BoardingTime:HH:mm}");
-            sb.AppendLine();
+        private void DrawBoardingPassCard(Graphics g, Rectangle bounds)
+        {
+            if (_boardingPass == null) return;
 
-            sb.AppendLine("IMPORTANT NOTICES:");
-            sb.AppendLine("  • Please arrive at the gate 30 minutes before boarding");
-            sb.AppendLine("  • Valid photo ID and boarding pass required for boarding");
-            sb.AppendLine("  • Check airport displays for any gate changes");
-            sb.AppendLine("  • Follow airline baggage policies and restrictions");
-            sb.AppendLine();
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-            sb.AppendLine("═══════════════════════════════════════════════════════════");
-            sb.AppendLine($"Generated: {DateTime.Now:MMM dd, yyyy HH:mm}");
-            sb.AppendLine("               Thank you for choosing our airline!");
-            sb.AppendLine("                    Have a pleasant flight!");
-            sb.AppendLine("═══════════════════════════════════════════════════════════");
-
-            txtBoardingPassInfo.Text = sb.ToString();
-
-            Debug.WriteLine($"[BoardingPassDialog] Loaded boarding pass data for {_boardingPass.PassengerName}");
+            using (var shadowBrush = new SolidBrush(Color.FromArgb(30, 0, 0, 0)))
+            using (var backgroundBrush = new SolidBrush(Color.White))
+            using (var headerBrush = new System.Drawing.Drawing2D.LinearGradientBrush(
+                new Rectangle(0, 0, bounds.Width, 55),
+                Color.FromArgb(41, 128, 185),
+                Color.FromArgb(52, 152, 219),
+                System.Drawing.Drawing2D.LinearGradientMode.Horizontal))
+            using (var borderPen = new Pen(Color.FromArgb(189, 195, 199), 2))
+            using (var airlineFont = new Font("Arial", 14, FontStyle.Bold))
+            using (var subtitleFont = new Font("Arial", 9, FontStyle.Bold))
+            using (var labelFont = new Font("Arial", 7, FontStyle.Regular))
+            using (var dataFont = new Font("Arial", 10, FontStyle.Bold))
+            using (var largeDataFont = new Font("Arial", 12, FontStyle.Bold))
+            using (var smallFont = new Font("Arial", 7, FontStyle.Regular))
+            using (var whiteBrush = new SolidBrush(Color.White))
+            using (var blackBrush = new SolidBrush(Color.Black))
+            using (var grayBrush = new SolidBrush(Color.FromArgb(120, 120, 120)))
+            {
+                Rectangle shadowRect = new Rectangle(3, 3, bounds.Width - 3, bounds.Height - 3);
+                g.FillRectangle(shadowBrush, shadowRect);
+                
+                g.FillRectangle(backgroundBrush, bounds);
+                g.DrawRectangle(borderPen, bounds);
+                
+                Rectangle headerRect = new Rectangle(0, 0, bounds.Width, 55);
+                g.FillRectangle(headerBrush, headerRect);
+                
+                string airlineName = "MONGOLIAN AIRLINES";
+                SizeF airlineSize = g.MeasureString(airlineName, airlineFont);
+                float airlineX = (bounds.Width - airlineSize.Width) / 2;
+                g.DrawString(airlineName, airlineFont, whiteBrush, airlineX, 8);
+                
+                string subtitle = "СУУДЛЫН ТАСАЛБАР / BOARDING PASS";
+                SizeF subtitleSize = g.MeasureString(subtitle, subtitleFont);
+                float subtitleX = (bounds.Width - subtitleSize.Width) / 2;
+                g.DrawString(subtitle, subtitleFont, whiteBrush, subtitleX, 32);
+                
+                float startY = 70;
+                float leftCol = 20;
+                float middleCol = 200;
+                float rightCol = 420;
+                float rightCol2 = 580;
+                float lineHeight = 32;
+                
+                float currentY = startY;
+                
+                g.DrawString("ЗОРЧИГЧ / PASSENGER", labelFont, grayBrush, leftCol, currentY);
+                string passengerName = _boardingPass.PassengerName.ToUpper();
+                if (passengerName.Length > 20) passengerName = passengerName.Substring(0, 20) + "...";
+                g.DrawString(passengerName, largeDataFont, blackBrush, leftCol, currentY + 10);
+                
+                g.DrawString("НИСЛЭГ / FLIGHT", labelFont, grayBrush, rightCol, currentY);
+                g.DrawString(_boardingPass.FlightNumber, largeDataFont, blackBrush, rightCol, currentY + 10);
+                
+                currentY += lineHeight + 8;
+                
+                g.DrawString("ХӨДӨЛГӨХ / FROM", labelFont, grayBrush, leftCol, currentY);
+                g.DrawString(_boardingPass.DepartureAirport, dataFont, blackBrush, leftCol, currentY + 10);
+                
+                g.DrawString("ИРЭХ / TO", labelFont, grayBrush, leftCol + 90, currentY);
+                g.DrawString(_boardingPass.ArrivalAirport, dataFont, blackBrush, leftCol + 90, currentY + 10);
+                
+                g.DrawString("СУУДАЛ / SEAT", labelFont, grayBrush, rightCol, currentY);
+                g.DrawString(_boardingPass.SeatNumber, largeDataFont, blackBrush, rightCol, currentY + 10);
+                
+                currentY += lineHeight + 5;
+                
+                g.DrawString("ОГНОО / DATE", labelFont, grayBrush, leftCol, currentY);
+                g.DrawString(_boardingPass.DepartureTime.ToString("dd-MMM-yyyy"), dataFont, blackBrush, leftCol, currentY + 10);
+                
+                g.DrawString("ЦАГ / TIME", labelFont, grayBrush, middleCol, currentY);
+                g.DrawString(_boardingPass.DepartureTime.ToString("HH:mm"), dataFont, blackBrush, middleCol, currentY + 10);
+                
+                g.DrawString("ХААЛГА / GATE", labelFont, grayBrush, rightCol, currentY);
+                g.DrawString("TBD", dataFont, blackBrush, rightCol, currentY + 10);
+                
+                currentY += lineHeight;
+                
+                g.DrawString("СУУХ ЦАГ / BOARDING", labelFont, grayBrush, leftCol, currentY);
+                g.DrawString(_boardingPass.BoardingTime.ToString("HH:mm"), dataFont, blackBrush, leftCol, currentY + 10);
+                
+                currentY += lineHeight + 10;
+                
+                using (var separatorPen = new Pen(Color.FromArgb(189, 195, 199), 1))
+                {
+                    g.DrawLine(separatorPen, leftCol, currentY, bounds.Width - 20, currentY);
+                }
+                currentY += 12;
+                
+                g.DrawString($"ПАСПОРТ: {_boardingPass.PassportNumber}", smallFont, grayBrush, leftCol, currentY);
+                string printTime = $"ҮҮССЭН: {DateTime.Now:dd-MMM-yyyy HH:mm}";
+                SizeF printSize = g.MeasureString(printTime, smallFont);
+                g.DrawString(printTime, smallFont, grayBrush, bounds.Width - 20 - printSize.Width, currentY);
+            }
         }
 
         private void BtnPrint_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("[BoardingPassDialog] Print button clicked");
+            Debug.WriteLine("[BoardingPassDialog] Хэвлэх товчлуур дарагдсан");
             try
             {
                 _printer.PrintBoardingPass(_boardingPass);
-                MessageBox.Show("Boarding pass sent to printer successfully!",
-                    "Print Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Суудлын тасалбарыг хэвлэгч рүү амжилттай илгээлээ!",
+                    "Хэвлэх амжилттай", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[BoardingPassDialog] Error printing: {ex.Message}");
-                MessageBox.Show($"Error printing boarding pass: {ex.Message}",
-                    "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"[BoardingPassDialog] Хэвлэхэд алдаа: {ex.Message}");
+                MessageBox.Show($"Суудлын тасалбар хэвлэхэд алдаа гарлаа: {ex.Message}",
+                    "Хэвлэх алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BtnPreview_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("[BoardingPassDialog] Preview button clicked");
+            Debug.WriteLine("[BoardingPassDialog] Урьдчилан харах товчлуур дарагдсан");
             try
             {
                 _printer.ShowPrintPreview(_boardingPass);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[BoardingPassDialog] Error showing preview: {ex.Message}");
-                MessageBox.Show($"Error showing print preview: {ex.Message}",
-                    "Preview Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"[BoardingPassDialog] Урьдчилан харахад алдаа: {ex.Message}");
+                MessageBox.Show($"Хэвлэх урьдчилан харахад алдаа гарлаа: {ex.Message}",
+                    "Урьдчилан харах алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void BtnNewCheckIn_Click(object sender, EventArgs e)
-        {
-            Debug.WriteLine("[BoardingPassDialog] New Check-In button clicked");
-            this.DialogResult = DialogResult.Retry;             this.Close();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("[BoardingPassDialog] Close button clicked");
+            Debug.WriteLine("[BoardingPassDialog] Хаах товчлуур дарагдсан");
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -253,9 +300,9 @@ namespace FlightCheckInSystem.FormsApp
         {
             base.OnFormClosed(e);
             _printer?.Dispose();
-            Debug.WriteLine("[BoardingPassDialog] Form closed and resources disposed");
+            Debug.WriteLine("[BoardingPassDialog] Форм хаагдаж, нөөц чөлөөлөгдлөө");
         }
 
-                public bool StartNewCheckIn => this.DialogResult == DialogResult.Retry;
+        public bool StartNewCheckIn => this.DialogResult == DialogResult.Retry;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System; using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,13 +17,11 @@ namespace FlightCheckInSystem.FormsApp
     public partial class BookingForm : Form
     {
         private readonly ApiService _apiService;
-        
+
         private List<Flight> _flights;
-        
         private List<Passenger> _passengers;
-        
         private List<Booking> _bookings;
-        
+
         private Dictionary<int, Flight> _flightDictionary = new Dictionary<int, Flight>();
 
         public BookingForm(ApiService apiService)
@@ -31,14 +30,14 @@ namespace FlightCheckInSystem.FormsApp
             _apiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             LoadDataAsync();
         }
-        
+
         private async void LoadDataAsync()
         {
             try
             {
                 _flights = new List<Flight>();
                 _flightDictionary.Clear();
-                
+
                 var flights = await _apiService.GetFlightsAsync();
                 if (flights != null && flights.Count > 0)
                 {
@@ -60,7 +59,7 @@ namespace FlightCheckInSystem.FormsApp
         {
             cmbFlight.Items.Clear();
             _flightDictionary.Clear();
-            
+
             for (int i = 0; i < _flights.Count; i++)
             {
                 var flight = _flights[i];
@@ -84,15 +83,16 @@ namespace FlightCheckInSystem.FormsApp
                 MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             if (!_flightDictionary.TryGetValue(cmbFlight.SelectedIndex, out Flight selectedFlight))
             {
                 MessageBox.Show("Could not retrieve selected flight. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             try
             {
+                // Create the booking without seat selection
                 var booking = await _apiService.CreateBookingAsync(
                     selectedFlight.FlightNumber,
                     txtPassportNumber.Text,
@@ -100,19 +100,22 @@ namespace FlightCheckInSystem.FormsApp
                     txtLastName.Text,
                     txtEmail.Text,
                     txtPhone.Text);
-                
+
                 if (booking != null)
                 {
+                    string passengerName = $"{txtFirstName.Text} {txtLastName.Text}";
+
                     string message = $"Booking created successfully!\n\n";
                     message += $"Booking ID: {booking.BookingId}\n";
-                    message += $"Passenger: {txtFirstName.Text} {txtLastName.Text}\n";
+                    message += $"Passenger: {passengerName}\n";
                     message += $"Passport: {txtPassportNumber.Text}\n";
                     message += $"Flight: {selectedFlight.FlightNumber}\n";
                     message += $"Route: {selectedFlight.DepartureAirport} to {selectedFlight.ArrivalAirport}\n";
-                    message += $"Departure: {selectedFlight.DepartureTime:yyyy-MM-dd HH:mm}";
-                    
+                    message += $"Departure: {selectedFlight.DepartureTime:yyyy-MM-dd HH:mm}\n\n";
+                    message += "Note: You can select your seat during check-in.";
+
                     MessageBox.Show(message, "Booking Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     ClearFormFields();
                 }
                 else
@@ -138,7 +141,7 @@ namespace FlightCheckInSystem.FormsApp
             txtLastName.Clear();
             txtEmail.Clear();
             txtPhone.Clear();
-            
+
             if (cmbFlight.Items.Count > 0)
             {
                 cmbFlight.SelectedIndex = 0;

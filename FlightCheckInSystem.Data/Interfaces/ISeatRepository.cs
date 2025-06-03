@@ -7,8 +7,14 @@ namespace FlightCheckInSystem.Data.Interfaces
     public interface ISeatRepository
     {
         Task<Seat> GetSeatByIdAsync(int seatId);
+        Task<Seat> GetSeatByNumberAndFlightAsync(string seatNumber, int flightId);
         Task<IEnumerable<Seat>> GetSeatsByFlightIdAsync(int flightId);
         Task<IEnumerable<Seat>> GetAvailableSeatsByFlightIdAsync(int flightId);
-        Task<bool> BookSeatAsync(int seatId, int bookingId);         Task<bool> UnbookSeatAsync(int seatId);         Task<Seat> GetSeatByFlightAndNumberAsync(int flightId, string seatNumber);
+        Task<bool> UpdateSeatAsync(Seat seat);
+        Task<bool> BookSeatAsync(int seatId, int bookingId);
+        Task<bool> ReleaseSeatAsync(int seatId);
+        Task<bool> BookSeatByNumberAsync(string seatNumber, int flightId, int bookingId);
+        Task<int> AddSeatAsync(Seat seat);
+        Task<bool> UnbookSeatAsync(int seatId);
     }
 }

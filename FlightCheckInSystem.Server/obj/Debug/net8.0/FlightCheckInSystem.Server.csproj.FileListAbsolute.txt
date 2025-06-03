@@ -49,7 +49,6 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\De
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.AssemblyInfoInputs.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.AssemblyInfo.cs
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.csproj.CoreCompileInputs.cache
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.sourcelink.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\scopedcss\bundle\FlightCheckInSystem.Server.styles.css
@@ -62,10 +61,11 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\De
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FlightCheckInSystem.Server.props
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FlightCheckInSystem.Server.props
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCh.15CD00CA.Up2Date
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\refint\FlightCheckInSystem.Server.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.pdb
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.genruntimeconfig.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\ref\FlightCheckInSystem.Server.dll
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
