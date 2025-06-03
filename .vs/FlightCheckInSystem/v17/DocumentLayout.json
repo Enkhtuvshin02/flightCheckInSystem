@@ -224,7 +224,7 @@
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Program.cs",
               "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Program.cs",
               "RelativeToolTip": "FlightCheckInSystem.Server\\Program.cs",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAjwHIAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAjwHgAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-24T12:12:20.112Z",
               "EditorCaption": ""
@@ -239,8 +239,7 @@
               "RelativeToolTip": "FlightCheckInSystem.Data\\DatabaseInitializer.cs",
               "ViewState": "AgIAABUBAAAAAAAAAAD4v4AAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:49:07.695Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-24T10:49:07.695Z"
             },
             {
               "$type": "Document",

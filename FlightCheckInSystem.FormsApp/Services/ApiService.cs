@@ -41,19 +41,14 @@ namespace FlightCheckInSystem.FormsApp.Services
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:5001";
-        private readonly string _fallbackBaseUrl = "http://localhost:5000";
+        private readonly string _baseUrl = "http://localhost:5001";
+        private readonly string _fallbackBaseUrl = "http://localhost:5001";
         private readonly JsonSerializerOptions _jsonOptions;
-        private bool _useHttps = true;
+        private bool _useHttps = false;
 
         public ApiService()
         {
-            var handler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-            };
-
-            _httpClient = new HttpClient(handler);
+            _httpClient = new HttpClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
             _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -179,7 +174,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<List<Flight>> GetFlightsAsync()
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights";
 
             try
             {
@@ -274,7 +269,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<Flight> GetFlightByIdAsync(int flightId)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights/{flightId}";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights/{flightId}";
             try
             {
                 LogApiCall("GET", endpoint);
@@ -334,7 +329,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<Flight> GetFlightByNumberAsync(string flightNumber)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights/number/{flightNumber}";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights/number/{flightNumber}";
             try
             {
                 LogApiCall("GET", endpoint);
@@ -371,7 +366,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<List<Seat>> GetAvailableSeatsAsync(int flightId)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights/{flightId}/availableseats";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights/{flightId}/availableseats";
             try
             {
                 LogApiCall("GET", endpoint);
@@ -408,7 +403,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<List<Seat>> GetSeatsByFlightAsync(int flightId)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights/{flightId}/seats";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights/{flightId}/seats";
             try
             {
                 LogApiCall("GET", endpoint);
@@ -446,7 +441,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<List<Booking>> GetBookingsAsync()
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/bookings";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/bookings";
             try
             {
                 LogApiCall("GET", endpoint);
@@ -484,7 +479,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/bookings/{bookingId}";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/bookings/{bookingId}";
             try
             {
                 LogApiCall("GET", endpoint);
@@ -521,7 +516,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<List<Booking>> GetBookingsByPassportAsync(string passportNumber)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/bookings/passport/{passportNumber}";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/bookings/passport/{passportNumber}";
             try
             {
                 LogApiCall("GET", endpoint);
@@ -558,7 +553,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<Passenger> FindOrCreatePassengerAsync(string passportNumber, string firstName, string lastName, string email = null, string phone = null)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/bookings/findorcreatepassenger";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/bookings/findorcreatepassenger";
             try
             {
                 LogApiCall("POST", endpoint);
@@ -607,7 +602,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<Booking> FindBookingAsync(string passportNumber, int flightId)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/bookings/findbooking";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/bookings/findbooking";
             try
             {
                 LogApiCall("POST", endpoint);
@@ -688,7 +683,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                     ReservationDate = DateTime.Now
                 };
 
-                string endpoint = $"{GetCurrentBaseUrl()}/bookings";
+                string endpoint = $"{GetCurrentBaseUrl()}/api/bookings";
                 LogApiCall("POST", endpoint, $"Creating booking for {firstName} {lastName} on flight {flightNumber}");
 
                 string requestJson = JsonSerializer.Serialize(bookingRequest, _jsonOptions);
@@ -782,7 +777,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<CheckInApiResponse> CheckInAsync(int bookingId, int seatId)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/checkin";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/checkin";
             try
             {
                 LogApiCall("POST", endpoint, $"Checking in booking {bookingId} with seat {seatId}");
@@ -829,7 +824,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<Flight> CreateFlightAsync(Flight flight)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights";
             try
             {
                 LogApiCall("POST", endpoint, $"Flight: {flight.FlightNumber}");
@@ -873,7 +868,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<bool> UpdateFlightStatusAsync(int flightId, FlightStatus status)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights/{flightId}/status";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights/{flightId}/status";
             try
             {
                 LogApiCall("PUT", endpoint, $"Status: {status}");
@@ -918,7 +913,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public async Task<bool> UpdateFlightAsync(Flight flight)
         {
-            string endpoint = $"{GetCurrentBaseUrl()}/flights/{flight.FlightId}";
+            string endpoint = $"{GetCurrentBaseUrl()}/api/flights/{flight.FlightId}";
             try
             {
                 LogApiCall("PUT", endpoint, $"Flight: {flight.FlightNumber}");

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FlightCheckInSystem.FormsApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6fc9726557b5ca4219feed138c3443693f8b2e1e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a69c445d5668e24df7e4567107e7f8e3a646b63")]
 [assembly: System.Reflection.AssemblyProductAttribute("FlightCheckInSystem.FormsApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FlightCheckInSystem.FormsApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

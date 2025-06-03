@@ -77,23 +77,29 @@ builder.Services.AddSignalR(options =>
     options.MaximumReceiveMessageSize = 102400;
 });
 
-// Configure HTTPS
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddHttpsRedirection(options =>
-    {
-        options.HttpsPort = 7106; // Match the port used in the client
-    });
-}
+// Configure HTTPS - Removed for development
+// if (builder.Environment.IsDevelopment())
+// {
+//     builder.Services.AddHttpsRedirection(options =>
+//     {
+//         options.HttpsPort = 7106;
+//     });
+// }
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
     {
-        policy.WithOrigins("https://localhost:7039", "http://localhost:5177", "https://localhost:7106")
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
+        policy.WithOrigins(
+                "http://localhost:7039",  // Web client HTTP
+                "https://localhost:7039", // Web client HTTPS
+                "http://localhost:5177",  // Web client alternative HTTP
+                "http://localhost:5001",  // API server
+                "http://localhost:5000"   // Forms app
+            )
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
     });
 });
 
@@ -330,8 +336,7 @@ app.UseEndpoints(endpoints =>
 var urls = app.Urls.ToList();
 if (!urls.Any())
 {
-    urls.Add("https://localhost:7106");
-    urls.Add("http://localhost:5177");
+    urls.Add("http://localhost:5001");
 }
 
 foreach (var url in urls)

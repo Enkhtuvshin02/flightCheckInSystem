@@ -15,7 +15,7 @@ namespace FlightCheckInSystem.Web
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            var serverUrl = "https://localhost:5001";
+            var serverUrl = "http://localhost:5001";
             Console.WriteLine($"Using server URL: {serverUrl}");
 
             builder.Services.AddScoped(sp => {
@@ -27,8 +27,9 @@ namespace FlightCheckInSystem.Web
                 return httpClient;
             });
             
-                        builder.Services.AddTransient<HubConnection>(sp => {
-                var hubUrl = $"{serverUrl.TrimEnd('/')}/flighthub";
+            var hubUrl = $"{serverUrl}/flighthub";
+            builder.Services.AddTransient<HubConnection>(sp => {
+                
                 Console.WriteLine($"Configuring SignalR hub connection to: {hubUrl}");
                 
                 var hubConnection = new HubConnectionBuilder()

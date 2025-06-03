@@ -15,7 +15,7 @@ namespace FlightCheckInSystem.Data.Repositories
             using (var connection = GetConnection())
             {
                 await connection.OpenAsync();
-                var command = new SqliteCommand("SELECT PassengerId, PassportNumber, FirstName, LastName FROM Passengers WHERE PassengerId = @PassengerId", connection);
+                var command = new SqliteCommand("SELECT PassengerId, PassportNumber, FirstName, LastName, Email, Phone FROM Passengers WHERE PassengerId = @PassengerId", connection);
                 command.Parameters.AddWithValue("@PassengerId", passengerId);
                 using (var reader = await command.ExecuteReaderAsync())
                 {
