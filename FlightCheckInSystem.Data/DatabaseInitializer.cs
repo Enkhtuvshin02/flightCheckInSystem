@@ -65,6 +65,7 @@ namespace FlightCheckInSystem.Data
                 await pragmaCmd.ExecuteNonQueryAsync();
 
                 // Create tables
+                //test
                 using var transaction = connection.BeginTransaction();
                 try
                 {
