@@ -9,6 +9,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Diagnostics;
 using System.Text;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FlightCheckInSystem.FormsApp.Services
 {
@@ -46,8 +48,14 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         public ApiService()
         {
-            _httpClient = new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
+
+            _httpClient = new HttpClient(handler);
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
+            _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
             _jsonOptions = new JsonSerializerOptions
             {
@@ -72,14 +80,14 @@ namespace FlightCheckInSystem.FormsApp.Services
                 {
                     Debug.WriteLine($"[ApiService] Failed to connect to {currentUrl}.");
 
-                                        _useHttps = false;
+                    _useHttps = false;
                     string fallbackUrl = GetCurrentBaseUrl();
                     Debug.WriteLine($"[ApiService] Switching to fallback URL: {fallbackUrl}");
 
                     if (!await TestConnectionAsync(fallbackUrl))
                     {
                         Debug.WriteLine($"[ApiService] Error connecting to fallback URL: {fallbackUrl}");
-                                                _useHttps = true;
+                        _useHttps = true;
                     }
                 }
             }
@@ -95,8 +103,8 @@ namespace FlightCheckInSystem.FormsApp.Services
             {
                 Debug.WriteLine($"[ApiService] Testing connection to {baseUrl}");
 
-                var response = await _httpClient.GetAsync($"{baseUrl}/flights");
-                Debug.WriteLine($"[ApiService] API endpoint test to {baseUrl}/flights returned: {response.StatusCode}");
+                var response = await _httpClient.GetAsync($"{baseUrl}/health");
+                Debug.WriteLine($"[ApiService] Health check to {baseUrl} returned: {response.StatusCode}");
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -106,12 +114,12 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-                private string GetCurrentBaseUrl()
+        private string GetCurrentBaseUrl()
         {
             return _useHttps ? _baseUrl : _fallbackBaseUrl;
         }
 
-                private void LogApiCall(string method, string endpoint, string details = null)
+        private void LogApiCall(string method, string endpoint, string details = null)
         {
             string message = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] API Call: {method} {endpoint}";
             if (!string.IsNullOrEmpty(details))
@@ -122,7 +130,7 @@ namespace FlightCheckInSystem.FormsApp.Services
             Console.WriteLine(message);
         }
 
-                private void LogApiResponse<T>(string endpoint, ApiResponse<T> response, Exception ex = null)
+        private void LogApiResponse<T>(string endpoint, ApiResponse<T> response, Exception ex = null)
         {
             string message = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] API Response from {endpoint}";
             if (response != null)
@@ -169,7 +177,7 @@ namespace FlightCheckInSystem.FormsApp.Services
             Console.WriteLine(message);
         }
 
-                public async Task<List<Flight>> GetFlightsAsync()
+        public async Task<List<Flight>> GetFlightsAsync()
         {
             string endpoint = $"{GetCurrentBaseUrl()}/flights";
 
@@ -179,11 +187,11 @@ namespace FlightCheckInSystem.FormsApp.Services
 
                 var response = await _httpClient.GetAsync(endpoint);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<Flight>>>(responseContent, _jsonOptions);
@@ -206,12 +214,12 @@ namespace FlightCheckInSystem.FormsApp.Services
                 Debug.WriteLine($"[ApiService] Status code: {ex.StatusCode}, Inner exception: {ex.InnerException?.Message}");
                 LogApiResponse<List<Flight>>(endpoint, null, ex);
 
-                                if (_useHttps)
+                if (_useHttps)
                 {
                     Debug.WriteLine($"[ApiService] Trying fallback URL for GetFlightsAsync");
                     _useHttps = false;
 
-                                        bool fallbackAvailable = await TestConnectionAsync(GetCurrentBaseUrl());
+                    bool fallbackAvailable = await TestConnectionAsync(GetCurrentBaseUrl());
                     if (fallbackAvailable)
                     {
                         Debug.WriteLine($"[ApiService] Fallback URL is available, retrying flights retrieval");
@@ -223,13 +231,15 @@ namespace FlightCheckInSystem.FormsApp.Services
                         catch (Exception fallbackEx)
                         {
                             Debug.WriteLine($"[ApiService] Fallback URL also failed: {fallbackEx.Message}");
-                            _useHttps = true;                             return new List<Flight>();
+                            _useHttps = true;
+                            return new List<Flight>();
                         }
                     }
                     else
                     {
                         Debug.WriteLine($"[ApiService] Fallback URL is not available");
-                        _useHttps = true;                         return new List<Flight>();
+                        _useHttps = true;
+                        return new List<Flight>();
                     }
                 }
 
@@ -248,7 +258,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                 Debug.WriteLine($"[ApiService] Stack trace: {ex.StackTrace}");
                 LogApiResponse<List<Flight>>(endpoint, null, ex);
 
-                                if (ex is System.Net.Sockets.SocketException socketEx)
+                if (ex is System.Net.Sockets.SocketException socketEx)
                 {
                     Debug.WriteLine($"[ApiService] Socket error code: {socketEx.ErrorCode}, Native error code: {socketEx.NativeErrorCode}");
                     Debug.WriteLine($"[ApiService] Socket type: {socketEx.SocketErrorCode}");
@@ -257,7 +267,6 @@ namespace FlightCheckInSystem.FormsApp.Services
                 {
                     Debug.WriteLine($"[ApiService] Request timed out. The server might be overloaded or the network connection is unstable.");
                 }
-
 
                 return new List<Flight>();
             }
@@ -271,11 +280,11 @@ namespace FlightCheckInSystem.FormsApp.Services
                 LogApiCall("GET", endpoint);
                 var response = await _httpClient.GetAsync(endpoint);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Flight>>(responseContent, _jsonOptions);
@@ -297,7 +306,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                 Debug.WriteLine($"[ApiService] Status code: {ex.StatusCode}, Inner exception: {ex.InnerException?.Message}");
                 LogApiResponse<Flight>(endpoint, null, ex);
 
-                                if (_useHttps)
+                if (_useHttps)
                 {
                     Debug.WriteLine($"[ApiService] Trying fallback URL for GetFlightByIdAsync");
                     _useHttps = false;
@@ -308,7 +317,8 @@ namespace FlightCheckInSystem.FormsApp.Services
                     }
                     catch
                     {
-                        _useHttps = true;                         return null;
+                        _useHttps = true;
+                        return null;
                     }
                 }
 
@@ -331,11 +341,11 @@ namespace FlightCheckInSystem.FormsApp.Services
 
                 var response = await _httpClient.GetAsync(endpoint);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Flight>>(responseContent, _jsonOptions);
@@ -368,11 +378,11 @@ namespace FlightCheckInSystem.FormsApp.Services
 
                 var response = await _httpClient.GetAsync(endpoint);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<Seat>>>(responseContent, _jsonOptions);
@@ -396,15 +406,12 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-                                        public async Task<List<Seat>> GetSeatsByFlightAsync(int flightId)
+        public async Task<List<Seat>> GetSeatsByFlightAsync(int flightId)
         {
             string endpoint = $"{GetCurrentBaseUrl()}/flights/{flightId}/seats";
             try
             {
-                                                                                                
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                
-                                LogApiCall("GET", endpoint);
+                LogApiCall("GET", endpoint);
                 var response = await _httpClient.GetAsync(endpoint);
                 Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
                 response.EnsureSuccessStatusCode();
@@ -437,8 +444,6 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-                
-
         public async Task<List<Booking>> GetBookingsAsync()
         {
             string endpoint = $"{GetCurrentBaseUrl()}/bookings";
@@ -448,11 +453,11 @@ namespace FlightCheckInSystem.FormsApp.Services
 
                 var response = await _httpClient.GetAsync(endpoint);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<Booking>>>(responseContent, _jsonOptions);
@@ -486,11 +491,11 @@ namespace FlightCheckInSystem.FormsApp.Services
 
                 var response = await _httpClient.GetAsync(endpoint);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Booking>>(responseContent, _jsonOptions);
@@ -523,11 +528,11 @@ namespace FlightCheckInSystem.FormsApp.Services
 
                 var response = await _httpClient.GetAsync(endpoint);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<Booking>>>(responseContent, _jsonOptions);
@@ -551,7 +556,7 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-                public async Task<Passenger> FindOrCreatePassengerAsync(string passportNumber, string firstName, string lastName, string email = null, string phone = null)
+        public async Task<Passenger> FindOrCreatePassengerAsync(string passportNumber, string firstName, string lastName, string email = null, string phone = null)
         {
             string endpoint = $"{GetCurrentBaseUrl()}/bookings/findorcreatepassenger";
             try
@@ -567,16 +572,16 @@ namespace FlightCheckInSystem.FormsApp.Services
                     Phone = phone
                 };
 
-                                string requestJson = JsonSerializer.Serialize(passengerRequest, _jsonOptions);
+                string requestJson = JsonSerializer.Serialize(passengerRequest, _jsonOptions);
                 Debug.WriteLine($"[ApiService] Passenger request payload: {requestJson}");
 
                 var response = await _httpClient.PostAsJsonAsync(endpoint, passengerRequest);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Passenger>>(responseContent, _jsonOptions);
@@ -613,16 +618,16 @@ namespace FlightCheckInSystem.FormsApp.Services
                     FlightId = flightId
                 };
 
-                                string requestJson = JsonSerializer.Serialize(bookingRequest, _jsonOptions);
+                string requestJson = JsonSerializer.Serialize(bookingRequest, _jsonOptions);
                 Debug.WriteLine($"[ApiService] Booking request payload: {requestJson}");
 
                 var response = await _httpClient.PostAsJsonAsync(endpoint, bookingRequest);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Booking>>(responseContent, _jsonOptions);
@@ -650,7 +655,7 @@ namespace FlightCheckInSystem.FormsApp.Services
         {
             try
             {
-                                Debug.WriteLine($"[ApiService] Finding or creating passenger with passport {passportNumber}");
+                Debug.WriteLine($"[ApiService] Finding or creating passenger with passport {passportNumber}");
                 var passenger = await FindOrCreatePassengerAsync(passportNumber, firstName, lastName, email, phone);
                 if (passenger == null)
                 {
@@ -659,7 +664,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                 }
                 Debug.WriteLine($"[ApiService] Using passenger with ID {passenger.PassengerId}");
 
-                                Debug.WriteLine($"[ApiService] Finding flight with number {flightNumber}");
+                Debug.WriteLine($"[ApiService] Finding flight with number {flightNumber}");
                 var flight = await GetFlightByNumberAsync(flightNumber);
                 if (flight == null)
                 {
@@ -668,7 +673,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                 }
                 Debug.WriteLine($"[ApiService] Using flight with ID {flight.FlightId}");
 
-                                Debug.WriteLine($"[ApiService] Checking if booking already exists for passenger {passenger.PassengerId} on flight {flight.FlightId}");
+                Debug.WriteLine($"[ApiService] Checking if booking already exists for passenger {passenger.PassengerId} on flight {flight.FlightId}");
                 var existingBooking = await FindBookingAsync(passportNumber, flight.FlightId);
                 if (existingBooking != null)
                 {
@@ -676,7 +681,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                     return existingBooking;
                 }
 
-                                var bookingRequest = new
+                var bookingRequest = new
                 {
                     PassengerId = passenger.PassengerId,
                     FlightId = flight.FlightId,
@@ -686,17 +691,17 @@ namespace FlightCheckInSystem.FormsApp.Services
                 string endpoint = $"{GetCurrentBaseUrl()}/bookings";
                 LogApiCall("POST", endpoint, $"Creating booking for {firstName} {lastName} on flight {flightNumber}");
 
-                                string requestJson = JsonSerializer.Serialize(bookingRequest, _jsonOptions);
+                string requestJson = JsonSerializer.Serialize(bookingRequest, _jsonOptions);
                 Debug.WriteLine($"[ApiService] Booking request payload: {requestJson}");
 
-                                Debug.WriteLine($"[ApiService] Sending POST request to {endpoint}");
+                Debug.WriteLine($"[ApiService] Sending POST request to {endpoint}");
                 var response = await _httpClient.PostAsJsonAsync(endpoint, bookingRequest);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Booking>>(responseContent, _jsonOptions);
@@ -717,12 +722,12 @@ namespace FlightCheckInSystem.FormsApp.Services
                 Debug.WriteLine($"[ApiService] HTTP request error creating booking: {ex.Message}");
                 Debug.WriteLine($"[ApiService] Status code: {ex.StatusCode}, Inner exception: {ex.InnerException?.Message}");
 
-                                if (_useHttps)
+                if (_useHttps)
                 {
                     Debug.WriteLine($"[ApiService] Trying fallback URL for CreateBookingAsync");
                     _useHttps = false;
 
-                                        bool fallbackAvailable = await TestConnectionAsync(GetCurrentBaseUrl());
+                    bool fallbackAvailable = await TestConnectionAsync(GetCurrentBaseUrl());
                     if (fallbackAvailable)
                     {
                         Debug.WriteLine($"[ApiService] Fallback URL is available, retrying booking creation");
@@ -734,13 +739,15 @@ namespace FlightCheckInSystem.FormsApp.Services
                         catch (Exception fallbackEx)
                         {
                             Debug.WriteLine($"[ApiService] Fallback URL also failed: {fallbackEx.Message}");
-                            _useHttps = true;                             return null;
+                            _useHttps = true;
+                            return null;
                         }
                     }
                     else
                     {
                         Debug.WriteLine($"[ApiService] Fallback URL is not available");
-                        _useHttps = true;                         return null;
+                        _useHttps = true;
+                        return null;
                     }
                 }
 
@@ -752,7 +759,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                 Debug.WriteLine($"[ApiService] Exception type: {ex.GetType().Name}");
                 Debug.WriteLine($"[ApiService] Stack trace: {ex.StackTrace}");
 
-                                if (ex is System.Net.Sockets.SocketException socketEx)
+                if (ex is System.Net.Sockets.SocketException socketEx)
                 {
                     Debug.WriteLine($"[ApiService] Socket error code: {socketEx.ErrorCode}, Native error code: {socketEx.NativeErrorCode}");
                     Debug.WriteLine($"[ApiService] Socket type: {socketEx.SocketErrorCode}");
@@ -762,10 +769,10 @@ namespace FlightCheckInSystem.FormsApp.Services
                     Debug.WriteLine($"[ApiService] Request timed out. The server might be overloaded or the network connection is unstable.");
                 }
 
-
                 return null;
             }
-        } 
+        }
+
         public class CheckInApiResponse
         {
             public bool Success { get; set; }
@@ -810,7 +817,7 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-                private void HandleHttpError(HttpResponseMessage response)
+        private void HandleHttpError(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
@@ -820,7 +827,7 @@ namespace FlightCheckInSystem.FormsApp.Services
 
         #region Flight Management Methods
 
-                                public async Task<Flight> CreateFlightAsync(Flight flight)
+        public async Task<Flight> CreateFlightAsync(Flight flight)
         {
             string endpoint = $"{GetCurrentBaseUrl()}/flights";
             try
@@ -829,11 +836,11 @@ namespace FlightCheckInSystem.FormsApp.Services
 
                 var response = await _httpClient.PostAsJsonAsync(endpoint, flight);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Flight>>(responseContent, _jsonOptions);
@@ -864,7 +871,7 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-                                public async Task<bool> UpdateFlightStatusAsync(int flightId, FlightStatus status)
+        public async Task<bool> UpdateFlightStatusAsync(int flightId, FlightStatus status)
         {
             string endpoint = $"{GetCurrentBaseUrl()}/flights/{flightId}/status";
             try
@@ -874,11 +881,11 @@ namespace FlightCheckInSystem.FormsApp.Services
                 var statusRequest = new { Status = status };
                 var response = await _httpClient.PutAsJsonAsync(endpoint, statusRequest);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<Flight?>>(responseContent, _jsonOptions);
@@ -894,7 +901,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                     Debug.WriteLine($"[ApiService] API returned unsuccessful response: {apiResponse?.Message}");
                     return false;
                 }
-                            }
+            }
             catch (HttpRequestException ex)
             {
                 Debug.WriteLine($"[ApiService] HTTP request error updating flight status: {ex.Message}");
@@ -909,21 +916,20 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-                                public async Task<bool> UpdateFlightAsync(Flight flight)
+        public async Task<bool> UpdateFlightAsync(Flight flight)
         {
             string endpoint = $"{GetCurrentBaseUrl()}/flights/{flight.FlightId}";
             try
             {
-                                                
                 LogApiCall("PUT", endpoint, $"Flight: {flight.FlightNumber}");
 
                 var response = await _httpClient.PutAsJsonAsync(endpoint, flight);
 
-                                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
 
                 response.EnsureSuccessStatusCode();
 
-                                string responseContent = await response.Content.ReadAsStringAsync();
+                string responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
 
                 var apiResponse = JsonSerializer.Deserialize<ApiResponse<bool>>(responseContent, _jsonOptions);

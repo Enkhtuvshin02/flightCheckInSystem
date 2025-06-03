@@ -28,10 +28,10 @@ namespace FlightCheckInSystem.FormsApp
 
                 private bool _suppressSeatUnavailableWarning = false;
 
-        public CheckInForm()
+        public CheckInForm(ApiService apiService)
         {
             InitializeComponent();
-            _apiService = new ApiService();
+            _apiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             _seatStatusSignalRService = new SeatStatusSignalRService("https://localhost:5001");
             _boardingPassPrinter = new BoardingPassPrinter();
             _seatButtons = new Dictionary<string, Button>();

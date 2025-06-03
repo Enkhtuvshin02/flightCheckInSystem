@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\boardingpassdialog .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\boardingpassdialog .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -69,10 +77,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}|FlightCheckInSystem.Web\\FlightCheckInSystem.Web.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.web\\diagnostic.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}|FlightCheckInSystem.Web\\FlightCheckInSystem.Web.csproj|solutionrelative:flightcheckinsystem.web\\diagnostic.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\flightcheckinsystem.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
@@ -171,10 +175,6 @@
       "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\repositories\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\bookingPage.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:FlightCheckInSystem.FormsApp\\bookingPage.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -219,6 +219,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Program.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Program.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\Program.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAjwHIAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T12:12:20.112Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DatabaseInitializer.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\DatabaseInitializer.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\DatabaseInitializer.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\DatabaseInitializer.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Data\\DatabaseInitializer.cs",
+              "ViewState": "AgIAABUBAAAAAAAAAAD4v4AAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:49:07.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "BoardingPassDialog .cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
@@ -231,7 +257,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "BoardingPassDialog .Designer.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .Designer.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .Designer.cs",
@@ -243,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "CheckInForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.Designer.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\CheckInForm.Designer.cs",
@@ -255,7 +281,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "CheckInForm.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\CheckInForm.cs",
@@ -268,7 +294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "BookingService.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\BookingService.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\BookingService.cs",
@@ -280,7 +306,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "BoardingPassDialog .cs [Design]",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
@@ -291,7 +317,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "BookingForm.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingForm.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BookingForm.cs",
@@ -303,7 +329,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "BookingController.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
@@ -315,7 +341,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "CorsTestController.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CorsTestController.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\CorsTestController.cs",
@@ -327,7 +353,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "CheckInController.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
@@ -339,7 +365,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "CheckInService.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\CheckInService.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\CheckInService.cs",
@@ -351,7 +377,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "BoardingPass.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
@@ -363,7 +389,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "BaseRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\BaseRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\BaseRepository.cs",
@@ -375,7 +401,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "PassengerRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\PassengerRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\PassengerRepository.cs",
@@ -387,7 +413,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Program.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Program.cs",
@@ -399,7 +425,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "FlightHub.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
@@ -412,18 +438,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 17,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Program.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Program.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Program.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Server\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T12:12:20.112Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
               "Title": "standalone-signalr-test.html",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\standalone-signalr-test.html",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\standalone-signalr-test.html",
@@ -435,7 +449,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "Diagnostic.html",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Diagnostic.html",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Diagnostic.html",
@@ -443,11 +457,12 @@
               "RelativeToolTip": "FlightCheckInSystem.Web\\Diagnostic.html",
               "ViewState": "AgIAAE4BAAAAAAAAAAAkwGoBAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-06-02T19:46:29.596Z"
+              "WhenOpened": "2025-06-02T19:46:29.596Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "FlightCheckInSystem.Server.http",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\FlightCheckInSystem.Server.http",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\FlightCheckInSystem.Server.http",
@@ -459,7 +474,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Passenger.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Passenger.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Passenger.cs",
@@ -471,7 +486,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "FlightManagementService.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
@@ -483,7 +498,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Booking.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Booking.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Booking.cs",
@@ -495,7 +510,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "IFlightRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IFlightRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\IFlightRepository.cs",
@@ -507,7 +522,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "FlightsController.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\FlightsController.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\FlightsController.cs",
@@ -519,7 +534,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Layout\\MainLayout.razor",
@@ -531,7 +546,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "FlightStatusBoard.razor",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
@@ -543,7 +558,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "FlightCheckInSystem.Server.csproj",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
@@ -555,7 +570,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "FlightManagementForm.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\FlightManagementForm.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\FlightManagementForm.cs",
@@ -567,7 +582,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "IFlightManagementService.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
@@ -579,7 +594,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "ApiService.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Services\\ApiService.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\Services\\ApiService.cs",
@@ -591,7 +606,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\ClientLauncher\\Program.cs",
               "RelativeDocumentMoniker": "ClientLauncher\\Program.cs",
@@ -603,7 +618,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "FlightCheckInSystem.Core.csproj",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj",
@@ -615,7 +630,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "SeatStatusSignalRService.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Services\\SeatStatusSignalRService.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\Services\\SeatStatusSignalRService.cs",
@@ -627,7 +642,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "CheckInForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\CheckInForm.cs",
@@ -638,7 +653,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "SeatRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\SeatRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\SeatRepository.cs",
@@ -650,7 +665,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "IPassengerRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IPassengerRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\IPassengerRepository.cs",
@@ -662,7 +677,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "ISeatRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\ISeatRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\ISeatRepository.cs",
@@ -674,7 +689,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "FlightRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\FlightRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\FlightRepository.cs",
@@ -686,7 +701,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "Seat.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Seat.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Seat.cs",
@@ -698,7 +713,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "FlightCheckInSystem.Data.csproj",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj",
@@ -710,7 +725,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "BookingRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
@@ -719,18 +734,6 @@
               "ViewState": "AgIAAE8AAAAAAAAAAAAkwNkAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-24T10:52:50.458Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "DatabaseInitializer.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\DatabaseInitializer.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\DatabaseInitializer.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\DatabaseInitializer.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Data\\DatabaseInitializer.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:49:07.695Z"
             },
             {
               "$type": "Document",

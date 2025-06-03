@@ -1,5 +1,4 @@
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Business.deps.json
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Business.runtimeconfig.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Business.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Business.pdb
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Core.dll
@@ -16,5 +15,4 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\refint\FlightCheckInSystem.Business.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.pdb
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.genruntimeconfig.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\ref\FlightCheckInSystem.Business.dll

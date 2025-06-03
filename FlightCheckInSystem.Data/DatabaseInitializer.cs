@@ -12,9 +12,9 @@ namespace FlightCheckInSystem.Data
     {
         private readonly string _connectionString;
         private readonly string _dbFilePath;
-        private readonly ILogger<DatabaseInitializer> _logger;
+        private readonly ILogger<DatabaseInitializer>? _logger;
 
-        public DatabaseInitializer(string dbFilePath, ILogger<DatabaseInitializer> logger = null)
+        public DatabaseInitializer(string dbFilePath, ILogger<DatabaseInitializer>? logger = null)
         {
             _dbFilePath = dbFilePath ?? throw new ArgumentNullException(nameof(dbFilePath));
             _connectionString = $"Data Source={_dbFilePath};Foreign Keys=True;";
@@ -55,91 +55,79 @@ namespace FlightCheckInSystem.Data
 
             try
             {
-                using (var connection = new SqliteConnection(_connectionString))
+                await using var connection = new SqliteConnection(_connectionString);
+                await connection.OpenAsync();
+                _logger?.LogInformation("Successfully opened database connection");
+
+                // Enable foreign keys
+                await using var pragmaCmd = connection.CreateCommand();
+                pragmaCmd.CommandText = "PRAGMA foreign_keys = ON;";
+                await pragmaCmd.ExecuteNonQueryAsync();
+
+                // Create tables
+                using var transaction = connection.BeginTransaction();
+                try
                 {
-                    await connection.OpenAsync();
-                    _logger?.LogInformation("Successfully opened database connection");
+                    // Create tables
+                    await using var cmd = connection.CreateCommand();
+                    cmd.Transaction = transaction;
+                    cmd.CommandText = @"
+                        CREATE TABLE IF NOT EXISTS Passengers (
+                            PassengerId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            PassportNumber TEXT UNIQUE NOT NULL,
+                            FirstName TEXT NOT NULL,
+                            LastName TEXT NOT NULL,
+                            Email TEXT,
+                            Phone TEXT
+                        );
 
-                    // Enable foreign keys and other PRAGMAs
-                    await ExecuteNonQueryAsync(connection, "PRAGMA journal_mode=WAL;");
-                    await ExecuteNonQueryAsync(connection, "PRAGMA foreign_keys = 1;");
-                    await ExecuteNonQueryAsync(connection, "PRAGMA busy_timeout = 30000;");
+                        CREATE TABLE IF NOT EXISTS Flights (
+                            FlightId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            FlightNumber TEXT NOT NULL,
+                            DepartureAirport TEXT NOT NULL,
+                            ArrivalAirport TEXT NOT NULL,
+                            DepartureTime TEXT NOT NULL,
+                            ArrivalTime TEXT NOT NULL,
+                            Status TEXT NOT NULL DEFAULT 'Scheduled'
+                        );
 
-                    const string createPassengersTable = @"
-                    CREATE TABLE IF NOT EXISTS Passengers (
-                        PassengerId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        PassportNumber TEXT UNIQUE NOT NULL,
-                        FirstName TEXT NOT NULL,
-                        LastName TEXT NOT NULL,
-                        Email TEXT,
-                        Phone TEXT,
-                        CreatedAt TEXT NOT NULL DEFAULT (datetime('now')),
-                        UpdatedAt TEXT NOT NULL DEFAULT (datetime('now'))
-                    );
-                    
-                    CREATE TRIGGER IF NOT EXISTS UpdatePassengerTimestamp
-                    AFTER UPDATE ON Passengers
-                    BEGIN
-                        UPDATE Passengers SET UpdatedAt = datetime('now') WHERE PassengerId = NEW.PassengerId;
-                    END;";
+                        CREATE TABLE IF NOT EXISTS Seats (
+                            SeatId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            FlightId INTEGER NOT NULL,
+                            SeatNumber TEXT NOT NULL,
+                            IsBooked BOOLEAN NOT NULL DEFAULT 0,
+                            Class TEXT CHECK(Class IN ('Economy', 'Business', 'First')) NOT NULL,
+                            Price DECIMAL(10, 2) NOT NULL,
+                            UNIQUE(FlightId, SeatNumber),
+                            FOREIGN KEY (FlightId) REFERENCES Flights(FlightId) ON DELETE CASCADE
+                        );
 
-                    string createFlightsTable = @"
-                    CREATE TABLE IF NOT EXISTS Flights (
-                        FlightId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        FlightNumber TEXT NOT NULL,
-                        DepartureAirport TEXT NOT NULL,
-                        ArrivalAirport TEXT NOT NULL,
-                        DepartureTime TEXT NOT NULL,
-                        ArrivalTime TEXT NOT NULL,
-                        Status TEXT NOT NULL DEFAULT 'Scheduled'
-                    );";
+                        CREATE TABLE IF NOT EXISTS Bookings (
+                            BookingId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            PassengerId INTEGER NOT NULL,
+                            FlightId INTEGER NOT NULL,
+                            SeatId INTEGER UNIQUE,
+                            ReservationDate TEXT NOT NULL,
+                            IsCheckedIn INTEGER NOT NULL DEFAULT 0,
+                            CheckInTime TEXT,
+                            FOREIGN KEY (PassengerId) REFERENCES Passengers(PassengerId) ON DELETE CASCADE,
+                            FOREIGN KEY (FlightId) REFERENCES Flights(FlightId) ON DELETE CASCADE,
+                            FOREIGN KEY (SeatId) REFERENCES Seats(SeatId) ON DELETE SET NULL
+                        );
 
-                    string createSeatsTable = @"
-                    CREATE TABLE IF NOT EXISTS Seats (
-                        SeatId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        FlightId INTEGER NOT NULL,
-                        SeatNumber TEXT NOT NULL,
-                        IsBooked BOOLEAN NOT NULL DEFAULT 0,
-                        Class TEXT CHECK(Class IN ('Economy', 'Business', 'First')) NOT NULL,
-                        Price DECIMAL(10, 2) NOT NULL,
-                        UNIQUE(FlightId, SeatNumber),
-                        FOREIGN KEY (FlightId) REFERENCES Flights(FlightId) ON DELETE CASCADE
-                    );";
+                        CREATE INDEX IF NOT EXISTS IX_Flights_FlightNumber ON Flights(FlightNumber);
+                        CREATE INDEX IF NOT EXISTS IX_Bookings_PassengerId ON Bookings(PassengerId);
+                        CREATE INDEX IF NOT EXISTS IX_Bookings_FlightId ON Bookings(FlightId);";
 
-                    string createBookingsTable = @"
-                    CREATE TABLE IF NOT EXISTS Bookings (
-                        BookingId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        PassengerId INTEGER NOT NULL,
-                        FlightId INTEGER NOT NULL,
-                        SeatId INTEGER UNIQUE,
-                        ReservationDate TEXT NOT NULL,
-                        IsCheckedIn INTEGER NOT NULL DEFAULT 0,
-                        CheckInTime TEXT,
-                        FOREIGN KEY (PassengerId) REFERENCES Passengers(PassengerId) ON DELETE CASCADE,
-                        FOREIGN KEY (FlightId) REFERENCES Flights(FlightId) ON DELETE CASCADE,
-                        FOREIGN KEY (SeatId) REFERENCES Seats(SeatId) ON DELETE SET NULL
-                    );";
-
-                    // Execute all table creation scripts
-                    await using var transaction = await connection.BeginTransactionAsync();
-                    try
-                    {
-                        await ExecuteNonQueryAsync(connection, createPassengersTable, transaction);
-                        await ExecuteNonQueryAsync(connection, createFlightsTable, transaction);
-                        await ExecuteNonQueryAsync(connection, createSeatsTable, transaction);
-                        await ExecuteNonQueryAsync(connection, createBookingsTable, transaction);
-                        
-                        // Add any indexes
-                        await CreateIndexesAsync(connection, transaction);
-                        
-                        await transaction.CommitAsync();
-                        _logger?.LogInformation("Database schema created successfully");
-                    }
-                    catch (Exception ex)
-                    {
-                        await transaction.RollbackAsync();
-                        throw;
-                    }
+                    await cmd.ExecuteNonQueryAsync();
+                    transaction.Commit();
+                    _logger?.LogInformation("Database schema created successfully");
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    _logger?.LogError(ex, "Error creating database schema");
+                    throw;
                 }
                 
                 sw.Stop();
@@ -152,7 +140,7 @@ namespace FlightCheckInSystem.Data
             }
         }
         
-        private async Task CreateIndexesAsync(SqliteConnection connection, SqliteTransaction transaction = null)
+        private async Task CreateIndexesAsync(SqliteConnection connection, SqliteTransaction? transaction = null)
         {
             try
             {
@@ -172,28 +160,6 @@ namespace FlightCheckInSystem.Data
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Error creating indexes");
-                throw;
-            }
-        }
-        
-        private async Task ExecuteInTransactionAsync(SqliteConnection connection, Func<SqliteTransaction, Task<bool>> action)
-        {
-            await using var transaction = await connection.BeginTransactionAsync();
-            try
-            {
-                var result = await action(transaction);
-                if (result)
-                {
-                    await transaction.CommitAsync();
-                }
-                else
-                {
-                    await transaction.RollbackAsync();
-                }
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
                 throw;
             }
         }
@@ -224,65 +190,48 @@ namespace FlightCheckInSystem.Data
 
             try
             {
-                using (var connection = new SqliteConnection(_connectionString))
+                await using var connection = new SqliteConnection(_connectionString);
+                await connection.OpenAsync();
+                _logger?.LogInformation("Connected to database for seeding");
+
+                using var transaction = connection.BeginTransaction();
+                try
                 {
-                    await connection.OpenAsync();
-                    _logger?.LogInformation("Connected to database for seeding");
+                    await using var cmd = connection.CreateCommand();
+                    cmd.Transaction = transaction;
+                    cmd.CommandText = @"
+                        SELECT COUNT(*) FROM Flights;
+                        
+                        INSERT INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status)
+                        SELECT 'OM201', 'ULN', 'ICN', @DepartureTime, @ArrivalTime, 'Scheduled'
+                        WHERE NOT EXISTS (SELECT 1 FROM Flights);
+                        
+                        INSERT INTO Seats (FlightId, SeatNumber, Class, Price)
+                        SELECT last_insert_rowid(), '1A', 'First', 1000
+                        WHERE last_insert_rowid() > 0
+                        UNION ALL
+                        SELECT last_insert_rowid(), '1B', 'First', 1000
+                        WHERE last_insert_rowid() > 0
+                        UNION ALL
+                        SELECT last_insert_rowid(), '2A', 'Business', 500
+                        WHERE last_insert_rowid() > 0
+                        UNION ALL
+                        SELECT last_insert_rowid(), '2B', 'Business', 500
+                        WHERE last_insert_rowid() > 0;";
 
-                    await using var transaction = await connection.BeginTransactionAsync();
-                    try
-                    {
-                        // Check if we already have data
-                        var checkFlightsCmd = connection.CreateCommand();
-                        checkFlightsCmd.CommandText = "SELECT COUNT(*) FROM Flights;";
-                        checkFlightsCmd.Transaction = transaction;
-                        var flightCount = Convert.ToInt64(await checkFlightsCmd.ExecuteScalarAsync());
+                    var departure = DateTime.UtcNow.AddDays(1);
+                    cmd.Parameters.AddWithValue("@DepartureTime", departure.ToString("O"));
+                    cmd.Parameters.AddWithValue("@ArrivalTime", departure.AddHours(3).ToString("O"));
 
-                        if (flightCount == 0)
-                        {
-                            _logger?.LogInformation("No flights found, seeding initial data...");
-
-                            // Flight 1
-                            var flight1Departure = DateTime.UtcNow.AddDays(1);
-                            var flight1Arrival = flight1Departure.AddHours(3);
-                            var flight1Id = await AddFlight(connection, transaction, "OM201", "ULN", "ICN", 
-                                flight1Departure, flight1Arrival, FlightStatus.Scheduled.ToString());
-
-                            // Flight 2
-                            var flight2Departure = DateTime.UtcNow.AddDays(2);
-                            var flight2Arrival = flight2Departure.AddHours(2.5);
-                            var flight2Id = await AddFlight(connection, transaction, "OM302", "ULN", "PEK", 
-                                flight2Departure, flight2Arrival, FlightStatus.Scheduled.ToString());
-
-                            // Add seats for flight 1
-                            if (flight1Id > 0)
-                            {
-                                await AddSeatsForFlight(connection, transaction, flight1Id, 2, 2);
-                                _logger?.LogInformation("Added seats for flight OM201");
-                            }
-
-                            // Add seats for flight 2
-                            if (flight2Id > 0)
-                            {
-                                await AddSeatsForFlight(connection, transaction, flight2Id, 3, 3);
-                                _logger?.LogInformation("Added seats for flight OM302");
-                            }
-                            
-                            await transaction.CommitAsync();
-                            _logger?.LogInformation("Database seeding completed successfully");
-                        }
-                        else
-                        {
-                            _logger?.LogInformation("Database already contains data, skipping seeding");
-                            await transaction.CommitAsync();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        await transaction.RollbackAsync();
-                        _logger?.LogError(ex, "Error during database seeding");
-                        throw;
-                    }
+                    await cmd.ExecuteNonQueryAsync();
+                    transaction.Commit();
+                    _logger?.LogInformation("Database seeding completed");
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    _logger?.LogError(ex, "Error seeding database");
+                    throw;
                 }
                 
                 sw.Stop();
@@ -295,53 +244,16 @@ namespace FlightCheckInSystem.Data
             }
         }
         
-        private async Task AddSeatsForFlight(SqliteConnection connection, SqliteTransaction transaction, long flightId, int rows, int seatsPerRow)
-        {
-            try
-            {
-                var seatLetters = new[] { "A", "B", "C", "D", "E", "F" };
-                for (int row = 1; row <= rows; row++)
-                {
-                    for (int seatIndex = 0; seatIndex < seatsPerRow && seatIndex < seatLetters.Length; seatIndex++)
-                    {
-                        var seatNumber = $"{row}{seatLetters[seatIndex]}";
-                        var seatClass = row <= 2 ? "First" : (row <= 5 ? "Business" : "Economy");
-                        var price = seatClass switch
-                        {
-                            "First" => 1000.00m,
-                            "Business" => 500.00m,
-                            _ => 200.00m
-                        };
-
-                        var command = connection.CreateCommand();
-                        command.Transaction = transaction;
-                        command.CommandText = @"
-                            INSERT INTO Seats (FlightId, SeatNumber, IsBooked, Class, Price)
-                            VALUES (@FlightId, @SeatNumber, 0, @Class, @Price);";
-
-                        command.Parameters.AddWithValue("@FlightId", flightId);
-                        command.Parameters.AddWithValue("@SeatNumber", seatNumber);
-                        command.Parameters.AddWithValue("@Class", seatClass);
-                        command.Parameters.AddWithValue("@Price", price);
-
-                        await command.ExecuteNonQueryAsync();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, "Error adding seats for flight {FlightId}", flightId);
-                throw;
-            }
-        }
-
-        private async Task<long> AddFlight(SqliteConnection connection, SqliteTransaction transaction, string flightNumber, 
+        private async Task<long> AddFlight(SqliteConnection connection, SqliteTransaction? transaction, string flightNumber, 
             string departureAirport, string arrivalAirport, DateTime departureTime, DateTime arrivalTime, string status)
         {
             try
             {
                 var command = connection.CreateCommand();
-                command.Transaction = transaction;
+                if (transaction != null)
+                {
+                    command.Transaction = transaction;
+                }
                 command.CommandText = @"
                     INSERT INTO Flights (FlightNumber, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, Status)
                     VALUES (@FlightNumber, @DepartureAirport, @ArrivalAirport, @DepartureTime, @ArrivalTime, @Status);
@@ -362,6 +274,49 @@ namespace FlightCheckInSystem.Data
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Error adding flight {FlightNumber}", flightNumber);
+                throw;
+            }
+        }
+
+        private async Task AddSeatsForFlight(SqliteConnection connection, SqliteTransaction? transaction, long flightId, int rows, int seatsPerRow)
+        {
+            try
+            {
+                var seatLetters = new[] { "A", "B", "C", "D", "E", "F" };
+                for (int row = 1; row <= rows; row++)
+                {
+                    for (int seatIndex = 0; seatIndex < seatsPerRow && seatIndex < seatLetters.Length; seatIndex++)
+                    {
+                        var seatNumber = $"{row}{seatLetters[seatIndex]}";
+                        var seatClass = row <= 2 ? "First" : (row <= 5 ? "Business" : "Economy");
+                        var price = seatClass switch
+                        {
+                            "First" => 1000.00m,
+                            "Business" => 500.00m,
+                            _ => 200.00m
+                        };
+
+                        var command = connection.CreateCommand();
+                        if (transaction != null)
+                        {
+                            command.Transaction = transaction;
+                        }
+                        command.CommandText = @"
+                            INSERT INTO Seats (FlightId, SeatNumber, IsBooked, Class, Price)
+                            VALUES (@FlightId, @SeatNumber, 0, @Class, @Price);";
+
+                        command.Parameters.AddWithValue("@FlightId", flightId);
+                        command.Parameters.AddWithValue("@SeatNumber", seatNumber);
+                        command.Parameters.AddWithValue("@Class", seatClass);
+                        command.Parameters.AddWithValue("@Price", price);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "Error adding seats for flight {FlightId}", flightId);
                 throw;
             }
         }

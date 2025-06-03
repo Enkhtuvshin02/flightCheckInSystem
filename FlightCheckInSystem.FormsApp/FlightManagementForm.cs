@@ -19,11 +19,11 @@ namespace FlightCheckInSystem.FormsApp
         private List<Flight> _flights;
         private Flight _selectedFlight;
 
-        public FlightManagementForm()
+        public FlightManagementForm(ApiService apiService)
         {
             InitializeComponent();
+            _apiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             _seatStatusSignalRService = new SeatStatusSignalRService("https://localhost:5001");
-            _apiService = new ApiService();
 
             cmbStatus.DataSource = Enum.GetValues(typeof(FlightStatus));
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -35,7 +35,7 @@ namespace FlightCheckInSystem.FormsApp
 
             this.Load += async (s, e) => await LoadFlightsAsync();
 
-                        dgvFlights.SelectionChanged += DgvFlights_SelectionChanged;
+            dgvFlights.SelectionChanged += DgvFlights_SelectionChanged;
             btnSave.Click += async (s, e) => await SaveFlightChangesAsync();
             btnRefresh.Click += async (s, e) => await LoadFlightsAsync();
             btnAddFlight.Click += BtnAddFlight_Click;
@@ -45,21 +45,24 @@ namespace FlightCheckInSystem.FormsApp
         {
             try
             {
-                                lblStatus.Text = "Loading flights...";
+                lblStatus.Text = "Loading flights...";
                 this.Cursor = Cursors.WaitCursor;
 
-                                _flights = await _apiService.GetFlightsAsync();
-                dgvFlights.DataSource = null;
-                dgvFlights.DataSource = _flights;
-
-                                ClearFlightDetails();
-
-                lblStatus.Text = $"{_flights.Count} flights loaded successfully.";
+                _flights = await _apiService.GetFlightsAsync();
+                if (_flights != null && _flights.Any())
+                {
+                    dgvFlights.DataSource = _flights;
+                    lblStatus.Text = $"Loaded {_flights.Count} flights.";
+                }
+                else
+                {
+                    lblStatus.Text = "No flights found.";
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading flights: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lblStatus.Text = "Error loading flights.";
+                MessageBox.Show($"Error loading flights: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -76,7 +79,7 @@ namespace FlightCheckInSystem.FormsApp
                     lblStatus.Text = "Loading flight details...";
                     this.Cursor = Cursors.WaitCursor;
 
-                                        _selectedFlight = await _apiService.GetFlightByIdAsync(selectedFlight.FlightId);
+                    _selectedFlight = await _apiService.GetFlightByIdAsync(selectedFlight.FlightId);
                     
                     if (_selectedFlight == null)
                     {
@@ -84,16 +87,16 @@ namespace FlightCheckInSystem.FormsApp
                         return;
                     }
 
-                                        txtFlightNumber.Text = _selectedFlight.FlightNumber;
+                    txtFlightNumber.Text = _selectedFlight.FlightNumber;
                     txtDepartureAirport.Text = _selectedFlight.DepartureAirport;
                     txtArrivalAirport.Text = _selectedFlight.ArrivalAirport;
                     dtpDepartureTime.Value = _selectedFlight.DepartureTime;
                     dtpArrivalTime.Value = _selectedFlight.ArrivalTime;
                     cmbStatus.SelectedItem = _selectedFlight.Status;
 
-                                        await _seatStatusSignalRService.GetFlightSeatsAsync(_selectedFlight.FlightId);
+                    await _seatStatusSignalRService.GetFlightSeatsAsync(_selectedFlight.FlightId);
                     
-                                        EnableFlightDetailsControls(true);
+                    EnableFlightDetailsControls(true);
 
                     lblStatus.Text = "Flight details loaded.";
                 }
@@ -122,7 +125,7 @@ namespace FlightCheckInSystem.FormsApp
                 
                 if (_selectedFlight == null)
                 {
-                                        var newFlight = new Flight
+                    var newFlight = new Flight
                     {
                         FlightNumber = txtFlightNumber.Text,
                         DepartureAirport = txtDepartureAirport.Text,
@@ -132,7 +135,7 @@ namespace FlightCheckInSystem.FormsApp
                         Status = (FlightStatus)cmbStatus.SelectedItem
                     };
                     
-                                        var createdFlight = await _apiService.CreateFlightAsync(newFlight);
+                    var createdFlight = await _apiService.CreateFlightAsync(newFlight);
                     
                     if (createdFlight != null)
                     {
@@ -145,10 +148,10 @@ namespace FlightCheckInSystem.FormsApp
                 }
                 else
                 {
-                                        var newStatus = (FlightStatus)cmbStatus.SelectedItem;
+                    var newStatus = (FlightStatus)cmbStatus.SelectedItem;
                     if (newStatus != _selectedFlight.Status)
                     {
-                                                bool success = await _apiService.UpdateFlightStatusAsync(_selectedFlight.FlightId, newStatus);
+                        bool success = await _apiService.UpdateFlightStatusAsync(_selectedFlight.FlightId, newStatus);
                         if (success)
                         {
                             _selectedFlight.Status = newStatus;
@@ -161,14 +164,14 @@ namespace FlightCheckInSystem.FormsApp
                     }
                     else
                     {
-                                                _selectedFlight.FlightNumber = txtFlightNumber.Text;
+                        _selectedFlight.FlightNumber = txtFlightNumber.Text;
                         _selectedFlight.DepartureAirport = txtDepartureAirport.Text;
                         _selectedFlight.ArrivalAirport = txtArrivalAirport.Text;
                         _selectedFlight.DepartureTime = dtpDepartureTime.Value;
                         _selectedFlight.ArrivalTime = dtpArrivalTime.Value;
                         _selectedFlight.Status = newStatus;
 
-                                                bool success = await _apiService.UpdateFlightAsync(_selectedFlight);
+                        bool success = await _apiService.UpdateFlightAsync(_selectedFlight);
 
                         if (success)
                         {
@@ -181,7 +184,7 @@ namespace FlightCheckInSystem.FormsApp
                     }
                 }
 
-                                await LoadFlightsAsync();
+                await LoadFlightsAsync();
             }
             catch (Exception ex)
             {
@@ -196,17 +199,17 @@ namespace FlightCheckInSystem.FormsApp
 
         private void BtnAddFlight_Click(object sender, EventArgs e)
         {
-                        dgvFlights.ClearSelection();
+            dgvFlights.ClearSelection();
             ClearFlightDetails();
 
-                        EnableFlightDetailsControls(true);
+            EnableFlightDetailsControls(true);
             txtFlightNumber.Focus();
 
-                        dtpDepartureTime.Value = DateTime.Now.AddDays(1);
+            dtpDepartureTime.Value = DateTime.Now.AddDays(1);
             dtpArrivalTime.Value = DateTime.Now.AddDays(1).AddHours(2);
             cmbStatus.SelectedItem = FlightStatus.Scheduled;
 
-                        _selectedFlight = null;
+            _selectedFlight = null;
             lblStatus.Text = "Adding new flight. Fill in details and click Save.";
         }
 

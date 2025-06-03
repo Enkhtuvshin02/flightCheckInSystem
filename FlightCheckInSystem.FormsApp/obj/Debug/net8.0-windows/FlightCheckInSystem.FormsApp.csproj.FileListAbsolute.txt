@@ -3,8 +3,6 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\FlightCheckInSystem.FormsApp.runtimeconfig.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\FlightCheckInSystem.FormsApp.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\FlightCheckInSystem.FormsApp.pdb
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\EntityFramework.SqlServer.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\EntityFramework.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Connections.Abstractions.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Http.Connections.Client.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Http.Connections.Common.dll
@@ -12,8 +10,6 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.AspNetCore.SignalR.Client.Core.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.AspNetCore.SignalR.Common.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.Bcl.TimeProvider.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.Data.Sqlite.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
@@ -25,19 +21,7 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\SQLitePCLRaw.batteries_v2.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\SQLitePCLRaw.core.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\SQLitePCLRaw.provider.e_sqlite3.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Data.SQLite.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Data.SQLite.EF6.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Net.Http.Json.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Net.ServerSentEvents.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Text.Encodings.Web.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Text.Json.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\System.Threading.Channels.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\linux-arm\native\libe_sqlite3.so
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -58,13 +42,6 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\linux-x64\native\SQLite.Interop.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\osx-x64\native\SQLite.Interop.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-x64\native\SQLite.Interop.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win-x86\native\SQLite.Interop.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\FlightCheckInSystem.Business.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\FlightCheckInSystem.Core.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\FlightCheckInSystem.Data.dll
@@ -89,3 +66,4 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\obj\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\obj\Debug\net8.0-windows\FlightCheckInSystem.FormsApp.pdb
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\obj\Debug\net8.0-windows\FlightCheckInSystem.FormsApp.genruntimeconfig.cache
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\obj\Debug\net8.0-windows\ref\FlightCheckInSystem.FormsApp.dll
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\linux-musl-s390x\native\libe_sqlite3.so
