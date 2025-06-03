@@ -1,9 +1,3 @@
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.csproj.AssemblyReference.cache
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.AssemblyInfoInputs.cache
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.AssemblyInfo.cs
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.csproj.CoreCompileInputs.cache
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.sourcelink.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Business.deps.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Business.runtimeconfig.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Business.dll
@@ -12,6 +6,12 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Data.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Core.pdb
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\bin\Debug\net8.0\FlightCheckInSystem.Data.pdb
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.AssemblyInfo.cs
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.sourcelink.json
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCh.961F3FB2.Up2Date
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\FlightCheckInSystem.Business.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.Business\obj\Debug\net8.0\refint\FlightCheckInSystem.Business.dll

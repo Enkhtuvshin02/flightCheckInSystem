@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Data/Interfaces/IFlightRepository.cs
-using FlightCheckInSystem.Core.Models;
+﻿using FlightCheckInSystem.Core.Models;
 using FlightCheckInSystem.Core.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;

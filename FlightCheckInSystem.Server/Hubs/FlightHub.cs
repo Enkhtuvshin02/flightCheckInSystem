@@ -173,23 +173,19 @@ namespace FlightCheckInSystem.Server.Hubs
             return $"Pong! Server time: {DateTime.Now}";
         }
 
-        // Helper method to initialize seats for a flight
-        private async Task InitializeSeatsForFlight(string flightNumber)
+                private async Task InitializeSeatsForFlight(string flightNumber)
         {
             try
             {
                 _logger.LogInformation($"Initializing seats for flight {flightNumber}");
 
-                // Try to get seats from the database first
-                // Since we don't have GetSeatsByFlightNumberAsync, we'll get all flights and find the flight ID first
-                var flights = await _flightRepository.GetAllFlightsAsync();
+                                                var flights = await _flightRepository.GetAllFlightsAsync();
                 var flight = flights.FirstOrDefault(f => f.FlightNumber == flightNumber);
 
                 if (flight == null)
                 {
                     _logger.LogWarning($"Flight {flightNumber} not found");
-                    FlightSeats[flightNumber] = new List<Seat>(); // Create empty list to avoid null reference
-                    return;
+                    FlightSeats[flightNumber] = new List<Seat>();                     return;
                 }
 
                 var dbSeats = await _seatRepository.GetSeatsByFlightIdAsync(flight.FlightId);
@@ -201,12 +197,10 @@ namespace FlightCheckInSystem.Server.Hubs
                 }
                 else
                 {
-                    // Create a default 6x5 seat layout if no seats in database
-                    var seats = new List<Seat>();
+                                        var seats = new List<Seat>();
                     int seatId = 1;
 
-                    // Create a 6x5 seat layout (rows A-F, columns 1-5)
-                    for (int row = 0; row < 6; row++)
+                                        for (int row = 0; row < 6; row++)
                     {
                         for (int col = 1; col <= 5; col++)
                         {
@@ -216,8 +210,7 @@ namespace FlightCheckInSystem.Server.Hubs
                             seats.Add(new Seat
                             {
                                 SeatId = seatId++,
-                                FlightId = flight.FlightId, // Make sure to set the FlightId
-                                SeatNumber = seatNumber,
+                                FlightId = flight.FlightId,                                 SeatNumber = seatNumber,
                                 IsBooked = false
                             });
                         }
@@ -230,8 +223,7 @@ namespace FlightCheckInSystem.Server.Hubs
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error initializing seats for flight {flightNumber}");
-                // Create an empty list to avoid null reference exceptions
-                FlightSeats[flightNumber] = new List<Seat>();
+                                FlightSeats[flightNumber] = new List<Seat>();
             }
         }
     }

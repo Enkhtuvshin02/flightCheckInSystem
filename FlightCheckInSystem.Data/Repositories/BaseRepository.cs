@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Data/Repositories/BaseRepository.cs
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace FlightCheckInSystem.Data.Repositories
 {
@@ -12,9 +11,9 @@ namespace FlightCheckInSystem.Data.Repositories
             ConnectionString = connectionString;
         }
 
-        protected SQLiteConnection GetConnection()
+        protected SqliteConnection GetConnection()
         {
-            return new SQLiteConnection(ConnectionString);
+            return new SqliteConnection(ConnectionString);
         }
     }
 }

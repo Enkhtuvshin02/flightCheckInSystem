@@ -1,10 +1,8 @@
-﻿// FlightCheckInSystem.Data/Repositories/PassengerRepository.cs
 using FlightCheckInSystem.Core.Models;
 using FlightCheckInSystem.Data.Interfaces;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Threading.Tasks;
-using System; // For Convert
-using System.Data.Common;
+using System; using System.Data.Common;
 
 namespace FlightCheckInSystem.Data.Repositories
 {
@@ -17,7 +15,7 @@ namespace FlightCheckInSystem.Data.Repositories
             using (var connection = GetConnection())
             {
                 await connection.OpenAsync();
-                var command = new SQLiteCommand("SELECT PassengerId, PassportNumber, FirstName, LastName FROM Passengers WHERE PassengerId = @PassengerId", connection);
+                var command = new SqliteCommand("SELECT PassengerId, PassportNumber, FirstName, LastName FROM Passengers WHERE PassengerId = @PassengerId", connection);
                 command.Parameters.AddWithValue("@PassengerId", passengerId);
                 using (var reader = await command.ExecuteReaderAsync())
                 {
@@ -32,7 +30,7 @@ namespace FlightCheckInSystem.Data.Repositories
             using (var connection = GetConnection())
             {
                 await connection.OpenAsync();
-                var command = new SQLiteCommand("SELECT PassengerId, PassportNumber, FirstName, LastName, Email, Phone FROM Passengers WHERE PassportNumber = @PassportNumber", connection);
+                var command = new SqliteCommand("SELECT PassengerId, PassportNumber, FirstName, LastName, Email, Phone FROM Passengers WHERE PassportNumber = @PassportNumber", connection);
                 command.Parameters.AddWithValue("@PassportNumber", passportNumber);
                 using (var reader = await command.ExecuteReaderAsync())
                 {
@@ -56,7 +54,7 @@ namespace FlightCheckInSystem.Data.Repositories
                 {
                     try
                     {
-                        var command = new SQLiteCommand("INSERT INTO Passengers (PassportNumber, FirstName, LastName, Email, Phone) VALUES (@PassportNumber, @FirstName, @LastName, @Email, @Phone); SELECT last_insert_rowid();", connection, transaction);
+                        var command = new SqliteCommand("INSERT INTO Passengers (PassportNumber, FirstName, LastName, Email, Phone) VALUES (@PassportNumber, @FirstName, @LastName, @Email, @Phone); SELECT last_insert_rowid();", connection, transaction);
                         command.Parameters.AddWithValue("@PassportNumber", passenger.PassportNumber);
                         command.Parameters.AddWithValue("@FirstName", passenger.FirstName);
                         command.Parameters.AddWithValue("@LastName", passenger.LastName);
@@ -88,8 +86,7 @@ namespace FlightCheckInSystem.Data.Repositories
                 LastName = reader.GetString(reader.GetOrdinal("LastName"))
             };
 
-            // Check if Email and Phone columns exist in the result set
-            try
+                        try
             {
                 var emailOrdinal = reader.GetOrdinal("Email");
                 if (!reader.IsDBNull(emailOrdinal))
@@ -112,7 +109,7 @@ namespace FlightCheckInSystem.Data.Repositories
             using (var connection = GetConnection())
             {
                 await connection.OpenAsync();
-                var command = new SQLiteCommand("INSERT INTO Passengers (PassportNumber, FirstName, LastName, Email, Phone) VALUES (@PassportNumber, @FirstName, @LastName, @Email, @Phone); SELECT last_insert_rowid();", connection);
+                var command = new SqliteCommand("INSERT INTO Passengers (PassportNumber, FirstName, LastName, Email, Phone) VALUES (@PassportNumber, @FirstName, @LastName, @Email, @Phone); SELECT last_insert_rowid();", connection);
                 command.Parameters.AddWithValue("@PassportNumber", passenger.PassportNumber);
                 command.Parameters.AddWithValue("@FirstName", passenger.FirstName);
                 command.Parameters.AddWithValue("@LastName", passenger.LastName);

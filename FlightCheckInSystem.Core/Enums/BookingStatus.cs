@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Core/Enums/BookingStatus.cs
-namespace FlightCheckInSystem.Core.Enums
+﻿namespace FlightCheckInSystem.Core.Enums
 {
     public enum BookingStatus
     {

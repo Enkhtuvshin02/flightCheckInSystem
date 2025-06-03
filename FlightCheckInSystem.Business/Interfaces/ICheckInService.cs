@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Business/Interfaces/ICheckInService.cs
-using FlightCheckInSystem.Core.Models;
+﻿using FlightCheckInSystem.Core.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 

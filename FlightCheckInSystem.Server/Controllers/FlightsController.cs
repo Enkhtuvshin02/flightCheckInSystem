@@ -194,8 +194,7 @@ namespace FlightCheckInSystem.Server.Controllers
             }
         }
 
-        // GET: api/flights/{id}/availableseats
-        [HttpGet("{id}/availableseats")]
+                [HttpGet("{id}/availableseats")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Seat>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -204,15 +203,13 @@ namespace FlightCheckInSystem.Server.Controllers
             _logger.LogInformation($"GetAvailableSeats called for flight ID {id} at {DateTime.UtcNow}.");
             try
             {
-                // Validate input
-                if (id <= 0)
+                                if (id <= 0)
                 {
                     _logger.LogWarning($"Invalid flight ID: {id}");
                     return BadRequest(new ApiResponse<IEnumerable<Seat>> { Success = false, Message = $"Invalid flight ID: {id}" });
                 }
                 
-                // Get flight
-                var flight = await _flightRepository.GetFlightByIdAsync(id);
+                                var flight = await _flightRepository.GetFlightByIdAsync(id);
                 if (flight == null)
                 {
                     _logger.LogWarning($"Flight with ID {id} not found");
@@ -221,14 +218,12 @@ namespace FlightCheckInSystem.Server.Controllers
                 
                 _logger.LogInformation($"Found flight {flight.FlightNumber} (ID: {id}). Retrieving seats...");
                 
-                // Get seats
-                var seats = await _seatRepository.GetSeatsByFlightIdAsync(id);
+                                var seats = await _seatRepository.GetSeatsByFlightIdAsync(id);
                 var availableSeats = seats.Where(s => !s.IsBooked).ToList();
                 
                 _logger.LogInformation($"Found {availableSeats.Count} available seats out of {seats.Count()} total seats for flight {flight.FlightNumber}.");
                 
-                // Return successful response
-                return Ok(new ApiResponse<IEnumerable<Seat>> { 
+                                return Ok(new ApiResponse<IEnumerable<Seat>> { 
                     Success = true, 
                     Data = availableSeats, 
                     Message = $"Available seats for flight {flight.FlightNumber} retrieved successfully. {availableSeats.Count} seats available."
@@ -244,8 +239,7 @@ namespace FlightCheckInSystem.Server.Controllers
             }
         }
 
-        // POST: api/flights
-        [HttpPost]
+                [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApiResponse<Flight>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -277,23 +271,19 @@ namespace FlightCheckInSystem.Server.Controllers
             
             try
             {
-                // Set default status if not provided
-                if (!Enum.IsDefined(typeof(FlightStatus), flight.Status))
+                                if (!Enum.IsDefined(typeof(FlightStatus), flight.Status))
                 {
                     flight.Status = FlightStatus.Scheduled;
                 }
                 
-                // Add the flight
-                int flightId = await _flightRepository.AddFlightAsync(flight);
+                                int flightId = await _flightRepository.AddFlightAsync(flight);
                 flight.FlightId = flightId;
                 
-                // Create seats for the flight (default configuration: 10 rows, A-F seats)
-                await _flightRepository.CreateFlightWithSeatsAsync(flight, 10, 'F');
+                                await _flightRepository.CreateFlightWithSeatsAsync(flight, 10, 'F');
                 
                 _logger.LogInformation($"Successfully created flight {flight.FlightNumber} with ID {flightId}");
                 
-                // Return created response
-                return CreatedAtAction(nameof(GetFlight), new { id = flightId }, new ApiResponse<Flight>
+                                return CreatedAtAction(nameof(GetFlight), new { id = flightId }, new ApiResponse<Flight>
                 {
                     Success = true,
                     Data = flight,
@@ -311,8 +301,7 @@ namespace FlightCheckInSystem.Server.Controllers
             }
         }
 
-        // PUT: api/flights/{id}/status
-        [HttpPut("{id}/status")]
+                [HttpPut("{id}/status")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Flight))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -340,8 +329,7 @@ namespace FlightCheckInSystem.Server.Controllers
                     });
                 }
 
-                // Check if status is valid
-                if (!Enum.IsDefined(typeof(FlightStatus), request.Status))
+                                if (!Enum.IsDefined(typeof(FlightStatus), request.Status))
                 {
                     return BadRequest(new ApiResponse<Flight> 
                     { 
@@ -353,8 +341,7 @@ namespace FlightCheckInSystem.Server.Controllers
                 flight.Status = request.Status;
                 await _flightRepository.UpdateFlightAsync(flight);
                 
-                // Broadcast the status change to all connected clients in the FlightStatusBoard group
-                await _hubContext.Clients.Group("FlightStatusBoard").SendAsync("FlightStatusUpdated", flight.FlightNumber, request.Status);
+                                await _hubContext.Clients.Group("FlightStatusBoard").SendAsync("FlightStatusUpdated", flight.FlightNumber, request.Status);
                 _logger.LogInformation($"Broadcasted status update for flight {flight.FlightNumber} to {request.Status}");
                 
                 return Ok(new ApiResponse<Flight> 

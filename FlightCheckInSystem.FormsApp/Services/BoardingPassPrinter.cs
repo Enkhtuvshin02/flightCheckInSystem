@@ -44,15 +44,13 @@ namespace FlightCheckInSystem.FormsApp.Services
 
             _boardingPass = boardingPass;
 
-            // Show print dialog
-            PrintDialog printDialog = new PrintDialog();
+                        PrintDialog printDialog = new PrintDialog();
             PrintDocument printDocument = new PrintDocument();
             
             printDocument.PrintPage += PrintDocument_PrintPage;
             printDialog.Document = printDocument;
 
-            // Configure print document
-            printDocument.DocumentName = $"BoardingPass_{boardingPass.FlightNumber}_{boardingPass.SeatNumber}";
+                        printDocument.DocumentName = $"BoardingPass_{boardingPass.FlightNumber}_{boardingPass.SeatNumber}";
 
             DialogResult result = printDialog.ShowDialog();
             if (result == DialogResult.OK)
@@ -107,8 +105,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                     UseAntiAlias = true
                 };
 
-                // Add print button to the toolbar
-                var printButton = new ToolStripButton("Print", null, (s, e) =>
+                                var printButton = new ToolStripButton("Print", null, (s, e) =>
                 {
                     try
                     {
@@ -132,8 +129,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                     toolStrip.Items.Add(printButton);
                 }
 
-                // Handle form closing to properly dispose resources
-                previewDialog.FormClosing += (s, e) =>
+                                previewDialog.FormClosing += (s, e) =>
                 {
                     printDocument.PrintPage -= PrintDocument_PrintPage;
                     printDocument.Dispose();
@@ -167,14 +163,12 @@ namespace FlightCheckInSystem.FormsApp.Services
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-                // Use page bounds with margins
-                RectangleF bounds = e.MarginBounds;
+                                RectangleF bounds = e.MarginBounds;
                 float x = bounds.Left;
                 float y = bounds.Top;
                 float width = bounds.Width;
 
-                // Draw boarding pass layout with better spacing
-                DrawBoardingPassContent(g, x, y, width);
+                                DrawBoardingPassContent(g, x, y, width);
                 
                 e.HasMorePages = false;
             }
@@ -194,27 +188,21 @@ namespace FlightCheckInSystem.FormsApp.Services
             float padding = 15f;
             float boxWidth = width - (padding * 2);
             
-            // Create a light background for better visibility
-            // Draw background and border
-            using (var bgBrush = new SolidBrush(Color.FromArgb(245, 245, 245)))
+                                    using (var bgBrush = new SolidBrush(Color.FromArgb(245, 245, 245)))
             using (var borderPen = new Pen(Color.FromArgb(200, 200, 200), 1.5f))
             {
                 RectangleF borderRect = new RectangleF(x, y, width, 500);
                 g.FillRectangle(bgBrush, borderRect);
                 g.DrawRectangle(borderPen, Rectangle.Round(borderRect));
                 
-                // Adjust drawing area
-                x += padding;
+                                x += padding;
                 currentY += padding;
                 width -= padding * 2;
             }
 
-            // Draw airline header
-            using (var headerBrush = new LinearGradientBrush(
+                        using (var headerBrush = new LinearGradientBrush(
                 new RectangleF(x, currentY, width, 40),
-                Color.FromArgb(0, 0, 128),  // Dark Blue
-                Color.FromArgb(30, 144, 255), // Dodger Blue
-                LinearGradientMode.Horizontal))
+                Color.FromArgb(0, 0, 128),                  Color.FromArgb(30, 144, 255),                 LinearGradientMode.Horizontal))
             {
                 g.FillRectangle(headerBrush, x, currentY, width, 40);
                 
@@ -223,22 +211,18 @@ namespace FlightCheckInSystem.FormsApp.Services
                 float headerX = x + (width - headerSize.Width) / 2;
                 g.DrawString(header, _headerFont, Brushes.White, headerX, currentY + 5);
                 
-                currentY += 45; // Space after header
-            }
+                currentY += 45;             }
 
-            // Draw airline logo placeholder
-            try
+                        try
             {
                 var airlineIcon = SystemIcons.Information;
                 g.DrawIcon(airlineIcon, (int)x, (int)currentY);
             }
             catch
             {
-                // If icon loading fails, just continue without it
-            }
+                            }
 
-            // Passenger Information
-            using (var passengerTitleFont = new Font(_boldFont.FontFamily, 11, FontStyle.Bold))
+                        using (var passengerTitleFont = new Font(_boldFont.FontFamily, 11, FontStyle.Bold))
             {
                 g.DrawString("PASSENGER", passengerTitleFont, _blackBrush, x, currentY);
                 currentY += lineHeight;
@@ -249,20 +233,17 @@ namespace FlightCheckInSystem.FormsApp.Services
                     currentY += lineHeight * 1.5f;
                 }
                 
-                // Add passenger type if available
-                if (!string.IsNullOrEmpty(_boardingPass.PassportNumber))
+                                if (!string.IsNullOrEmpty(_boardingPass.PassportNumber))
                 {
                     g.DrawString($"PASSPORT: {_boardingPass.PassportNumber}", _smallFont, _blackBrush, x, currentY);
                     currentY += lineHeight * 0.8f;
                 }
             }
 
-            // Flight Information Section
-            g.DrawString("FLIGHT DETAILS", _boldFont, _blackBrush, x, currentY);
+                        g.DrawString("FLIGHT DETAILS", _boldFont, _blackBrush, x, currentY);
             currentY += lineHeight;
 
-            // Flight and Route in columns
-            float col1X = x + 20;
+                        float col1X = x + 20;
             float col2X = x + width / 2;
 
             g.DrawString($"Flight: {_boardingPass.FlightNumber}", _regularFont, _blackBrush, col1X, currentY);
@@ -273,24 +254,20 @@ namespace FlightCheckInSystem.FormsApp.Services
             g.DrawString($"To: {_boardingPass.ArrivalAirport}", _regularFont, _blackBrush, col2X, currentY);
             currentY += lineHeight + sectionSpacing;
 
-            // Time Information
-            g.DrawString("TIME DETAILS", _boldFont, _blackBrush, x, currentY);
+                        g.DrawString("TIME DETAILS", _boldFont, _blackBrush, x, currentY);
             currentY += lineHeight;
 
             g.DrawString($"Departure: {_boardingPass.DepartureTime:MMM dd, yyyy HH:mm}", _regularFont, _blackBrush, col1X, currentY);
             g.DrawString($"Boarding: {_boardingPass.BoardingTime:MMM dd, yyyy HH:mm}", _regularFont, _blackBrush, col2X, currentY);
             currentY += lineHeight + sectionSpacing;
 
-            // Passport Information
-            g.DrawString($"Passport: {_boardingPass.PassportNumber}", _regularFont, _blackBrush, x + 20, currentY);
+                        g.DrawString($"Passport: {_boardingPass.PassportNumber}", _regularFont, _blackBrush, x + 20, currentY);
             currentY += lineHeight + sectionSpacing;
 
-            // Separator line
-            g.DrawLine(new Pen(Color.Gray, 1), x, currentY, x + width - 20, currentY);
+                        g.DrawLine(new Pen(Color.Gray, 1), x, currentY, x + width - 20, currentY);
             currentY += 10;
 
-            // Important notices
-            g.DrawString("IMPORTANT NOTICES:", _boldFont, _blackBrush, x, currentY);
+                        g.DrawString("IMPORTANT NOTICES:", _boldFont, _blackBrush, x, currentY);
             currentY += lineHeight;
 
             string[] notices = {
@@ -308,14 +285,12 @@ namespace FlightCheckInSystem.FormsApp.Services
 
             currentY += 10;
 
-            // Footer
-            string footer = $"Generated on: {DateTime.Now:MMM dd, yyyy HH:mm} | Have a pleasant flight!";
+                        string footer = $"Generated on: {DateTime.Now:MMM dd, yyyy HH:mm} | Have a pleasant flight!";
             SizeF footerSize = g.MeasureString(footer, _smallFont);
             float footerX = x + (width - footerSize.Width) / 2;
             g.DrawString(footer, _smallFont, _blackBrush, footerX, currentY);
 
-            // Cleanup is handled by using statements
-        }
+                    }
 
         public void Dispose()
         {

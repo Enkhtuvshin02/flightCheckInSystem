@@ -10,8 +10,7 @@ namespace FlightCheckInSystem.FormsApp
 {
     partial class BoardingPassDialog
     {
-        // UI Controls only - _boardingPass and _printer are declared in the main .cs file
-        private Panel pnlMain;
+                private Panel pnlMain;
         private Label lblTitle;
         private TextBox txtBoardingPassInfo;
         private Button btnPrint;
@@ -25,8 +24,7 @@ namespace FlightCheckInSystem.FormsApp
         {
             this.SuspendLayout();
 
-            // Form properties
-            this.Text = "Boarding Pass";
+                        this.Text = "Boarding Pass";
             this.Size = new Size(600, 500);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -35,15 +33,13 @@ namespace FlightCheckInSystem.FormsApp
             this.ShowInTaskbar = false;
             this.BackColor = Color.White;
 
-            // Main panel
-            pnlMain = new Panel
+                        pnlMain = new Panel
             {
                 Dock = DockStyle.Fill,
                 Padding = new Padding(20)
             };
 
-            // Title
-            lblTitle = new Label
+                        lblTitle = new Label
             {
                 Text = "✈ BOARDING PASS GENERATED ✈",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
@@ -53,8 +49,7 @@ namespace FlightCheckInSystem.FormsApp
                 Height = 50
             };
 
-            // Group box for boarding pass
-            grpBoardingPass = new GroupBox
+                        grpBoardingPass = new GroupBox
             {
                 Text = "Boarding Pass Details",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
@@ -64,8 +59,7 @@ namespace FlightCheckInSystem.FormsApp
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
-            // Boarding pass info text box
-            txtBoardingPassInfo = new TextBox
+                        txtBoardingPassInfo = new TextBox
             {
                 Multiline = true,
                 ReadOnly = true,
@@ -78,16 +72,14 @@ namespace FlightCheckInSystem.FormsApp
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             };
 
-            // Button panel
-            pnlButtons = new Panel
+                        pnlButtons = new Panel
             {
                 Height = 60,
                 Dock = DockStyle.Bottom,
                 Padding = new Padding(20, 10, 20, 10)
             };
 
-            // Print button
-            btnPrint = new Button
+                        btnPrint = new Button
             {
                 Text = "🖨 Print Boarding Pass",
                 Size = new Size(140, 40),
@@ -101,8 +93,7 @@ namespace FlightCheckInSystem.FormsApp
             btnPrint.FlatAppearance.BorderColor = Color.DarkGreen;
             btnPrint.Click += BtnPrint_Click;
 
-            // Preview button
-            btnPreview = new Button
+                        btnPreview = new Button
             {
                 Text = "👁 Print Preview",
                 Size = new Size(120, 40),
@@ -116,8 +107,7 @@ namespace FlightCheckInSystem.FormsApp
             btnPreview.FlatAppearance.BorderColor = Color.DarkBlue;
             btnPreview.Click += BtnPreview_Click;
 
-            // New Check-in button
-            btnNewCheckIn = new Button
+                        btnNewCheckIn = new Button
             {
                 Text = "➕ New Check-In",
                 Size = new Size(120, 40),
@@ -131,8 +121,7 @@ namespace FlightCheckInSystem.FormsApp
             btnNewCheckIn.FlatAppearance.BorderColor = Color.Orange;
             btnNewCheckIn.Click += BtnNewCheckIn_Click;
 
-            // Close button
-            btnClose = new Button
+                        btnClose = new Button
             {
                 Text = "❌ Close",
                 Size = new Size(80, 40),
@@ -146,21 +135,17 @@ namespace FlightCheckInSystem.FormsApp
             btnClose.FlatAppearance.BorderColor = Color.Gray;
             btnClose.Click += BtnClose_Click;
 
-            // Add controls to group box
-            grpBoardingPass.Controls.Add(txtBoardingPassInfo);
+                        grpBoardingPass.Controls.Add(txtBoardingPassInfo);
 
-            // Add controls to button panel
-            pnlButtons.Controls.Add(btnPrint);
+                        pnlButtons.Controls.Add(btnPrint);
             pnlButtons.Controls.Add(btnPreview);
             pnlButtons.Controls.Add(btnNewCheckIn);
             pnlButtons.Controls.Add(btnClose);
 
-            // Add controls to main panel
-            pnlMain.Controls.Add(grpBoardingPass);
+                        pnlMain.Controls.Add(grpBoardingPass);
             pnlMain.Controls.Add(lblTitle);
 
-            // Add controls to form
-            this.Controls.Add(pnlMain);
+                        this.Controls.Add(pnlMain);
             this.Controls.Add(pnlButtons);
 
             this.ResumeLayout(false);
@@ -254,8 +239,7 @@ namespace FlightCheckInSystem.FormsApp
         private void BtnNewCheckIn_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("[BoardingPassDialog] New Check-In button clicked");
-            this.DialogResult = DialogResult.Retry; // Use Retry to indicate new check-in
-            this.Close();
+            this.DialogResult = DialogResult.Retry;             this.Close();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
@@ -272,7 +256,6 @@ namespace FlightCheckInSystem.FormsApp
             Debug.WriteLine("[BoardingPassDialog] Form closed and resources disposed");
         }
 
-        // Property to expose if user wants to start new check-in
-        public bool StartNewCheckIn => this.DialogResult == DialogResult.Retry;
+                public bool StartNewCheckIn => this.DialogResult == DialogResult.Retry;
     }
 }

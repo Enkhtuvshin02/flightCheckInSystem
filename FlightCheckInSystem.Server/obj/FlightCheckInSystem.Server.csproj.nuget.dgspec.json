@@ -194,9 +194,21 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "System.Data.SQLite": {
+            "Microsoft.Data.Sqlite.Core": {
               "target": "Package",
-              "version": "[1.0.119, )"
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "SQLitePCLRaw.bundle_e_sqlite3": {
+              "target": "Package",
+              "version": "[2.1.8, )"
             }
           },
           "imports": [
@@ -283,6 +295,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "SQLitePCLRaw.bundle_e_sqlite3": {
+              "target": "Package",
+              "version": "[2.1.11, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

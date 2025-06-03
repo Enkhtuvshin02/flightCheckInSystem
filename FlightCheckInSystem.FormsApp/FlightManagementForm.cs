@@ -1,5 +1,4 @@
-﻿using System; // Only keep essentials for flight management
-using System.Collections.Generic;
+using System; using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -23,26 +22,20 @@ namespace FlightCheckInSystem.FormsApp
         public FlightManagementForm()
         {
             InitializeComponent();
-            // TODO: Replace with your actual SignalR hub URL if different
-            _seatStatusSignalRService = new SeatStatusSignalRService("https://localhost:5001/seathub");
-            // Initialize API service
+            _seatStatusSignalRService = new SeatStatusSignalRService("https://localhost:5001");
             _apiService = new ApiService();
 
-            // Set up the status combo box with enum values
             cmbStatus.DataSource = Enum.GetValues(typeof(FlightStatus));
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            // Set up the flights data grid view
             dgvFlights.AutoGenerateColumns = false;
             dgvFlights.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvFlights.MultiSelect = false;
             dgvFlights.ReadOnly = true;
 
-            // Load flights when form loads
             this.Load += async (s, e) => await LoadFlightsAsync();
 
-            // Wire up event handlers
-            dgvFlights.SelectionChanged += DgvFlights_SelectionChanged;
+                        dgvFlights.SelectionChanged += DgvFlights_SelectionChanged;
             btnSave.Click += async (s, e) => await SaveFlightChangesAsync();
             btnRefresh.Click += async (s, e) => await LoadFlightsAsync();
             btnAddFlight.Click += BtnAddFlight_Click;
@@ -52,17 +45,14 @@ namespace FlightCheckInSystem.FormsApp
         {
             try
             {
-                // Show loading indicator
-                lblStatus.Text = "Loading flights...";
+                                lblStatus.Text = "Loading flights...";
                 this.Cursor = Cursors.WaitCursor;
 
-                // Get all flights using API service
-                _flights = await _apiService.GetFlightsAsync();
+                                _flights = await _apiService.GetFlightsAsync();
                 dgvFlights.DataSource = null;
                 dgvFlights.DataSource = _flights;
 
-                // Clear selection
-                ClearFlightDetails();
+                                ClearFlightDetails();
 
                 lblStatus.Text = $"{_flights.Count} flights loaded successfully.";
             }
@@ -86,8 +76,7 @@ namespace FlightCheckInSystem.FormsApp
                     lblStatus.Text = "Loading flight details...";
                     this.Cursor = Cursors.WaitCursor;
 
-                    // Load full flight details using API service
-                    _selectedFlight = await _apiService.GetFlightByIdAsync(selectedFlight.FlightId);
+                                        _selectedFlight = await _apiService.GetFlightByIdAsync(selectedFlight.FlightId);
                     
                     if (_selectedFlight == null)
                     {
@@ -95,20 +84,16 @@ namespace FlightCheckInSystem.FormsApp
                         return;
                     }
 
-                    // Display flight details
-                    txtFlightNumber.Text = _selectedFlight.FlightNumber;
+                                        txtFlightNumber.Text = _selectedFlight.FlightNumber;
                     txtDepartureAirport.Text = _selectedFlight.DepartureAirport;
                     txtArrivalAirport.Text = _selectedFlight.ArrivalAirport;
                     dtpDepartureTime.Value = _selectedFlight.DepartureTime;
                     dtpArrivalTime.Value = _selectedFlight.ArrivalTime;
                     cmbStatus.SelectedItem = _selectedFlight.Status;
 
-                    // Get seats for the flight (seat data will be received via FlightSeatsReceived event)
-                    await _seatStatusSignalRService.GetFlightSeatsAsync(_selectedFlight.FlightId);
-                    // NOTE: Update the UI in the FlightSeatsReceived event handler.
-
-                    // Enable edit controls
-                    EnableFlightDetailsControls(true);
+                                        await _seatStatusSignalRService.GetFlightSeatsAsync(_selectedFlight.FlightId);
+                    
+                                        EnableFlightDetailsControls(true);
 
                     lblStatus.Text = "Flight details loaded.";
                 }
@@ -137,8 +122,7 @@ namespace FlightCheckInSystem.FormsApp
                 
                 if (_selectedFlight == null)
                 {
-                    // Creating a new flight
-                    var newFlight = new Flight
+                                        var newFlight = new Flight
                     {
                         FlightNumber = txtFlightNumber.Text,
                         DepartureAirport = txtDepartureAirport.Text,
@@ -148,14 +132,12 @@ namespace FlightCheckInSystem.FormsApp
                         Status = (FlightStatus)cmbStatus.SelectedItem
                     };
                     
-                    // Create the flight using API service
-                    var createdFlight = await _apiService.CreateFlightAsync(newFlight);
+                                        var createdFlight = await _apiService.CreateFlightAsync(newFlight);
                     
                     if (createdFlight != null)
                     {
                         lblStatus.Text = "New flight created successfully.";
-                        await LoadFlightsAsync(); // Refresh the list
-                    }
+                        await LoadFlightsAsync();                     }
                     else
                     {
                         throw new Exception("Failed to create new flight.");
@@ -163,12 +145,10 @@ namespace FlightCheckInSystem.FormsApp
                 }
                 else
                 {
-                    // Check if only the status has changed
-                    var newStatus = (FlightStatus)cmbStatus.SelectedItem;
+                                        var newStatus = (FlightStatus)cmbStatus.SelectedItem;
                     if (newStatus != _selectedFlight.Status)
                     {
-                        // Update just the status using API service
-                        bool success = await _apiService.UpdateFlightStatusAsync(_selectedFlight.FlightId, newStatus);
+                                                bool success = await _apiService.UpdateFlightStatusAsync(_selectedFlight.FlightId, newStatus);
                         if (success)
                         {
                             _selectedFlight.Status = newStatus;
@@ -181,16 +161,14 @@ namespace FlightCheckInSystem.FormsApp
                     }
                     else
                     {
-                        // Update all flight details
-                        _selectedFlight.FlightNumber = txtFlightNumber.Text;
+                                                _selectedFlight.FlightNumber = txtFlightNumber.Text;
                         _selectedFlight.DepartureAirport = txtDepartureAirport.Text;
                         _selectedFlight.ArrivalAirport = txtArrivalAirport.Text;
                         _selectedFlight.DepartureTime = dtpDepartureTime.Value;
                         _selectedFlight.ArrivalTime = dtpArrivalTime.Value;
                         _selectedFlight.Status = newStatus;
 
-                        // Update the flight using API service
-                        bool success = await _apiService.UpdateFlightAsync(_selectedFlight);
+                                                bool success = await _apiService.UpdateFlightAsync(_selectedFlight);
 
                         if (success)
                         {
@@ -203,8 +181,7 @@ namespace FlightCheckInSystem.FormsApp
                     }
                 }
 
-                // Refresh the flights list
-                await LoadFlightsAsync();
+                                await LoadFlightsAsync();
             }
             catch (Exception ex)
             {
@@ -219,21 +196,17 @@ namespace FlightCheckInSystem.FormsApp
 
         private void BtnAddFlight_Click(object sender, EventArgs e)
         {
-            // Clear the current selection
-            dgvFlights.ClearSelection();
+                        dgvFlights.ClearSelection();
             ClearFlightDetails();
 
-            // Enable the controls for adding a new flight
-            EnableFlightDetailsControls(true);
+                        EnableFlightDetailsControls(true);
             txtFlightNumber.Focus();
 
-            // Set default values
-            dtpDepartureTime.Value = DateTime.Now.AddDays(1);
+                        dtpDepartureTime.Value = DateTime.Now.AddDays(1);
             dtpArrivalTime.Value = DateTime.Now.AddDays(1).AddHours(2);
             cmbStatus.SelectedItem = FlightStatus.Scheduled;
 
-            // Set flag for adding new flight
-            _selectedFlight = null;
+                        _selectedFlight = null;
             lblStatus.Text = "Adding new flight. Fill in details and click Save.";
         }
 

@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Data/Interfaces/ISeatRepository.cs
-using FlightCheckInSystem.Core.Models;
+﻿using FlightCheckInSystem.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,8 +9,6 @@ namespace FlightCheckInSystem.Data.Interfaces
         Task<Seat> GetSeatByIdAsync(int seatId);
         Task<IEnumerable<Seat>> GetSeatsByFlightIdAsync(int flightId);
         Task<IEnumerable<Seat>> GetAvailableSeatsByFlightIdAsync(int flightId);
-        Task<bool> BookSeatAsync(int seatId, int bookingId); // Modified to link seat to booking implicitly or explicitly
-        Task<bool> UnbookSeatAsync(int seatId); // For rollbacks or cancellations
-        Task<Seat> GetSeatByFlightAndNumberAsync(int flightId, string seatNumber);
+        Task<bool> BookSeatAsync(int seatId, int bookingId);         Task<bool> UnbookSeatAsync(int seatId);         Task<Seat> GetSeatByFlightAndNumberAsync(int flightId, string seatNumber);
     }
 }

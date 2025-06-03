@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Core/Models/BoardingPass.cs
-using System;
+﻿using System;
 
 namespace FlightCheckInSystem.Core.Models
 {
@@ -12,6 +11,5 @@ namespace FlightCheckInSystem.Core.Models
         public string ArrivalAirport { get; set; }
         public DateTime DepartureTime { get; set; }
         public string SeatNumber { get; set; }
-        public DateTime BoardingTime { get; set; } // Typically some time before departure
-    }
+        public DateTime BoardingTime { get; set; }     }
 }

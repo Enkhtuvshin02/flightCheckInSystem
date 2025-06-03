@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SQLitePCL;
 using FlightCheckInSystem.Business.Interfaces;
 using FlightCheckInSystem.Business.Services;
 using FlightCheckInSystem.Data;
@@ -13,14 +14,39 @@ using FlightCheckInSystem.Data.Repositories;
 using FlightCheckInSystem.Server.Hubs;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
+// Initialize SQLitePCL
+Batteries.Init();
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 var dbFileName = "flight_checkin_system.db";
 string dbFilePath = Path.Combine(builder.Environment.ContentRootPath, dbFileName);
-Console.WriteLine($"Application ContentRootPath: {builder.Environment.ContentRootPath}");
-Console.WriteLine($"Database file path determined as: {dbFilePath}");
 
-string connectionString = $"Data Source={dbFilePath};Version=3;foreign keys=true;";
+// Log the database file path
+var startupLogger = LoggerFactory.Create(config =>
+{
+    config.AddConsole();
+    config.AddDebug();
+}).CreateLogger("Program");
+
+startupLogger.LogInformation("Application starting...");
+startupLogger.LogInformation("Content Root Path: {ContentRootPath}", builder.Environment.ContentRootPath);
+startupLogger.LogInformation("Database file path: {DbFilePath}", dbFilePath);
+
+string connectionString = $"Data Source={dbFilePath};Foreign Keys=True;Cache=Shared";
+
+// Register DatabaseInitializer with DI
+builder.Services.AddSingleton<DatabaseInitializer>(sp => 
+{
+    var logger = sp.GetRequiredService<ILogger<DatabaseInitializer>>();
+    return new DatabaseInitializer(dbFilePath, logger);
+});
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -62,12 +88,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks()
     .AddCheck("Database", () => {
         try {
-            using (var connection = new System.Data.SQLite.SQLiteConnection(connectionString))
+            using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT 1";
+                    command.CommandText = "SELECT 1;";
                     command.ExecuteScalar();
                 }
             }
@@ -132,6 +158,5 @@ app.UseEndpoints(endpoints =>
 
 var urls = string.Join(", ", app.Urls);
 Console.WriteLine($"Program.cs: Starting application (app.Run()) on URLs: {urls}");
-Console.WriteLine("IMPORTANT: Make sure your client is using the correct URL: https://localhost:7106/");
-
+Console.WriteLine("IMPORTANT: Make sure your client is using the correct URL: https://localhost:5001");
 app.Run();

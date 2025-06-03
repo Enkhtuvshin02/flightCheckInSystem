@@ -187,8 +187,7 @@ namespace FlightCheckInSystem.Server.Controllers
                 {
                     if (string.IsNullOrWhiteSpace(request.FirstName) || string.IsNullOrWhiteSpace(request.LastName))
                     {
-                        // If passenger not found, and no name provided, indicate that names are needed to create
-                        return NotFound(new PassengerNotFoundResponse
+                                                return NotFound(new PassengerNotFoundResponse
                         {
                             Message = "Passenger not found. Provide FirstName and LastName to create.",
                             NeedsCreation = true
@@ -236,8 +235,7 @@ namespace FlightCheckInSystem.Server.Controllers
             }
         }
 
-        // POST: api/booking/findbooking
-        [HttpPost("findbooking")]
+                [HttpPost("findbooking")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BookingResponse<Booking>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -264,8 +262,7 @@ namespace FlightCheckInSystem.Server.Controllers
             
             try
             {
-                // We need passengerId first
-                var passenger = await _passengerRepository.GetPassengerByPassportAsync(request.PassportNumber);
+                                var passenger = await _passengerRepository.GetPassengerByPassportAsync(request.PassportNumber);
                 if (passenger == null)
                 {
                     return NotFound(new BookingResponse<Booking>
@@ -304,8 +301,7 @@ namespace FlightCheckInSystem.Server.Controllers
         }
 
 
-        // POST: api/booking
-        [HttpPost]
+                [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(BookingResponse<Booking>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(BookingConflictResponse))]
@@ -336,8 +332,7 @@ namespace FlightCheckInSystem.Server.Controllers
 
             try
             {
-                // Verify passenger exists
-                var passenger = await _passengerRepository.GetPassengerByIdAsync(request.PassengerId);
+                                var passenger = await _passengerRepository.GetPassengerByIdAsync(request.PassengerId);
                 if (passenger == null)
                 {
                     _logger.LogWarning($"CreateBooking: Passenger with ID {request.PassengerId} not found");
@@ -349,8 +344,7 @@ namespace FlightCheckInSystem.Server.Controllers
                 }
                 _logger.LogInformation($"CreateBooking: Found passenger {passenger.FirstName} {passenger.LastName} (ID: {passenger.PassengerId})");
                 
-                // Verify flight exists
-                var flight = await _flightRepository.GetFlightByIdAsync(request.FlightId);
+                                var flight = await _flightRepository.GetFlightByIdAsync(request.FlightId);
                 if (flight == null)
                 {
                     _logger.LogWarning($"CreateBooking: Flight with ID {request.FlightId} not found");
@@ -362,8 +356,7 @@ namespace FlightCheckInSystem.Server.Controllers
                 }
                 _logger.LogInformation($"CreateBooking: Found flight {flight.FlightNumber} (ID: {flight.FlightId})");
                 
-                // Check if booking already exists to prevent duplicates (handled by DB unique constraint too)
-                var existingBooking = await _bookingRepository.GetBookingByPassengerAndFlightAsync(request.PassengerId, request.FlightId);
+                                var existingBooking = await _bookingRepository.GetBookingByPassengerAndFlightAsync(request.PassengerId, request.FlightId);
                 if (existingBooking != null)
                 {
                     _logger.LogWarning($"CreateBooking: Booking already exists for passenger {request.PassengerId} on flight {request.FlightId} (Booking ID: {existingBooking.BookingId})");
@@ -387,13 +380,11 @@ namespace FlightCheckInSystem.Server.Controllers
                 newBooking.BookingId = await _bookingRepository.AddBookingAsync(newBooking);
                 _logger.LogInformation($"CreateBooking: Successfully created new booking ID {newBooking.BookingId} for passenger {passenger.PassengerId} on flight {flight.FlightId}");
 
-                // Fetch the full booking details to return
-                var createdBookingDetails = await _bookingRepository.GetBookingByIdAsync(newBooking.BookingId);
+                                var createdBookingDetails = await _bookingRepository.GetBookingByIdAsync(newBooking.BookingId);
                 if (createdBookingDetails == null)
                 {
                     _logger.LogError($"CreateBooking: Could not retrieve newly created booking with ID {newBooking.BookingId}");
-                    // Still return success since we know the booking was created
-                    return CreatedAtAction(nameof(CreateBooking), 
+                                        return CreatedAtAction(nameof(CreateBooking), 
                         new { id = newBooking.BookingId }, 
                         new BookingResponse<Booking>
                         {
@@ -416,8 +407,7 @@ namespace FlightCheckInSystem.Server.Controllers
             {
                 _logger.LogError(ex, $"Error creating booking for PassengerId={request.PassengerId}, FlightId={request.FlightId}");
                 
-                // Include more detailed error information in the response
-                return StatusCode(500, new BookingResponse<Booking>
+                                return StatusCode(500, new BookingResponse<Booking>
                 {
                     Success = false,
                     Message = $"Internal server error creating booking: {ex.Message}"

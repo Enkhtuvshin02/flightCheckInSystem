@@ -2,16 +2,9 @@
 {
     partial class MainForm
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+                                private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+                                        protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -22,11 +15,7 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
+                                        private void InitializeComponent()
         {
             pnlNavigation = new Panel();
             btnFlightManagement = new Button();
@@ -39,10 +28,7 @@
             pnlNavigation.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
-            //
-            // pnlNavigation
-            //
-            pnlNavigation.BackColor = Color.FromArgb(0, 122, 204);
+                                                pnlNavigation.BackColor = Color.FromArgb(0, 122, 204);
             pnlNavigation.Controls.Add(btnFlightManagement);
             pnlNavigation.Controls.Add(btnCheckIn);
             pnlNavigation.Controls.Add(btnBooking);
@@ -52,19 +38,13 @@
             pnlNavigation.Name = "pnlNavigation";
             pnlNavigation.Size = new Size(1024, 60);
             pnlNavigation.TabIndex = 0;
-            //
-            // pnlMain
-            //
-            pnlMain.BackColor = Color.White;
+                                                pnlMain.BackColor = Color.White;
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 60);
             pnlMain.Name = "pnlMain";
             pnlMain.Size = new Size(1024, 578);
             pnlMain.TabIndex = 1;
-            //
-            // btnBooking
-            //
-            btnBooking.BackColor = Color.FromArgb(0, 122, 204);
+                                                btnBooking.BackColor = Color.FromArgb(0, 122, 204);
             btnBooking.FlatAppearance.BorderSize = 0;
             btnBooking.FlatStyle = FlatStyle.Flat;
             btnBooking.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
@@ -75,10 +55,7 @@
             btnBooking.TabIndex = 0;
             btnBooking.Text = "Booking";
             btnBooking.UseVisualStyleBackColor = false;
-            //
-            // btnCheckIn
-            //
-            btnCheckIn.BackColor = Color.FromArgb(0, 122, 204);
+                                                btnCheckIn.BackColor = Color.FromArgb(0, 122, 204);
             btnCheckIn.FlatAppearance.BorderSize = 0;
             btnCheckIn.FlatStyle = FlatStyle.Flat;
             btnCheckIn.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
@@ -89,10 +66,7 @@
             btnCheckIn.TabIndex = 1;
             btnCheckIn.Text = "Check-In";
             btnCheckIn.UseVisualStyleBackColor = false;
-            //
-            // btnFlightManagement
-            //
-            btnFlightManagement.BackColor = Color.FromArgb(0, 122, 204);
+                                                btnFlightManagement.BackColor = Color.FromArgb(0, 122, 204);
             btnFlightManagement.FlatAppearance.BorderSize = 0;
             btnFlightManagement.FlatStyle = FlatStyle.Flat;
             btnFlightManagement.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
@@ -104,9 +78,7 @@
             btnFlightManagement.Text = "Flight Management";
             btnFlightManagement.UseVisualStyleBackColor = false;
             
-            // lblTitle
-            //
-            lblTitle.AutoSize = true;
+                                    lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitle.ForeColor = Color.White;
             lblTitle.Location = new Point(20, 15);
@@ -115,9 +87,7 @@
             lblTitle.TabIndex = 3;
             lblTitle.Text = "Flight Check-In System";
             
-            // statusStrip
-            //
-            statusStrip.ImageScalingSize = new Size(20, 20);
+                                    statusStrip.ImageScalingSize = new Size(20, 20);
             statusStrip.Items.AddRange(new ToolStripItem[] { lblStatus });
             statusStrip.Location = new Point(0, 638);
             statusStrip.Name = "statusStrip";
@@ -125,15 +95,10 @@
             statusStrip.TabIndex = 2;
             statusStrip.Text = "statusStrip";
             
-            // lblStatus
-            //
-            lblStatus.Name = "lblStatus";
+                                    lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(50, 20);
             lblStatus.Text = "Ready";
-            //
-            // MainForm
-            //
-            AutoScaleDimensions = new SizeF(8F, 20F);
+                                                AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1024, 664);
             Controls.Add(pnlMain);

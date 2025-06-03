@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Data/Interfaces/IPassengerRepository.cs
-using FlightCheckInSystem.Core.Models;
+﻿using FlightCheckInSystem.Core.Models;
 using System.Threading.Tasks;
 
 namespace FlightCheckInSystem.Data.Interfaces

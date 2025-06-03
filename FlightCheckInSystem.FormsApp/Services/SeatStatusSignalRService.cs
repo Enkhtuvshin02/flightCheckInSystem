@@ -10,12 +10,8 @@ namespace FlightCheckInSystem.FormsApp.Services
         private readonly HubConnection _connection;
         private bool _disposed = false;
 
-        public event Action<string, string, string> SeatBooked; // flightNumber, seatNumber, bookingReference
-        public event Action<string, string> SeatReleased; // flightNumber, seatNumber
-
-        // Event for receiving seat data in real time
-        public event Action<string, string> FlightSeatsReceived; // flightNumber, seatDataJson
-
+        public event Action<string, string, string> SeatBooked;         public event Action<string, string> SeatReleased; 
+                public event Action<string, string> FlightSeatsReceived; 
         public SeatStatusSignalRService(string hubUrl)
         {
             _connection = new HubConnectionBuilder()
@@ -35,8 +31,7 @@ namespace FlightCheckInSystem.FormsApp.Services
                 SeatReleased?.Invoke(flightNumber, seatNumber);
             });
 
-            // Listen for seat data updates
-            _connection.On<string, string>("ReceiveFlightSeats", (flightNumber, seatDataJson) =>
+                        _connection.On<string, string>("ReceiveFlightSeats", (flightNumber, seatDataJson) =>
             {
                 Debug.WriteLine($"[SignalR] ReceiveFlightSeats: {flightNumber} {seatDataJson}");
                 FlightSeatsReceived?.Invoke(flightNumber, seatDataJson);
@@ -70,8 +65,7 @@ namespace FlightCheckInSystem.FormsApp.Services
             }
         }
 
-        // Request seat data for a flight in real time
-        public async Task GetFlightSeatsAsync(int flightId)
+                public async Task GetFlightSeatsAsync(int flightId)
         {
             if (_connection.State == HubConnectionState.Connected)
             {

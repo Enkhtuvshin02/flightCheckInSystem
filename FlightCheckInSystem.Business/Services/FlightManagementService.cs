@@ -1,5 +1,4 @@
-﻿// FlightCheckInSystem.Business/Services/FlightManagementService.cs
-using FlightCheckInSystem.Business.Interfaces;
+﻿using FlightCheckInSystem.Business.Interfaces;
 using FlightCheckInSystem.Core.Models;
 using FlightCheckInSystem.Core.Enums;
 using FlightCheckInSystem.Data.Interfaces;
@@ -75,21 +74,18 @@ namespace FlightCheckInSystem.Business.Services
             try
             {
                 await _flightRepository.CreateFlightWithSeatsAsync(flight, totalRows, lastSeatLetterInRow);
-                // The flight.FlightId should be populated by CreateFlightWithSeatsAsync
-                return (true, "Flight and seat layout created successfully.", flight);
+                                return (true, "Flight and seat layout created successfully.", flight);
             }
             catch (Exception ex)
             {
-                // Log exception (ex)
-                return (false, $"Failed to create flight: {ex.Message}", null);
+                                return (false, $"Failed to create flight: {ex.Message}", null);
             }
         }
 
         public async Task<IEnumerable<Passenger>> GetPassengersByFlightAsync(int flightId)
         {
             var bookings = await _bookingRepository.GetBookingsByFlightIdAsync(flightId);
-            // Assumes MapToBookingWithDetails populates booking.Passenger
-            return bookings.Where(b => b.Passenger != null).Select(b => b.Passenger).Distinct();
+                        return bookings.Where(b => b.Passenger != null).Select(b => b.Passenger).Distinct();
         }
     }
 }

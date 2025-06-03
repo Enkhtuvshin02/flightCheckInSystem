@@ -1,5 +1,4 @@
-﻿using System; // Only keep essentials for booking creation
-using System.Collections.Generic;
+﻿using System; using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,42 +15,33 @@ namespace FlightCheckInSystem.FormsApp
 {
     public partial class BookingForm : Form
     {
-        // Server connectivity services
-        private readonly ApiService _apiService;
+                private readonly ApiService _apiService;
         
-        // Data for flights
-        private List<Flight> _flights;
+                private List<Flight> _flights;
         
-        // Data for passengers
-        private List<Passenger> _passengers;
+                private List<Passenger> _passengers;
         
-        // Data for bookings
-        private List<Booking> _bookings;
+                private List<Booking> _bookings;
         
-        // Dictionary to map dropdown items to Flight objects
-        private Dictionary<int, Flight> _flightDictionary = new Dictionary<int, Flight>();
+                private Dictionary<int, Flight> _flightDictionary = new Dictionary<int, Flight>();
 
         public BookingForm()
         {
             InitializeComponent();
             
-            // Initialize API service
-            _apiService = new ApiService();
+                        _apiService = new ApiService();
             
-            // Load data and populate UI
-            LoadDataAsync();
+                        LoadDataAsync();
         }
         
         private async void LoadDataAsync()
         {
             try
             {
-                // Clear existing data
-                _flights = new List<Flight>();
+                                _flights = new List<Flight>();
                 _flightDictionary.Clear();
                 
-                // Load flights from server
-                var flights = await _apiService.GetFlightsAsync();
+                                var flights = await _apiService.GetFlightsAsync();
                 if (flights != null && flights.Count > 0)
                 {
                     _flights = flights;
@@ -88,8 +78,7 @@ namespace FlightCheckInSystem.FormsApp
 
         private async void btnCreateBooking_Click(object sender, EventArgs e)
         {
-            // Validate input
-            if (string.IsNullOrWhiteSpace(txtPassportNumber.Text) ||
+                        if (string.IsNullOrWhiteSpace(txtPassportNumber.Text) ||
                 string.IsNullOrWhiteSpace(txtFirstName.Text) ||
                 string.IsNullOrWhiteSpace(txtLastName.Text) ||
                 cmbFlight.SelectedIndex < 0)
@@ -98,8 +87,7 @@ namespace FlightCheckInSystem.FormsApp
                 return;
             }
             
-            // Get selected flight from dictionary using the selected index
-            if (!_flightDictionary.TryGetValue(cmbFlight.SelectedIndex, out Flight selectedFlight))
+                        if (!_flightDictionary.TryGetValue(cmbFlight.SelectedIndex, out Flight selectedFlight))
             {
                 MessageBox.Show("Could not retrieve selected flight. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -107,8 +95,7 @@ namespace FlightCheckInSystem.FormsApp
             
             try
             {
-                // Create booking via API
-                var booking = await _apiService.CreateBookingAsync(
+                                var booking = await _apiService.CreateBookingAsync(
                     selectedFlight.FlightNumber,
                     txtPassportNumber.Text,
                     txtFirstName.Text,
@@ -118,8 +105,7 @@ namespace FlightCheckInSystem.FormsApp
                     
                 if (booking != null)
                 {
-                    // Show success message with booking details
-                    string message = $"Booking created successfully!\n\n";
+                                        string message = $"Booking created successfully!\n\n";
                     message += $"Booking ID: {booking.BookingId}\n";
                     message += $"Passenger: {txtFirstName.Text} {txtLastName.Text}\n";
                     message += $"Passport: {txtPassportNumber.Text}\n";
@@ -129,8 +115,7 @@ namespace FlightCheckInSystem.FormsApp
                     
                     MessageBox.Show(message, "Booking Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
-                    // Reset form
-                    ClearFormFields();
+                                        ClearFormFields();
                 }
                 else
                 {
@@ -145,8 +130,7 @@ namespace FlightCheckInSystem.FormsApp
 
         private void BookingForm_Load(object sender, EventArgs e)
         {
-            // Initialize data when form loads
-            LoadDataAsync();
+                        LoadDataAsync();
         }
 
         private void ClearFormFields()

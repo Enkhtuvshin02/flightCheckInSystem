@@ -1,5 +1,4 @@
-﻿using System; // Only keep essentials for main navigation
-using System.Drawing;
+﻿using System; using System.Drawing;
 using System.Windows.Forms;
 
 namespace FlightCheckInSystem.FormsApp
@@ -15,21 +14,17 @@ namespace FlightCheckInSystem.FormsApp
         {
             InitializeComponent();
 
-            // Set up button text
-            btnBooking.Text = "Booking";
+                        btnBooking.Text = "Booking";
             btnCheckIn.Text = "Check-In";
             btnFlightManagement.Text = "Flight Management";
 
-            // Store default button color
-            _defaultButtonColor = btnBooking.BackColor;
+                        _defaultButtonColor = btnBooking.BackColor;
 
-            // Wire up button click events
-            btnBooking.Click += BtnBooking_Click;
+                        btnBooking.Click += BtnBooking_Click;
             btnCheckIn.Click += BtnCheckIn_Click;
             btnFlightManagement.Click += BtnFlightManagement_Click;
             
-            // Show default form - start with Booking form
-            BtnBooking_Click(btnBooking, EventArgs.Empty);
+                        BtnBooking_Click(btnBooking, EventArgs.Empty);
         }
 
         private void BtnBooking_Click(object sender, EventArgs e)
@@ -57,32 +52,27 @@ namespace FlightCheckInSystem.FormsApp
         {
             if (_activeButton != null)
             {
-                // Reset previous button
-                _activeButton.BackColor = _defaultButtonColor;
+                                _activeButton.BackColor = _defaultButtonColor;
             }
             
-            // Highlight new button
-            _activeButton = button;
+                        _activeButton = button;
             _activeButton.BackColor = _activeButtonColor;
         }
 
         private void ShowForm(Form form)
         {            
-            // Close the current form if it exists
-            if (_currentForm != null)
+                        if (_currentForm != null)
             {
                 _currentForm.Close();
                 _currentForm.Dispose();
             }
 
-            // Set up the new form
-            _currentForm = form;
+                        _currentForm = form;
             _currentForm.TopLevel = false;
             _currentForm.FormBorderStyle = FormBorderStyle.None;
             _currentForm.Dock = DockStyle.Fill;
 
-            // Add to panel and show
-            pnlMain.Controls.Clear();
+                        pnlMain.Controls.Clear();
             pnlMain.Controls.Add(_currentForm);
             _currentForm.Show();
         }
