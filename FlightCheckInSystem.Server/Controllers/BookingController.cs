@@ -29,20 +29,20 @@ namespace FlightCheckInSystem.Server.Controllers
         public string PassportNumber { get; set; }
         public int FlightId { get; set; }
     }
-    
+
     public class BookingResponse<T>
     {
         public bool Success { get; set; }
         public string Message { get; set; }
         public T Data { get; set; }
     }
-    
+
     public class PassengerNotFoundResponse
     {
         public string Message { get; set; }
         public bool NeedsCreation { get; set; }
     }
-    
+
     public class BookingConflictResponse
     {
         public string Message { get; set; }
@@ -81,13 +81,13 @@ namespace FlightCheckInSystem.Server.Controllers
             {
                 var flights = await _flightRepository.GetAllFlightsAsync();
                 var allBookings = new List<Booking>();
-                
+
                 foreach (var flight in flights)
                 {
                     var flightBookings = await _bookingRepository.GetBookingsByFlightIdAsync(flight.FlightId);
                     allBookings.AddRange(flightBookings.ToList());
                 }
-                
+
                 return Ok(new BookingResponse<List<Booking>>
                 {
                     Success = true,
@@ -170,7 +170,7 @@ namespace FlightCheckInSystem.Server.Controllers
                     Message = "Request cannot be null"
                 });
             }
-            
+
             if (string.IsNullOrWhiteSpace(request.PassportNumber))
             {
                 return BadRequest(new BookingResponse<Passenger>
@@ -187,27 +187,27 @@ namespace FlightCheckInSystem.Server.Controllers
                 {
                     if (string.IsNullOrWhiteSpace(request.FirstName) || string.IsNullOrWhiteSpace(request.LastName))
                     {
-                                                return NotFound(new PassengerNotFoundResponse
+                        return NotFound(new PassengerNotFoundResponse
                         {
                             Message = "Passenger not found. Provide FirstName and LastName to create.",
                             NeedsCreation = true
                         });
                     }
-                    
-                    passenger = new Passenger 
-                    { 
-                        PassportNumber = request.PassportNumber, 
-                        FirstName = request.FirstName, 
+
+                    passenger = new Passenger
+                    {
+                        PassportNumber = request.PassportNumber,
+                        FirstName = request.FirstName,
                         LastName = request.LastName,
                         Email = request.Email,
                         Phone = request.Phone
                     };
-                    
+
                     passenger.PassengerId = await _passengerRepository.AddPassengerAsync(passenger);
                     _logger.LogInformation($"Created new passenger ID {passenger.PassengerId} with passport {passenger.PassportNumber}");
-                    
-                    return CreatedAtAction(nameof(FindOrCreatePassenger), 
-                        new { id = passenger.PassengerId }, 
+
+                    return CreatedAtAction(nameof(FindOrCreatePassenger),
+                        new { id = passenger.PassengerId },
                         new BookingResponse<Passenger>
                         {
                             Success = true,
@@ -215,7 +215,7 @@ namespace FlightCheckInSystem.Server.Controllers
                             Message = $"Passenger created with ID {passenger.PassengerId}"
                         });
                 }
-                
+
                 _logger.LogInformation($"Found passenger ID {passenger.PassengerId} with passport {passenger.PassportNumber}");
                 return Ok(new BookingResponse<Passenger>
                 {
@@ -235,7 +235,7 @@ namespace FlightCheckInSystem.Server.Controllers
             }
         }
 
-                [HttpPost("findbooking")]
+        [HttpPost("findbooking")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BookingResponse<Booking>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -250,7 +250,7 @@ namespace FlightCheckInSystem.Server.Controllers
                     Message = "Request cannot be null"
                 });
             }
-            
+
             if (string.IsNullOrWhiteSpace(request.PassportNumber) || request.FlightId <= 0)
             {
                 return BadRequest(new BookingResponse<Booking>
@@ -259,10 +259,10 @@ namespace FlightCheckInSystem.Server.Controllers
                     Message = "Valid Passport number and FlightId are required"
                 });
             }
-            
+
             try
             {
-                                var passenger = await _passengerRepository.GetPassengerByPassportAsync(request.PassportNumber);
+                var passenger = await _passengerRepository.GetPassengerByPassportAsync(request.PassportNumber);
                 if (passenger == null)
                 {
                     return NotFound(new BookingResponse<Booking>
@@ -281,7 +281,7 @@ namespace FlightCheckInSystem.Server.Controllers
                         Message = "No booking found for this passenger on the specified flight"
                     });
                 }
-                
+
                 return Ok(new BookingResponse<Booking>
                 {
                     Success = true,
@@ -301,7 +301,7 @@ namespace FlightCheckInSystem.Server.Controllers
         }
 
 
-                [HttpPost]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(BookingResponse<Booking>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(BookingConflictResponse))]
@@ -309,7 +309,7 @@ namespace FlightCheckInSystem.Server.Controllers
         public async Task<ActionResult<Booking>> CreateBooking([FromBody] BookingCreateRequestDto request)
         {
             _logger.LogInformation($"CreateBooking called at {DateTime.UtcNow} with PassengerId={request?.PassengerId}, FlightId={request?.FlightId}");
-            
+
             if (request == null)
             {
                 _logger.LogWarning("CreateBooking received null request");
@@ -319,7 +319,7 @@ namespace FlightCheckInSystem.Server.Controllers
                     Message = "Request cannot be null"
                 });
             }
-            
+
             if (request.PassengerId <= 0 || request.FlightId <= 0)
             {
                 _logger.LogWarning($"CreateBooking received invalid IDs: PassengerId={request.PassengerId}, FlightId={request.FlightId}");
@@ -332,7 +332,7 @@ namespace FlightCheckInSystem.Server.Controllers
 
             try
             {
-                                var passenger = await _passengerRepository.GetPassengerByIdAsync(request.PassengerId);
+                var passenger = await _passengerRepository.GetPassengerByIdAsync(request.PassengerId);
                 if (passenger == null)
                 {
                     _logger.LogWarning($"CreateBooking: Passenger with ID {request.PassengerId} not found");
@@ -343,8 +343,8 @@ namespace FlightCheckInSystem.Server.Controllers
                     });
                 }
                 _logger.LogInformation($"CreateBooking: Found passenger {passenger.FirstName} {passenger.LastName} (ID: {passenger.PassengerId})");
-                
-                                var flight = await _flightRepository.GetFlightByIdAsync(request.FlightId);
+
+                var flight = await _flightRepository.GetFlightByIdAsync(request.FlightId);
                 if (flight == null)
                 {
                     _logger.LogWarning($"CreateBooking: Flight with ID {request.FlightId} not found");
@@ -355,8 +355,8 @@ namespace FlightCheckInSystem.Server.Controllers
                     });
                 }
                 _logger.LogInformation($"CreateBooking: Found flight {flight.FlightNumber} (ID: {flight.FlightId})");
-                
-                                var existingBooking = await _bookingRepository.GetBookingByPassengerAndFlightAsync(request.PassengerId, request.FlightId);
+
+                var existingBooking = await _bookingRepository.GetBookingByPassengerAndFlightAsync(request.PassengerId, request.FlightId);
                 if (existingBooking != null)
                 {
                     _logger.LogWarning($"CreateBooking: Booking already exists for passenger {request.PassengerId} on flight {request.FlightId} (Booking ID: {existingBooking.BookingId})");
@@ -376,26 +376,26 @@ namespace FlightCheckInSystem.Server.Controllers
                     IsCheckedIn = false,
                     SeatId = null
                 };
-                
+
                 newBooking.BookingId = await _bookingRepository.AddBookingAsync(newBooking);
                 _logger.LogInformation($"CreateBooking: Successfully created new booking ID {newBooking.BookingId} for passenger {passenger.PassengerId} on flight {flight.FlightId}");
 
-                                var createdBookingDetails = await _bookingRepository.GetBookingByIdAsync(newBooking.BookingId);
+                var createdBookingDetails = await _bookingRepository.GetBookingByIdAsync(newBooking.BookingId);
                 if (createdBookingDetails == null)
                 {
                     _logger.LogError($"CreateBooking: Could not retrieve newly created booking with ID {newBooking.BookingId}");
-                                        return CreatedAtAction(nameof(CreateBooking), 
-                        new { id = newBooking.BookingId }, 
-                        new BookingResponse<Booking>
-                        {
-                            Success = true,
-                            Data = newBooking,
-                            Message = $"Booking created successfully with ID {newBooking.BookingId}, but full details could not be retrieved"
-                        });
+                    return CreatedAtAction(nameof(CreateBooking),
+    new { id = newBooking.BookingId },
+    new BookingResponse<Booking>
+    {
+        Success = true,
+        Data = newBooking,
+        Message = $"Booking created successfully with ID {newBooking.BookingId}, but full details could not be retrieved"
+    });
                 }
-                
-                return CreatedAtAction(nameof(CreateBooking), 
-                    new { id = createdBookingDetails.BookingId }, 
+
+                return CreatedAtAction(nameof(CreateBooking),
+                    new { id = createdBookingDetails.BookingId },
                     new BookingResponse<Booking>
                     {
                         Success = true,
@@ -406,8 +406,8 @@ namespace FlightCheckInSystem.Server.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error creating booking for PassengerId={request.PassengerId}, FlightId={request.FlightId}");
-                
-                                return StatusCode(500, new BookingResponse<Booking>
+
+                return StatusCode(500, new BookingResponse<Booking>
                 {
                     Success = false,
                     Message = $"Internal server error creating booking: {ex.Message}"
