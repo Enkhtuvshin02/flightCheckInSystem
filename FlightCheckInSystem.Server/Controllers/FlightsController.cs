@@ -2,6 +2,7 @@
 using FlightCheckInSystem.Core.Models;
 using FlightCheckInSystem.Core.Enums;
 using FlightCheckInSystem.Data.Interfaces;
+using FlightCheckInSystem.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,17 +30,20 @@ namespace FlightCheckInSystem.Server.Controllers
         private readonly IFlightManagementService _flightService;
         private readonly ISeatRepository _seatRepository;
         private readonly IFlightRepository _flightRepository;
+        private readonly IFlightHubService _flightHubService;
         private readonly ILogger<FlightsController> _logger;
 
         public FlightsController(
             IFlightManagementService flightService,
             ISeatRepository seatRepository,
             IFlightRepository flightRepository,
+            IFlightHubService flightHubService,
             ILogger<FlightsController> logger)
         {
             _flightService = flightService ?? throw new ArgumentNullException(nameof(flightService));
             _seatRepository = seatRepository ?? throw new ArgumentNullException(nameof(seatRepository));
             _flightRepository = flightRepository ?? throw new ArgumentNullException(nameof(flightRepository));
+            _flightHubService = flightHubService ?? throw new ArgumentNullException(nameof(flightHubService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -193,6 +197,7 @@ namespace FlightCheckInSystem.Server.Controllers
                         Message = $"Flight with ID {id} not found"
                     });
                 }
+
                 var updated = await _flightRepository.UpdateFlightStatusAsync(id, request.Status);
                 if (!updated)
                 {
@@ -202,6 +207,10 @@ namespace FlightCheckInSystem.Server.Controllers
                         Message = "Failed to update flight status"
                     });
                 }
+
+                // BROADCAST THE STATUS UPDATE
+                await _flightHubService.BroadcastFlightStatusUpdate(flight.FlightNumber, request.Status);
+
                 return Ok(new ApiResponse<object>
                 {
                     Success = true,
@@ -236,6 +245,9 @@ namespace FlightCheckInSystem.Server.Controllers
                 var flightId = await _flightRepository.AddFlightAsync(flight);
                 var createdFlight = await _flightRepository.GetFlightByIdAsync(flightId);
 
+                // BROADCAST THE NEW FLIGHT
+                await _flightHubService.BroadcastNewFlight(createdFlight);
+
                 return CreatedAtAction(nameof(GetFlight), new { id = flightId }, new ApiResponse<Flight>
                 {
                     Success = true,
@@ -247,6 +259,65 @@ namespace FlightCheckInSystem.Server.Controllers
             {
                 _logger.LogError(ex, "Error creating flight");
                 return StatusCode(500, new ApiResponse<Flight>
+                {
+                    Success = false,
+                    Message = "Internal server error"
+                });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ApiResponse<bool>>> UpdateFlight(int id, [FromBody] Flight flight)
+        {
+            try
+            {
+                if (flight == null)
+                {
+                    return BadRequest(new ApiResponse<bool>
+                    {
+                        Success = false,
+                        Message = "Flight data is required"
+                    });
+                }
+
+                var existingFlight = await _flightRepository.GetFlightByIdAsync(id);
+                if (existingFlight == null)
+                {
+                    return NotFound(new ApiResponse<bool>
+                    {
+                        Success = false,
+                        Message = $"Flight with ID {id} not found"
+                    });
+                }
+
+                // Update the flight ID to match the route parameter
+                flight.FlightId = id;
+
+                var updated = await _flightRepository.UpdateFlightAsync(flight);
+                if (!updated)
+                {
+                    return StatusCode(500, new ApiResponse<bool>
+                    {
+                        Success = false,
+                        Message = "Failed to update flight"
+                    });
+                }
+
+                // Get the updated flight and broadcast the change
+                var updatedFlight = await _flightRepository.GetFlightByIdAsync(id);
+                await _flightHubService.BroadcastFlightUpdated(updatedFlight);
+
+                return Ok(new ApiResponse<bool>
+                {
+                    Success = true,
+                    Data = true,
+                    Message = "Flight updated successfully"
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error updating flight ID {id}");
+                return StatusCode(500, new ApiResponse<bool>
                 {
                     Success = false,
                     Message = "Internal server error"

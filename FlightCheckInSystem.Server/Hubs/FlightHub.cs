@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.SignalR;
 using FlightCheckInSystem.Core.Models;
+using FlightCheckInSystem.Core.Enums;
 using FlightCheckInSystem.Data.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -40,6 +41,7 @@ namespace FlightCheckInSystem.Server.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
+        // Subscribe to flight updates for seat selection (existing functionality)
         public async Task SubscribeToFlightUpdates(string flightNumber)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, $"Flight_{flightNumber}");
@@ -51,6 +53,49 @@ namespace FlightCheckInSystem.Server.Hubs
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"Flight_{flightNumber}");
             _logger.LogInformation($"Client {Context.ConnectionId} unsubscribed from flight {flightNumber}");
+        }
+
+        // NEW: Subscribe to flight status board updates
+        public async Task SubscribeToFlightStatusBoard()
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, "FlightStatusBoard");
+            _logger.LogInformation($"Client {Context.ConnectionId} subscribed to flight status board");
+            await Clients.Caller.SendAsync("SubscriptionConfirmed", "FlightStatusBoard");
+        }
+
+        public async Task UnsubscribeFromFlightStatusBoard()
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, "FlightStatusBoard");
+            _logger.LogInformation($"Client {Context.ConnectionId} unsubscribed from flight status board");
+        }
+
+        // NEW: Ping method for testing connection
+        public async Task<string> Ping()
+        {
+            var response = $"Pong from server at {DateTime.UtcNow:HH:mm:ss}";
+            _logger.LogInformation($"Ping received from {Context.ConnectionId}, responding with: {response}");
+            return response;
+        }
+
+        // NEW: Broadcast flight status update
+        public async Task BroadcastFlightStatusUpdate(string flightNumber, FlightStatus newStatus)
+        {
+            _logger.LogInformation($"Broadcasting flight status update: {flightNumber} -> {newStatus}");
+            await Clients.Group("FlightStatusBoard").SendAsync("FlightStatusUpdated", flightNumber, newStatus);
+        }
+
+        // NEW: Broadcast new flight created
+        public async Task BroadcastNewFlight(Flight flight)
+        {
+            _logger.LogInformation($"Broadcasting new flight created: {flight.FlightNumber}");
+            await Clients.Group("FlightStatusBoard").SendAsync("NewFlightCreated", flight);
+        }
+
+        // NEW: Broadcast flight updated
+        public async Task BroadcastFlightUpdated(Flight flight)
+        {
+            _logger.LogInformation($"Broadcasting flight updated: {flight.FlightNumber}");
+            await Clients.Group("FlightStatusBoard").SendAsync("FlightUpdated", flight);
         }
 
         public async Task GetFlightSeatsAsync(int flightId)

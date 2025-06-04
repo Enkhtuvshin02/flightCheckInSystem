@@ -12,6 +12,7 @@ using FlightCheckInSystem.Data;
 using FlightCheckInSystem.Data.Interfaces;
 using FlightCheckInSystem.Data.Repositories;
 using FlightCheckInSystem.Server.Hubs;
+using FlightCheckInSystem.Server.Services; // Add this line
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
@@ -56,13 +57,13 @@ startupLogger.LogInformation("Database file path: {DbFilePath}", dbFilePath);
 
 string connectionString = $"Data Source={dbFilePath};Mode=ReadWriteCreate;Cache=Shared;Foreign Keys=True";
 
-builder.Services.AddSingleton<DatabaseInitializer>(sp => 
+builder.Services.AddSingleton<DatabaseInitializer>(sp =>
 {
     var logger = sp.GetRequiredService<ILogger<DatabaseInitializer>>();
     return new DatabaseInitializer(dbFilePath, logger);
 });
 
-builder.Services.AddSignalR(options => 
+builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;
     options.KeepAliveInterval = TimeSpan.FromSeconds(15);
@@ -95,6 +96,9 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>(sp => new Book
 builder.Services.AddScoped<ICheckInService, CheckInService>();
 builder.Services.AddScoped<IFlightManagementService, FlightManagementService>();
 
+// Add the new SignalR Hub Service
+builder.Services.AddScoped<IFlightHubService, FlightHubService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -109,14 +113,14 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var maxRetries = 3;
     var retryCount = 0;
-    
+
     while (retryCount < maxRetries)
     {
         try
         {
             startupLogger.LogInformation("Initializing database (Attempt {RetryCount}/{MaxRetries})...", retryCount + 1, maxRetries);
             var databaseInitializer = services.GetRequiredService<DatabaseInitializer>();
-            
+
             await databaseInitializer.InitializeAsync();
 
             if (app.Environment.IsDevelopment())
@@ -124,11 +128,11 @@ using (var scope = app.Services.CreateScope())
                 startupLogger.LogInformation("Development environment detected. Seeding database...");
                 await databaseInitializer.SeedDataAsync();
             }
-            
+
             using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
             {
                 await connection.OpenAsync();
-                
+
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT name FROM sqlite_master WHERE type='table';";
@@ -204,7 +208,7 @@ using (var scope = app.Services.CreateScope())
                     }
                 }
             }
-            
+
             startupLogger.LogInformation("Database initialization completed successfully.");
             break;
         }
@@ -213,11 +217,11 @@ using (var scope = app.Services.CreateScope())
             retryCount++;
             if (retryCount >= maxRetries)
             {
-                startupLogger.LogError(ex, "Failed to initialize database after {RetryCount} attempts. Last error: {Error}", 
+                startupLogger.LogError(ex, "Failed to initialize database after {RetryCount} attempts. Last error: {Error}",
                     retryCount, ex.Message);
                 throw;
             }
-            
+
             startupLogger.LogWarning(ex, "Database initialization attempt {RetryCount} failed. Retrying...", retryCount);
             await Task.Delay(TimeSpan.FromSeconds(2 * retryCount));
         }
@@ -267,12 +271,12 @@ foreach (var url in urls)
     startupLogger.LogInformation($"Server listening on: {url}");
 }
 
-app.Run();
+                app.Run();
 
 public class DatabaseHealthCheck : IHealthCheck
 {
     private readonly string _connectionString;
-    
+
     public DatabaseHealthCheck(IConfiguration configuration)
     {
         var dbFileName = "flightCheckInSystem.db";
@@ -288,13 +292,13 @@ public class DatabaseHealthCheck : IHealthCheck
             using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(_connectionString))
             {
                 await connection.OpenAsync(cancellationToken);
-                
+
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT 1;";
                     await command.ExecuteScalarAsync(cancellationToken);
                 }
-                
+
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"
@@ -311,7 +315,7 @@ public class DatabaseHealthCheck : IHealthCheck
                         return HealthCheckResult.Degraded("Some required tables are missing.");
                     }
                 }
-                
+
                 return HealthCheckResult.Healthy("Database is operational");
             }
         }
