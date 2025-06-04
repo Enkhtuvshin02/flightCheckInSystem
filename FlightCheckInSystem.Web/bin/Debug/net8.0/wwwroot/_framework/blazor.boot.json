@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "FlightCheckInSystem.Web",
   "resources": {
-    "hash": "sha256-ulrDjmZq/zd1V/JnvW/EW9BWSNa3DWRobmCTNeqCo0o=",
+    "hash": "sha256-59SuGvZyP/6ct5BhmdSlGy69ICnWZY7uGLfnBJTxd1o=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-B6DNRvFeCUi3jbx9uKpuj+hV9cN0KG4RdZj1FgBZwj8="
     },
@@ -217,12 +217,12 @@
       "mscorlib.wasm": "sha256-QoC5hTKpDNO6efLnEvYwV9OJBXvYRq8/1yGhNZKiNCw=",
       "netstandard.wasm": "sha256-JT2F4bYWJpaSGq+iD0ITLpWxsDhMUjhqje9RpBtTg7w=",
       "System.Private.CoreLib.wasm": "sha256-fvIPBcvgvsRuWrKi2LGQsLYvcKUSnyIuBUsE3LJu/0Y=",
-      "FlightCheckInSystem.Core.wasm": "sha256-Kx/E2k/dmShnJMIrVYs88yD4jyv9UthAMLCqBoF0NbM=",
-      "FlightCheckInSystem.Web.wasm": "sha256-h4q+635INnpUeaMnlRHjdZ9q0lAV8m6pxkh8cjishLA="
+      "FlightCheckInSystem.Core.wasm": "sha256-MXvplRa8vM+Ib9gwlsD+SXEdPuMeq85rO/J9PoEdSoA=",
+      "FlightCheckInSystem.Web.wasm": "sha256-pNOdBssBpuHSTJmH8Pinzue2MzRfQznFiKarC62BOR4="
     },
     "pdb": {
-      "FlightCheckInSystem.Core.pdb": "sha256-m9nOYJUlu/fClADBX5pmr552K2fhQrcGZW7gu1CmTec=",
-      "FlightCheckInSystem.Web.pdb": "sha256-71MZC9Vy4vdmwfCZA0mNlTY4LW4d7AcdOZ9VK+Cg/q0="
+      "FlightCheckInSystem.Core.pdb": "sha256-TS9FST0/oWt09kC4WE+6cexzsazl01Ii2Nv3WDzlK60=",
+      "FlightCheckInSystem.Web.pdb": "sha256-uyHML9+gSxD4DoADfM/weCByK4tClhSsfb3CEof+6N8="
     }
   },
   "cacheBootResources": true,
