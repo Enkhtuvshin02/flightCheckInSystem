@@ -52,7 +52,6 @@
                                     @GetStatusText(flight.Status)
                                 </span>
                             </td>
-                            <td>@flight.Gate</td>
                         </tr>
                     }
                 }
@@ -86,7 +85,7 @@
     protected override async Task OnInitializedAsync()
     {
         Console.WriteLine($"FlightStatusBoard initializing. Server base address: {Http.BaseAddress}");
-        
+
         SetupSignalRHandlers();
         await LoadFlightsAsync();
         await ConnectToHubAsync();
@@ -100,11 +99,12 @@
     private void SetupSignalRHandlers()
     {
         Console.WriteLine("Setting up SignalR handlers");
-        
+
+        // Handle flight status updates
         HubConnection.On<string, FlightStatus>("FlightStatusUpdated", (flightNumber, newStatus) =>
         {
-            Console.WriteLine($"Received update for flight {flightNumber}: new status = {newStatus}");
-            
+            Console.WriteLine($"Received flight status update for {flightNumber}: new status = {newStatus}");
+
             if (flights != null)
             {
                 var flight = flights.FirstOrDefault(f => f.FlightNumber == flightNumber);
@@ -112,6 +112,58 @@
                 {
                     flight.Status = newStatus;
                     InvokeAsync(StateHasChanged);
+                    Console.WriteLine($"Updated flight {flightNumber} status to {newStatus}");
+                }
+                else
+                {
+                    Console.WriteLine($"Flight {flightNumber} not found in current flight list");
+                }
+            }
+        });
+
+        // Handle new flight creation
+        HubConnection.On<Flight>("NewFlightCreated", (newFlight) =>
+        {
+            Console.WriteLine($"Received new flight created: {newFlight.FlightNumber}");
+
+            if (flights != null)
+            {
+                // Check if flight already exists to avoid duplicates
+                var existingFlight = flights.FirstOrDefault(f => f.FlightNumber == newFlight.FlightNumber);
+                if (existingFlight == null)
+                {
+                    flights.Add(newFlight);
+                    // Sort flights by departure time
+                    flights = flights.OrderBy(f => f.DepartureTime).ToList();
+                    InvokeAsync(StateHasChanged);
+                    Console.WriteLine($"Added new flight {newFlight.FlightNumber} to the board");
+                }
+                else
+                {
+                    Console.WriteLine($"Flight {newFlight.FlightNumber} already exists in the list");
+                }
+            }
+        });
+
+        // Handle flight updates
+        HubConnection.On<Flight>("FlightUpdated", (updatedFlight) =>
+        {
+            Console.WriteLine($"Received flight update for {updatedFlight.FlightNumber}");
+
+            if (flights != null)
+            {
+                var index = flights.FindIndex(f => f.FlightNumber == updatedFlight.FlightNumber);
+                if (index >= 0)
+                {
+                    flights[index] = updatedFlight;
+                    // Re-sort flights by departure time
+                    flights = flights.OrderBy(f => f.DepartureTime).ToList();
+                    InvokeAsync(StateHasChanged);
+                    Console.WriteLine($"Updated flight {updatedFlight.FlightNumber} details");
+                }
+                else
+                {
+                    Console.WriteLine($"Flight {updatedFlight.FlightNumber} not found for update");
                 }
             }
         });
@@ -121,7 +173,7 @@
             _connectionStatus = "Disconnected";
             _connectionStatusClass = "disconnected";
             _connectionId = "None";
-            
+
             if (error != null)
             {
                 Console.WriteLine($"SignalR connection closed with error: {error.Message}");
@@ -131,13 +183,13 @@
             {
                 Console.WriteLine("SignalR connection closed");
             }
-            
+
             await InvokeAsync(StateHasChanged);
-            
+
             await Task.Delay(5000);
             await ConnectToHubAsync();
         };
-        
+
         HubConnection.Reconnecting += (error) =>
         {
             _connectionStatus = "Reconnecting";
@@ -145,15 +197,27 @@
             Console.WriteLine($"Attempting to reconnect to SignalR: {error?.Message}");
             return InvokeAsync(StateHasChanged);
         };
-        
-        HubConnection.Reconnected += (connectionId) =>
+
+        HubConnection.Reconnected += async (connectionId) =>
         {
             _connectionStatus = "Connected";
             _connectionStatusClass = "connected";
             _connectionId = connectionId ?? "Unknown";
             _errorMessage = string.Empty;
             Console.WriteLine($"Reconnected to SignalR with connection ID: {connectionId}");
-            return InvokeAsync(StateHasChanged);
+
+            // Re-subscribe to flight status board updates after reconnection
+            try
+            {
+                await HubConnection.SendAsync("SubscribeToFlightStatusBoard");
+                Console.WriteLine("Re-subscribed to flight status board after reconnection");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error re-subscribing after reconnection: {ex.Message}");
+            }
+
+            await InvokeAsync(StateHasChanged);
         };
     }
 
@@ -169,21 +233,21 @@
             _connectionStatus = "Connecting";
             _connectionStatusClass = "connecting";
             await InvokeAsync(StateHasChanged);
-            
-            Console.WriteLine($"Connecting to SignalR hub at {HubConnection.ConnectionId}...");
-            
+
+            Console.WriteLine($"Connecting to SignalR hub...");
+
             await HubConnection.StartAsync();
-            
+
             _connectionStatus = "Connected";
             _connectionStatusClass = "connected";
             _connectionId = HubConnection.ConnectionId ?? "Unknown";
             _errorMessage = string.Empty;
-            
+
             Console.WriteLine($"Connected to SignalR hub with ID: {HubConnection.ConnectionId}");
-            
+
             await HubConnection.SendAsync("SubscribeToFlightStatusBoard");
             Console.WriteLine("Sent subscription request for flight status board");
-            
+
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)
@@ -191,10 +255,10 @@
             _connectionStatus = "Failed";
             _connectionStatusClass = "failed";
             _errorMessage = $"Error connecting to SignalR hub: {ex.Message}";
-            
+
             Console.WriteLine($"Error connecting to SignalR hub: {ex.Message}");
             Console.WriteLine($"Stack trace: {ex.StackTrace}");
-            
+
             await InvokeAsync(StateHasChanged);
         }
     }
@@ -215,10 +279,10 @@
         {
             Console.WriteLine($"Error stopping connection: {ex.Message}");
         }
-        
+
         await ConnectToHubAsync();
     }
-    
+
     private async Task PingHub()
     {
         if (HubConnection.State != HubConnectionState.Connected)
@@ -226,7 +290,7 @@
             _errorMessage = "Cannot ping: Not connected to SignalR hub";
             return;
         }
-        
+
         try
         {
             Console.WriteLine("Sending ping to hub...");
@@ -245,15 +309,15 @@
     {
         _isLoading = true;
         await InvokeAsync(StateHasChanged);
-        
+
         try
         {
             Console.WriteLine($"Loading flights from API at {Http.BaseAddress}api/flights");
             var response = await Http.GetFromJsonAsync<ApiResponse<List<Flight>>>("api/flights");
-            
+
             if (response != null && response.Success)
             {
-                flights = response.Data;
+                flights = response.Data.OrderBy(f => f.DepartureTime).ToList();
                 Console.WriteLine($"Successfully loaded {flights.Count} flights");
             }
             else
@@ -267,7 +331,7 @@
             _errorMessage = $"Error loading flights: {ex.Message}";
             Console.WriteLine(_errorMessage);
             Console.WriteLine($"Stack trace: {ex.StackTrace}");
-            
+
             if (flights == null)
             {
                 flights = new List<Flight>();
@@ -336,6 +400,11 @@
         {
             try
             {
+                // Unsubscribe before disposing
+                if (HubConnection.State == HubConnectionState.Connected)
+                {
+                    await HubConnection.SendAsync("UnsubscribeFromFlightStatusBoard");
+                }
                 await HubConnection.DisposeAsync();
             }
             catch

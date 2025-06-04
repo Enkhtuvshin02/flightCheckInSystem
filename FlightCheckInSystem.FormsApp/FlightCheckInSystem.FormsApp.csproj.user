@@ -7,6 +7,9 @@
     <Compile Update="BookingForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="BookingSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="CheckInForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -14,9 +17,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="SeatSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

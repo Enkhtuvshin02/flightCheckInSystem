@@ -11,5 +11,6 @@ namespace FlightCheckInSystem.Core.Models
         public string ArrivalAirport { get; set; }
         public DateTime DepartureTime { get; set; }
         public string SeatNumber { get; set; }
-        public DateTime BoardingTime { get; set; }     }
+        public DateTime BoardingTime { get; set; }
+    }
 }

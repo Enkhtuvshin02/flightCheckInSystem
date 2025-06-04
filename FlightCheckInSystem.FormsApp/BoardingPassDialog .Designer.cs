@@ -1,5 +1,7 @@
-﻿using System;
+﻿
+using System;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Text;
 using System.Windows.Forms;
 using FlightCheckInSystem.Core.Models;
@@ -257,23 +259,154 @@ namespace FlightCheckInSystem.FormsApp
             }
         }
 
-        private void BtnPrint_Click(object sender, EventArgs e)
+       private void BtnPrint_Click(object sender, EventArgs e)
+{
+    Debug.WriteLine("[BoardingPassDialog] Хэвлэх товчлуур дарагдсан");
+    
+    if (_boardingPass == null)
+    {
+        MessageBox.Show("Хэвлэх тасалбарын мэдээлэл байхгүй байна.", "Хэвлэх алдаа", 
+            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+    }
+
+    try
+    {
+        // Create a simple print approach that doesn't rely on the printer service
+        PrintDocument printDoc = new PrintDocument();
+        printDoc.DocumentName = $"BoardingPass_{_boardingPass.FlightNumber}_{_boardingPass.SeatNumber}";
+        
+        // Set up print page event
+        printDoc.PrintPage += (s, args) =>
         {
-            Debug.WriteLine("[BoardingPassDialog] Хэвлэх товчлуур дарагдсан");
             try
             {
-                _printer.PrintBoardingPass(_boardingPass);
-                MessageBox.Show("Суудлын тасалбарыг хэвлэгч рүү амжилттай илгээлээ!",
+                DrawBoardingPassForPrint(args.Graphics, args.MarginBounds);
+                args.HasMorePages = false;
+            }
+            catch (Exception printEx)
+            {
+                Debug.WriteLine($"[BoardingPassDialog] Print page error: {printEx.Message}");
+                args.Cancel = true;
+            }
+        };
+
+        // Show print dialog
+        using (PrintDialog printDialog = new PrintDialog())
+        {
+            printDialog.Document = printDoc;
+            printDialog.UseEXDialog = true;
+            printDialog.AllowPrintToFile = true;
+            printDialog.AllowCurrentPage = false;
+            printDialog.AllowSelection = false;
+            printDialog.AllowSomePages = false;
+
+            if (printDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                printDoc.Print();
+                MessageBox.Show("Суудлын тасалбарыг амжилттай хэвлэлээ!", 
                     "Хэвлэх амжилттай", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[BoardingPassDialog] Хэвлэхэд алдаа: {ex.Message}");
-                MessageBox.Show($"Суудлын тасалбар хэвлэхэд алдаа гарлаа: {ex.Message}",
-                    "Хэвлэх алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
+    }
+    catch (Exception ex)
+    {
+        Debug.WriteLine($"[BoardingPassDialog] Хэвлэхэд алдаа: {ex.Message}");
+        Debug.WriteLine($"[BoardingPassDialog] Stack trace: {ex.StackTrace}");
+        
+        // Show user-friendly error message
+        string errorMessage = "Суудлын тасалбар хэвлэхэд алдаа гарлаа.";
+        
+        if (ex.Message.Contains("printer") || ex.Message.Contains("Printer"))
+        {
+            errorMessage += "\n\nХэвлэгчээ шалгаад дахин оролдоно уу.";
+        }
+        else if (ex.Message.Contains("access") || ex.Message.Contains("Access"))
+        {
+            errorMessage += "\n\nХэвлэгчийн эрх шалгаад дахин оролдоно уу.";
+        }
+        else
+        {
+            errorMessage += $"\n\nАлдааны дэлгэрэнгүй: {ex.Message}";
+        }
+        
+        MessageBox.Show(errorMessage, "Хэвлэх алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 
+private void DrawBoardingPassForPrint(Graphics g, Rectangle bounds)
+{
+    if (_boardingPass == null) return;
+
+    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+    float x = bounds.X;
+    float y = bounds.Y;
+    float width = bounds.Width;
+    float height = bounds.Height;
+
+    // Use simpler drawing approach for printing
+    using (var headerFont = new Font("Arial", 16, FontStyle.Bold))
+    using (var labelFont = new Font("Arial", 8, FontStyle.Regular))
+    using (var dataFont = new Font("Arial", 10, FontStyle.Bold))
+    using (var smallFont = new Font("Arial", 7, FontStyle.Regular))
+    using (var blackBrush = new SolidBrush(Color.Black))
+    using (var grayBrush = new SolidBrush(Color.Gray))
+    using (var borderPen = new Pen(Color.Black, 2))
+    {
+        // Draw border
+        g.DrawRectangle(borderPen, x, y, width - 1, Math.Min(height - 1, 250));
+        
+        float currentY = y + 20;
+        float leftMargin = x + 20;
+        float rightMargin = x + width - 20;
+        
+        // Header
+        string header = "MONGOLIAN AIRLINES - СУУДЛЫН ТАСАЛБАР";
+        var headerSize = g.MeasureString(header, headerFont);
+        g.DrawString(header, headerFont, blackBrush, 
+            leftMargin + (width - 40 - headerSize.Width) / 2, currentY);
+        currentY += 40;
+        
+        // Passenger
+        g.DrawString("ЗОРЧИГЧ / PASSENGER:", labelFont, grayBrush, leftMargin, currentY);
+        currentY += 15;
+        g.DrawString(_boardingPass.PassengerName?.ToUpper() ?? "N/A", dataFont, blackBrush, leftMargin, currentY);
+        currentY += 25;
+        
+        // Flight and Route
+        g.DrawString("НИСЛЭГ / FLIGHT:", labelFont, grayBrush, leftMargin, currentY);
+        g.DrawString("ЧИГЛЭЛ / ROUTE:", labelFont, grayBrush, leftMargin + 200, currentY);
+        currentY += 15;
+        g.DrawString(_boardingPass.FlightNumber ?? "N/A", dataFont, blackBrush, leftMargin, currentY);
+        g.DrawString($"{_boardingPass.DepartureAirport} → {_boardingPass.ArrivalAirport}", 
+            dataFont, blackBrush, leftMargin + 200, currentY);
+        currentY += 25;
+        
+        // Date and Time
+        g.DrawString("ОГНОО / DATE:", labelFont, grayBrush, leftMargin, currentY);
+        g.DrawString("ЦАГ / TIME:", labelFont, grayBrush, leftMargin + 150, currentY);
+        g.DrawString("СУУДАЛ / SEAT:", labelFont, grayBrush, leftMargin + 300, currentY);
+        currentY += 15;
+        g.DrawString(_boardingPass.DepartureTime.ToString("dd-MMM-yyyy"), dataFont, blackBrush, leftMargin, currentY);
+        g.DrawString(_boardingPass.DepartureTime.ToString("HH:mm"), dataFont, blackBrush, leftMargin + 150, currentY);
+        g.DrawString(_boardingPass.SeatNumber ?? "N/A", dataFont, blackBrush, leftMargin + 300, currentY);
+        currentY += 25;
+        
+        // Boarding Time
+        g.DrawString("СУУХ ЦАГ / BOARDING:", labelFont, grayBrush, leftMargin, currentY);
+        currentY += 15;
+        g.DrawString(_boardingPass.BoardingTime.ToString("HH:mm"), dataFont, blackBrush, leftMargin, currentY);
+        currentY += 30;
+        
+        // Footer
+        g.DrawString($"ПАСПОРТ: {_boardingPass.PassportNumber ?? "N/A"}", smallFont, grayBrush, leftMargin, currentY);
+        string printTime = $"ХЭВЛЭСЭН: {DateTime.Now:dd-MMM-yyyy HH:mm}";
+        var printSize = g.MeasureString(printTime, smallFont);
+        g.DrawString(printTime, smallFont, grayBrush, rightMargin - printSize.Width, currentY);
+    }
+}
         private void BtnPreview_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("[BoardingPassDialog] Урьдчилан харах товчлуур дарагдсан");

@@ -11,8 +11,6 @@ namespace FlightCheckInSystem.Data.Interfaces
         Task<IEnumerable<Booking>> GetBookingsByFlightIdAsync(int flightId);
         Task<IEnumerable<Booking>> GetBookingsByPassengerIdAsync(int passengerId);
         Task<int> AddBookingAsync(Booking booking);
-        Task<Booking> CreateBookingAsync(Booking booking);
         Task<bool> UpdateBookingAsync(Booking booking);         Task<bool> DeleteBookingAsync(int bookingId);
-        Task<Booking> GetBookingBySeatIdAsync(int seatId);
     }
 }

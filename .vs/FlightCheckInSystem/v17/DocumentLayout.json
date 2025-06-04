@@ -3,32 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\boardingpassdialog .designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\boardingpassdialog .designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\services\\flightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\services\\flightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.test\\checkinservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|solutionrelative:flightcheckinsystem.test\\checkinservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\hubs\\flighthub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\hubs\\flighthub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\checkinform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\checkinform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\services\\checkinservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\services\\checkinservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\interfaces\\iseatrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\interfaces\\iseatrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\services\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\services\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\interfaces\\iflightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\interfaces\\iflightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\bookingselectionform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\bookingselectionform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\bookingselectionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\bookingselectionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\services\\boardingpassprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\services\\boardingpassprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\boardingpassdialog .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\boardingpassdialog .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\interfaces\\icheckinservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,28 +51,108 @@
       "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\interfaces\\ibookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\services\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\services\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\checkinform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\checkinform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\services\\flightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\services\\flightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\checkinform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\checkinform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\bookingselectionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\bookingselectionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}|FlightCheckInSystem.Web\\FlightCheckInSystem.Web.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.web\\pages\\flightstatusboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}|FlightCheckInSystem.Web\\FlightCheckInSystem.Web.csproj|solutionrelative:flightcheckinsystem.web\\pages\\flightstatusboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\controllers\\flightscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\controllers\\flightscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\service\\flighthubservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\service\\flighthubservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\flightcheckinsystem.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\flightcheckinsystem.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\hubs\\flighthub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\hubs\\flighthub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.test\\flightmanagementservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|solutionrelative:flightcheckinsystem.test\\flightmanagementservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\interfaces\\iflightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\interfaces\\iflightmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\boardingpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\boardingpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\seat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\seat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\interfaces\\ipassengerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\interfaces\\ipassengerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\passenger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\passenger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\flight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\flight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\repositories\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\repositories\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\interfaces\\ibookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\interfaces\\ibookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\controllers\\checkincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\controllers\\checkincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.test\\bookingservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|solutionrelative:flightcheckinsystem.test\\bookingservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.test\\checkinservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53AF73C7-D1EC-48DE-9D5B-4790F3B72EF4}|FlightCheckInSystem.Test\\FlightCheckInSystem.Test.csproj|solutionrelative:flightcheckinsystem.test\\checkinservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\interfaces\\iseatrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\interfaces\\iseatrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\interfaces\\ipassengerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\interfaces\\ipassengerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\flightcheckinsystem.formsapp\\boardingpassdialog .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -69,22 +161,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\bookingform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|solutionrelative:flightcheckinsystem.formsapp\\bookingform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\controllers\\checkincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\controllers\\checkincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\boardingpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\boardingpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\controllers\\corstestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\controllers\\corstestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -111,24 +187,8 @@
       "RelativeMoniker": "D:0:0:{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}|FlightCheckInSystem.Web\\FlightCheckInSystem.Web.csproj|solutionrelative:flightcheckinsystem.web\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\passenger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\passenger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\interfaces\\iflightrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\interfaces\\iflightrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}|FlightCheckInSystem.Web\\FlightCheckInSystem.Web.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.web\\pages\\flightstatusboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5FCBF0B9-BD9F-48BC-8DA0-9909BAEC7CA3}|FlightCheckInSystem.Web\\FlightCheckInSystem.Web.csproj|solutionrelative:flightcheckinsystem.web\\pages\\flightstatusboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.server\\flightcheckinsystem.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{66A23CC3-9E3F-426C-B503-63AC48A68D01}|FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj|solutionrelative:flightcheckinsystem.server\\flightcheckinsystem.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{627BB6D2-C963-4592-AA89-9B440E876C65}|FlightCheckInSystem.FormsApp\\FlightCheckInSystem.FormsApp.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.formsapp\\flightmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -137,10 +197,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\flightcheckinsystem.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\flightcheckinsystem.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1657BB96-378C-4730-985C-B715DFE384EE}|ClientLauncher\\ClientLauncher.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\clientlauncher\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1657BB96-378C-4730-985C-B715DFE384EE}|ClientLauncher\\ClientLauncher.csproj|solutionrelative:clientlauncher\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\repositories\\seatrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -153,10 +209,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\flightcheckinsystem.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\flightcheckinsystem.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\repositories\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\repositories\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\bookingPage.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -175,20 +227,16 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:flightcheckinsystem.formsapp\\frmmainapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.data\\interfaces\\ibookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6939FBAD-BE90-4B8F-B315-CFE57C1425D2}|FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj|solutionrelative:flightcheckinsystem.data\\interfaces\\ibookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\models\\flight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\models\\flight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.business\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E0EFDDBC-ABFE-45BF-A264-7F1B3183E6E2}|FlightCheckInSystem.Business\\FlightCheckInSystem.Business.csproj|solutionrelative:flightcheckinsystem.business\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|c:\\users\\user\\source\\repos\\flightcheckinsystem\\flightcheckinsystem.core\\enums\\flightstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37B88AEB-9596-44E3-A6F3-F366A83D3439}|FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj|solutionrelative:flightcheckinsystem.core\\enums\\flightstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\ClientLauncher\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ClientLauncher\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -198,11 +246,438 @@
       "DocumentGroups": [
         {
           "DockedWidth": 275,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BoardingPassDialog .Designer.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .Designer.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .Designer.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .Designer.cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T22:00:15.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BookingSelectionForm.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAWwBwAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:33:02.176Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BookingSelectionForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingSelectionForm.Designer.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BookingSelectionForm.Designer.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingSelectionForm.Designer.cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\BookingSelectionForm.Designer.cs",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAYwJ4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:33:29.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CheckInForm.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\CheckInForm.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\CheckInForm.cs",
+              "ViewState": "AgIAAGcDAAAAAAAAAADwv3cDAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T14:40:52.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookingService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\BookingService.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\BookingService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\BookingService.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Business\\Services\\BookingService.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAIwFoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T21:17:16.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "FlightManagementService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAswCwAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:57:57.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Program.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Program.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\Program.cs",
+              "ViewState": "AgIAAPgAAAAAAAAAAAAMwBEBAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:21:05.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CheckInService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\CheckInService.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\CheckInService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\CheckInService.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Business\\Services\\CheckInService.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAMwFQAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:57:29.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CheckInForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.Designer.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\CheckInForm.Designer.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.Designer.cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\CheckInForm.Designer.cs",
+              "ViewState": "AgIAAH4BAAAAAAAAAAAkwJgBAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:37:15.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IBookingService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T21:17:19.898Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BoardingPassPrinter.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Services\\BoardingPassPrinter.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\Services\\BoardingPassPrinter.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Services\\BoardingPassPrinter.cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\Services\\BoardingPassPrinter.cs",
+              "ViewState": "AgIAABABAAAAAAAAAAAMwCkBAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:36:41.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ICheckInService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T21:17:27.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BoardingPassDialog .cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:44:41.631Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CheckInForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\CheckInForm.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\CheckInForm.cs [Design]",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\CheckInForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:36:56.668Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "BookingSelectionForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs [Design]",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\BookingSelectionForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:32:47.203Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "FlightStatusBoard.razor",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
+              "RelativeToolTip": "FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
+              "ViewState": "AgIAACgAAAAAAAAAAAArwDYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-02T19:15:59.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Booking.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Booking.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Booking.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Booking.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Booking.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBEAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:24:06.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "FlightHubService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Service\\FlightHubService.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Service\\FlightHubService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Service\\FlightHubService.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\Service\\FlightHubService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T21:20:41.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "FlightHub.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAuwBABAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T21:19:28.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "FlightsController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\FlightsController.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\FlightsController.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\FlightsController.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\Controllers\\FlightsController.cs",
+              "ViewState": "AgIAACYBAAAAAAAAAAAYwEcBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T14:24:54.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IFlightManagementService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:56:38.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "FlightManagementServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\FlightManagementServiceTests.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Test\\FlightManagementServiceTests.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\FlightManagementServiceTests.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Test\\FlightManagementServiceTests.cs",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAtwJkAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T13:27:27.421Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "FlightCheckInSystem.Server.csproj",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-24T12:12:52.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BoardingPass.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:24:35.696Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Seat.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Seat.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Seat.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Seat.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Seat.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:25:01.579Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Passenger.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Passenger.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Passenger.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Passenger.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Passenger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:26:54.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Flight.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Flight.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Flight.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Flight.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Flight.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:25:22.135Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "BookingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:52:50.458Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "IBookingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T10:48:48.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "CheckInController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAwwEYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T14:44:30.062Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "BookingController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
+              "ViewState": "AgIAAIIBAAAAAAAAAAAwwKEBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T12:15:22.267Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "BookingServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\BookingServiceTests.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Test\\BookingServiceTests.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\BookingServiceTests.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Test\\BookingServiceTests.cs",
+              "ViewState": "AgIAAEsCAAAAAAAAAIAwwF0CAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T21:12:49.139Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Program.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\Program.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Program.cs",
+              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\Program.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T21:27:15.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "CheckInServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\CheckInServiceTests.cs",
+              "RelativeDocumentMoniker": "FlightCheckInSystem.Test\\CheckInServiceTests.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\CheckInServiceTests.cs",
+              "RelativeToolTip": "FlightCheckInSystem.Test\\CheckInServiceTests.cs",
+              "ViewState": "AgIAADwCAAAAAAAAAAAgwDkAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T21:25:03.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\MainForm.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\MainForm.cs",
@@ -210,103 +685,11 @@
               "RelativeToolTip": "FlightCheckInSystem.FormsApp\\MainForm.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAAwBUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:28:05.023Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-03T21:28:05.023Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Program.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\Program.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\Program.cs",
-              "RelativeToolTip": "FlightCheckInSystem.FormsApp\\Program.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBAAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:27:15.953Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CheckInServiceTests.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\CheckInServiceTests.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Test\\CheckInServiceTests.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\CheckInServiceTests.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Test\\CheckInServiceTests.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAHaswEUAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:25:03.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FlightHub.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Server\\Hubs\\FlightHub.cs",
-              "ViewState": "AgIAAJ4AAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:19:28.732Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ICheckInService.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Business\\Interfaces\\ICheckInService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:17:27.982Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IBookingService.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Business\\Interfaces\\IBookingService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:17:19.898Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BookingService.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\BookingService.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\BookingService.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\BookingService.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Business\\Services\\BookingService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAzwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:17:16.15Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CheckInService.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\CheckInService.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\CheckInService.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\CheckInService.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Business\\Services\\CheckInService.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAjwG8AAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:57:29.487Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 35,
               "Title": "ISeatRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\ISeatRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\ISeatRepository.cs",
@@ -314,12 +697,11 @@
               "RelativeToolTip": "FlightCheckInSystem.Data\\Interfaces\\ISeatRepository.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAgwAYAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:48:34.122Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-24T10:48:34.122Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 36,
               "Title": "DatabaseInitializer.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\DatabaseInitializer.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\DatabaseInitializer.cs",
@@ -327,25 +709,11 @@
               "RelativeToolTip": "FlightCheckInSystem.Data\\DatabaseInitializer.cs",
               "ViewState": "AgIAAFsAAAAAAAAAAAAkwOcAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:15:58.58Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-03T21:15:58.58Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IFlightManagementService.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Business\\Interfaces\\IFlightManagementService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:56:38.282Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 37,
               "Title": "IPassengerRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IPassengerRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\IPassengerRepository.cs",
@@ -353,38 +721,11 @@
               "RelativeToolTip": "FlightCheckInSystem.Data\\Interfaces\\IPassengerRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:47:47.937Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-24T10:47:47.937Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "FlightManagementService.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Business\\Services\\FlightManagementService.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwDAAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:57:57.682Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "BookingServiceTests.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\BookingServiceTests.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Test\\BookingServiceTests.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Test\\BookingServiceTests.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Test\\BookingServiceTests.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAgwA4AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T21:12:49.139Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 38,
               "Title": "BoardingPassDialog .cs [Design]",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BoardingPassDialog .cs",
@@ -396,44 +737,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Seat.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Seat.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Seat.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Seat.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Seat.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:25:01.579Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "CorsTestController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CorsTestController.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\CorsTestController.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CorsTestController.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Server\\Controllers\\CorsTestController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T19:45:11.736Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "BookingController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Server\\Controllers\\BookingController.cs",
-              "ViewState": "AgIAABwBAAAAAAAAAAD4v38BAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T12:15:22.267Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 39,
               "Title": "BookingForm.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\BookingForm.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\BookingForm.cs",
@@ -445,31 +749,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "CheckInController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Server\\Controllers\\CheckInController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAYwDMAAABlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T14:44:30.062Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "BoardingPass.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\BoardingPass.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAAAcAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:24:35.696Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 40,
               "Title": "BaseRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\BaseRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\BaseRepository.cs",
@@ -481,7 +761,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 41,
               "Title": "PassengerRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\PassengerRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\PassengerRepository.cs",
@@ -493,7 +773,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 42,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Program.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Program.cs",
@@ -505,7 +785,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 43,
               "Title": "standalone-signalr-test.html",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\standalone-signalr-test.html",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\standalone-signalr-test.html",
@@ -517,7 +797,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 44,
               "Title": "Diagnostic.html",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Diagnostic.html",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Diagnostic.html",
@@ -525,35 +805,12 @@
               "RelativeToolTip": "FlightCheckInSystem.Web\\Diagnostic.html",
               "ViewState": "AgIAAE4BAAAAAAAAAAAkwGoBAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-06-02T19:46:29.596Z"
+              "WhenOpened": "2025-06-02T19:46:29.596Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Passenger.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Passenger.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Passenger.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Passenger.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Passenger.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAIwAgAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:26:54.872Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Booking.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Booking.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Booking.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Booking.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Booking.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:24:06.319Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 46,
               "Title": "IFlightRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IFlightRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\IFlightRepository.cs",
@@ -565,7 +822,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 45,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Layout\\MainLayout.razor",
@@ -577,31 +834,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "FlightStatusBoard.razor",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
-              "RelativeToolTip": "FlightCheckInSystem.Web\\Pages\\FlightStatusBoard.razor",
-              "ViewState": "AgIAADYBAAAAAAAAAAAAAB0AAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T19:15:59.366Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "FlightCheckInSystem.Server.csproj",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
-              "RelativeToolTip": "FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-24T12:12:52.479Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 47,
               "Title": "FlightManagementForm.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\FlightManagementForm.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\FlightManagementForm.cs",
@@ -613,7 +846,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 58,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\ClientLauncher\\Program.cs",
               "RelativeDocumentMoniker": "ClientLauncher\\Program.cs",
@@ -625,7 +858,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 48,
               "Title": "FlightCheckInSystem.Core.csproj",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\FlightCheckInSystem.Core.csproj",
@@ -637,7 +870,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 49,
               "Title": "SeatRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\SeatRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\SeatRepository.cs",
@@ -649,7 +882,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 50,
               "Title": "FlightRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\FlightRepository.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\FlightRepository.cs",
@@ -661,7 +894,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 51,
               "Title": "FlightCheckInSystem.Data.csproj",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\FlightCheckInSystem.Data.csproj",
@@ -673,19 +906,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "BookingRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Data\\Repositories\\BookingRepository.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAkwNkAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:52:50.458Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 52,
               "Title": "bookingPage.Designer.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\bookingPage.Designer.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\bookingPage.Designer.cs",
@@ -697,7 +918,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 53,
               "Title": "bookingPage.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\bookingPage.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\bookingPage.cs",
@@ -708,31 +929,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "IBookingRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Data\\Interfaces\\IBookingRepository.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAuwAkAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:48:48.766Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 44,
-              "Title": "Flight.cs",
-              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Flight.cs",
-              "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Models\\Flight.cs",
-              "ToolTip": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Models\\Flight.cs",
-              "RelativeToolTip": "FlightCheckInSystem.Core\\Models\\Flight.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA3wBQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T10:25:22.135Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 56,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Business\\Class1.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Business\\Class1.cs",
@@ -744,7 +941,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 57,
               "Title": "FlightStatus.cs",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.Core\\Enums\\FlightStatus.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.Core\\Enums\\FlightStatus.cs",
@@ -756,7 +953,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 55,
               "Title": "frmMainApplication.cs [Design]",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\frmMainApplication.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\frmMainApplication.cs",
@@ -767,7 +964,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 54,
               "Title": "bookingPage.cs [Design]",
               "DocumentMoniker": "C:\\Users\\user\\source\\repos\\FlightCheckInSystem\\FlightCheckInSystem.FormsApp\\bookingPage.cs",
               "RelativeDocumentMoniker": "FlightCheckInSystem.FormsApp\\bookingPage.cs",

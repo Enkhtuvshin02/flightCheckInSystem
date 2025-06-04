@@ -375,7 +375,38 @@
             btnPrintBoardingPass.UseVisualStyleBackColor = false;
             btnPrintBoardingPass.Cursor = Cursors.Hand;
             btnPrintBoardingPass.Click += btnPrintBoardingPass_Click;
+            this.grpBookingDetails = new System.Windows.Forms.GroupBox();
+            this.lblBookingRef = new System.Windows.Forms.Label();
+            this.lblPassengerInfo = new System.Windows.Forms.Label();
+            this.lblFlightInfo = new System.Windows.Forms.Label();
+            this.grpSeatSelection = new System.Windows.Forms.GroupBox();
+            this.pnlSeats = new System.Windows.Forms.Panel();
+            this.lblSelectedSeat = new System.Windows.Forms.Label();
+            this.grpBoardingPass = new System.Windows.Forms.GroupBox();
+            this.btnCheckIn = new System.Windows.Forms.Button();
+            this.btnPrintBoardingPass = new System.Windows.Forms.Button();
 
+            // Configure grpBookingDetails
+            this.grpBookingDetails.Text = "Захиалгын мэдээлэл";
+            this.grpBookingDetails.Visible = false;
+
+            // Configure grpSeatSelection
+            this.grpSeatSelection.Text = "Суудал сонгох";
+            this.grpSeatSelection.Visible = false;
+
+            // Configure grpBoardingPass
+            this.grpBoardingPass.Text = "Суудлын тасалбар";
+            this.grpBoardingPass.Visible = false;
+
+            // Configure lblSelectedSeat
+            this.lblSelectedSeat.Text = "Selected Seat: (None)";
+
+            // Configure buttons
+            this.btnCheckIn.Text = "Бүртгүүлэх";
+            this.btnCheckIn.Visible = false;
+            this.btnCheckIn.Enabled = false;
+
+            this.btnPrintBoardingPass.Text = "Тасалбар хэвлэх";
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
@@ -407,21 +438,26 @@
         }
 
         #endregion
-
+        private System.Windows.Forms.GroupBox grpBookingDetails;
+        private System.Windows.Forms.Label lblBookingRef;
+        private System.Windows.Forms.Label lblPassengerInfo;
+        private System.Windows.Forms.Label lblFlightInfo;
+        private System.Windows.Forms.GroupBox grpSeatSelection;
+        private System.Windows.Forms.Panel pnlSeats;
+        private System.Windows.Forms.Label lblSelectedSeat;
+        private System.Windows.Forms.GroupBox grpBoardingPass;
+        private System.Windows.Forms.Button btnCheckIn;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnPrintBoardingPass;
+        private System.Windows.Forms.TextBox txtPassportNumber;
         private Label lblTitle;
         private TableLayoutPanel mainTableLayout;
         private GroupBox grpSearch;
         private TableLayoutPanel tlpSearch;
         private Label lblPassportNumber;
-        private TextBox txtPassportNumber;
-        private Button btnSearch;
         private TableLayoutPanel leftPanel;
-        private GroupBox grpBookingDetails;
         private TableLayoutPanel tlpBookingDetails;
-        private Label lblBookingRef;
-        private Label lblPassengerInfo;
-        private Label lblFlightInfo;
-        private GroupBox grpBoardingPass;
         private TableLayoutPanel tlpBoardingPass;
         private Label lblBPName;
         private Label lblBPFlight;
@@ -431,12 +467,6 @@
         private Label lblBPArrival;
         private Label lblBPBoardingTime;
         private Panel rightPanel;
-        private GroupBox grpSeatSelection;
-        private Label lblSelectedSeat;
-        private Panel pnlSeats;
         private Panel pnlButtons;
-        private Button btnCheckIn;
-        private Button btnCancel;
-        private Button btnPrintBoardingPass;
     }
 }

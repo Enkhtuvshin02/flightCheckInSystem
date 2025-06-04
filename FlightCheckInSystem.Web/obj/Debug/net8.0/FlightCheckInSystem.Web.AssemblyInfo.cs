@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FlightCheckInSystem.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0227c55158a1b1b7345e89642e07607cfd868852")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ee0825606f09aecb3312d2cf2599f5f40bf80dd")]
 [assembly: System.Reflection.AssemblyProductAttribute("FlightCheckInSystem.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FlightCheckInSystem.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,52 +5,14 @@ using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using System.Globalization;
 using System.Threading.Tasks;
-using System.Data.Common; 
+using System.Data.Common;
+using System.Linq;
+
 namespace FlightCheckInSystem.Data.Repositories
 {
     public class BookingRepository : BaseRepository, IBookingRepository
     {
         public BookingRepository(string connectionString) : base(connectionString) { }
-
-        public async Task<Booking> CreateBookingAsync(Booking booking)
-        {
-            using (var connection = GetConnection())
-            {
-                await connection.OpenAsync();
-                using (var transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        var command = new SqliteCommand(@"
-                            INSERT INTO Bookings (PassengerId, FlightId, SeatId, BookingReference, BookingStatus, BookingDate, ReservationDate, IsCheckedIn, CheckInTime)
-                            VALUES (@PassengerId, @FlightId, @SeatId, @BookingReference, @BookingStatus, @BookingDate, @ReservationDate, @IsCheckedIn, @CheckInTime);
-                            SELECT last_insert_rowid();", connection, transaction);
-
-                        command.Parameters.AddWithValue("@PassengerId", booking.PassengerId);
-                        command.Parameters.AddWithValue("@FlightId", booking.FlightId);
-                        command.Parameters.AddWithValue("@SeatId", booking.SeatId ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@BookingReference", booking.BookingReference);
-                        command.Parameters.AddWithValue("@BookingStatus", (int)booking.BookingStatus);
-                        command.Parameters.AddWithValue("@BookingDate", booking.BookingDate.ToString("o"));
-                        command.Parameters.AddWithValue("@ReservationDate", booking.ReservationDate.ToString("o"));
-                        command.Parameters.AddWithValue("@IsCheckedIn", booking.IsCheckedIn);
-                        command.Parameters.AddWithValue("@CheckInTime", booking.CheckInTime ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@CheckInTime", booking.CheckInTime.HasValue ? (object)booking.CheckInTime.Value.ToString("o") : DBNull.Value);
-
-                        var bookingId = Convert.ToInt32(await command.ExecuteScalarAsync());
-                        booking.BookingId = bookingId;
-
-                        transaction.Commit();
-                        return booking;
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
 
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
@@ -67,33 +29,15 @@ namespace FlightCheckInSystem.Data.Repositories
                     LEFT JOIN Seats s ON b.SeatId = s.SeatId
                     WHERE b.BookingId = @BookingId", connection);
                 command.Parameters.AddWithValue("@BookingId", bookingId);
-                using (var reader = await command.ExecuteReaderAsync())                 {
-                    if (await reader.ReadAsync()) return MapToBookingWithDetails(reader);                 }
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                        return MapToBookingWithDetails(reader);
+                }
             }
             return null;
         }
-
-        public async Task<Booking> GetBookingBySeatIdAsync(int seatId)
-        {
-            using (var connection = GetConnection())
-            {
-                await connection.OpenAsync();
-                var command = new SqliteCommand(@"
-                    SELECT b.*, p.PassportNumber, p.FirstName, p.LastName, 
-                           f.FlightNumber, f.DepartureAirport, f.ArrivalAirport, f.DepartureTime AS FlightDepartureTime, f.ArrivalTime AS FlightArrivalTime, f.Status AS FlightStatus,
-                           s.SeatNumber AS AssignedSeatNumber
-                    FROM Bookings b
-                    JOIN Passengers p ON b.PassengerId = p.PassengerId
-                    JOIN Flights f ON b.FlightId = f.FlightId
-                    JOIN Seats s ON b.SeatId = s.SeatId
-                    WHERE b.SeatId = @SeatId", connection);
-                command.Parameters.AddWithValue("@SeatId", seatId);
-                using (var reader = await command.ExecuteReaderAsync())                 {
-                    if (await reader.ReadAsync()) return MapToBookingWithDetails(reader);                 }
-            }
-            return null;
-        }
-
 
         public async Task<Booking> GetBookingByPassengerAndFlightAsync(int passengerId, int flightId)
         {
@@ -111,8 +55,12 @@ namespace FlightCheckInSystem.Data.Repositories
                     WHERE b.PassengerId = @PassengerId AND b.FlightId = @FlightId", connection);
                 command.Parameters.AddWithValue("@PassengerId", passengerId);
                 command.Parameters.AddWithValue("@FlightId", flightId);
-                using (var reader = await command.ExecuteReaderAsync())                 {
-                    if (await reader.ReadAsync()) return MapToBookingWithDetails(reader);                 }
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                        return MapToBookingWithDetails(reader);
+                }
             }
             return null;
         }
@@ -133,10 +81,13 @@ namespace FlightCheckInSystem.Data.Repositories
                     LEFT JOIN Seats s ON b.SeatId = s.SeatId
                     WHERE b.FlightId = @FlightId", connection);
                 command.Parameters.AddWithValue("@FlightId", flightId);
-                using (var reader = await command.ExecuteReaderAsync())                 {
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
                     while (await reader.ReadAsync())
                     {
-                        bookings.Add(MapToBookingWithDetails(reader));                     }
+                        bookings.Add(MapToBookingWithDetails(reader));
+                    }
                 }
             }
             return bookings;
@@ -158,10 +109,13 @@ namespace FlightCheckInSystem.Data.Repositories
                     LEFT JOIN Seats s ON b.SeatId = s.SeatId
                     WHERE b.PassengerId = @PassengerId", connection);
                 command.Parameters.AddWithValue("@PassengerId", passengerId);
-                using (var reader = await command.ExecuteReaderAsync())                 {
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
                     while (await reader.ReadAsync())
                     {
-                        bookings.Add(MapToBookingWithDetails(reader));                     }
+                        bookings.Add(MapToBookingWithDetails(reader));
+                    }
                 }
             }
             return bookings;
@@ -205,6 +159,7 @@ namespace FlightCheckInSystem.Data.Repositories
                 command.Parameters.AddWithValue("@IsCheckedIn", booking.IsCheckedIn ? 1 : 0);
                 command.Parameters.AddWithValue("@CheckInTime", (object)booking.CheckInTime?.ToString("o") ?? DBNull.Value);
                 command.Parameters.AddWithValue("@BookingId", booking.BookingId);
+
                 return await command.ExecuteNonQueryAsync() > 0;
             }
         }
@@ -214,20 +169,14 @@ namespace FlightCheckInSystem.Data.Repositories
             using (var connection = GetConnection())
             {
                 await connection.OpenAsync();
-                var booking = await GetBookingByIdAsync(bookingId);
-                if (booking != null && booking.SeatId.HasValue)
-                {
-                    var seatRepo = new SeatRepository(ConnectionString);
-                    await seatRepo.UnbookSeatAsync(booking.SeatId.Value);
-                }
-
                 var command = new SqliteCommand("DELETE FROM Bookings WHERE BookingId = @BookingId", connection);
                 command.Parameters.AddWithValue("@BookingId", bookingId);
                 return await command.ExecuteNonQueryAsync() > 0;
             }
         }
 
-                private Booking MapToBooking(DbDataReader reader)
+        // Mapping methods
+        private Booking MapToBooking(DbDataReader reader)
         {
             return new Booking
             {
@@ -241,7 +190,7 @@ namespace FlightCheckInSystem.Data.Repositories
             };
         }
 
-                private Booking MapToBookingWithDetails(DbDataReader reader)
+        private Booking MapToBookingWithDetails(DbDataReader reader)
         {
             var booking = MapToBooking(reader);
 
@@ -264,7 +213,8 @@ namespace FlightCheckInSystem.Data.Repositories
                 Status = Enum.Parse<FlightCheckInSystem.Core.Enums.FlightStatus>(reader.GetString(reader.GetOrdinal("FlightStatus")))
             };
 
-            if (booking.SeatId.HasValue && !reader.IsDBNull(reader.GetOrdinal("AssignedSeatNumber")))             {
+            if (booking.SeatId.HasValue && !reader.IsDBNull(reader.GetOrdinal("AssignedSeatNumber")))
+            {
                 booking.Seat = new Seat
                 {
                     SeatId = booking.SeatId.Value,
@@ -273,6 +223,7 @@ namespace FlightCheckInSystem.Data.Repositories
                     IsBooked = true
                 };
             }
+
             return booking;
         }
     }

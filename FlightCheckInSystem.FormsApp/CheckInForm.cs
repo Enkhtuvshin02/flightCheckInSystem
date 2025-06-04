@@ -212,6 +212,7 @@ namespace FlightCheckInSystem.FormsApp
 
         private async void CheckInForm_Load(object sender, EventArgs e)
         {
+            EnsureUIElementsExist();
             await LoadDataAsync();
             ResetForm();
         }
@@ -236,6 +237,40 @@ namespace FlightCheckInSystem.FormsApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading initial data: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void EnsureUIElementsExist()
+        {
+            // Check if required UI elements exist, if not, create them
+            if (grpBookingDetails == null)
+            {
+                Debug.WriteLine("[CheckInForm] Warning: grpBookingDetails is null - creating basic version");
+                grpBookingDetails = new GroupBox { Text = "Захиалгын мэдээлэл", Visible = false };
+            }
+
+            if (grpSeatSelection == null)
+            {
+                Debug.WriteLine("[CheckInForm] Warning: grpSeatSelection is null - creating basic version");
+                grpSeatSelection = new GroupBox { Text = "Суудал сонгох", Visible = false };
+            }
+
+            if (btnCheckIn == null)
+            {
+                Debug.WriteLine("[CheckInForm] Warning: btnCheckIn is null - creating basic version");
+                btnCheckIn = new Button { Text = "Бүртгүүлэх", Visible = false, Enabled = false };
+            }
+
+            if (lblSelectedSeat == null)
+            {
+                Debug.WriteLine("[CheckInForm] Warning: lblSelectedSeat is null - creating basic version");
+                lblSelectedSeat = new Label { Text = "Selected Seat: (None)" };
+            }
+
+            if (pnlSeats == null)
+            {
+                Debug.WriteLine("[CheckInForm] Warning: pnlSeats is null - creating basic version");
+                pnlSeats = new Panel();
             }
         }
 
@@ -372,135 +407,262 @@ namespace FlightCheckInSystem.FormsApp
             }
 
             string passportNumberToSearch = txtPassportNumber.Text.Trim();
+            Debug.WriteLine($"[CheckInForm] Searching for passport: {passportNumberToSearch}");
 
             try
             {
                 var bookingsFromServer = await _apiService.GetBookingsByPassportAsync(passportNumberToSearch);
+                Debug.WriteLine($"[CheckInForm] Found {bookingsFromServer?.Count ?? 0} bookings");
+
                 if (bookingsFromServer != null && bookingsFromServer.Any())
                 {
-                    var alreadyCheckedIn = bookingsFromServer.FirstOrDefault(b => b.IsCheckedIn);
-                    if (alreadyCheckedIn != null)
+                    // Debug: Log all bookings found
+                    foreach (var booking in bookingsFromServer)
                     {
-                        _selectedBooking = alreadyCheckedIn;
-                        if (_selectedBooking.SeatId > 0)
+                        Debug.WriteLine($"[CheckInForm] Booking {booking.BookingId}: Flight {booking.FlightId}, CheckedIn: {booking.IsCheckedIn}, Passenger: {booking.Passenger?.FirstName} {booking.Passenger?.LastName}");
+                    }
+
+                    // Check if passenger has multiple bookings
+                    if (bookingsFromServer.Count > 1)
+                    {
+                        Debug.WriteLine($"[CheckInForm] Multiple bookings found, showing selection dialog");
+
+                        // Show booking selection dialog
+                        string passengerName = bookingsFromServer.First().Passenger?.FirstName + " " + bookingsFromServer.First().Passenger?.LastName ?? "Unknown";
+
+                        using (var selectionForm = new BookingSelectionForm(bookingsFromServer.ToList(), passengerName))
                         {
-                            if (_seats == null || !_seats.Any() || !_seats.Any(s => s.SeatId == _selectedBooking.SeatId))
+                            var result = selectionForm.ShowDialog(this);
+                            Debug.WriteLine($"[CheckInForm] Selection dialog result: {result}");
+
+                            if (result == DialogResult.OK && selectionForm.SelectedBooking != null)
                             {
-                                _seats = await _apiService.GetSeatsByFlightAsync(_selectedBooking.FlightId);
+                                _selectedBooking = selectionForm.SelectedBooking;
+                                Debug.WriteLine($"[CheckInForm] Selected booking: {_selectedBooking.BookingId}, Action: {selectionForm.SelectedAction}");
+
+                                if (selectionForm.SelectedAction == BookingAction.ViewBoardingPass)
+                                {
+                                    Debug.WriteLine("[CheckInForm] Handling boarding pass view");
+                                    await HandleViewBoardingPass();
+                                    return;
+                                }
+                                else if (selectionForm.SelectedAction == BookingAction.SelectSeat)
+                                {
+                                    Debug.WriteLine("[CheckInForm] Handling seat selection");
+                                    await HandleSeatSelection();
+                                    return;
+                                }
                             }
-                            _selectedSeat = _seats.FirstOrDefault(s => s.SeatId == _selectedBooking.SeatId);
+                            else
+                            {
+                                Debug.WriteLine("[CheckInForm] User cancelled or no booking selected");
+                                ResetForm();
+                                return;
+                            }
                         }
-                        else if (!string.IsNullOrEmpty(_selectedBooking.SeatNumber))
+                    }
+                    else
+                    {
+                        // Single booking - handle as before
+                        _selectedBooking = bookingsFromServer.First();
+                        Debug.WriteLine($"[CheckInForm] Single booking found: {_selectedBooking.BookingId}, CheckedIn: {_selectedBooking.IsCheckedIn}");
+
+                        if (_selectedBooking.IsCheckedIn)
                         {
-                            if (_seats == null || !_seats.Any())
-                            {
-                                _seats = await _apiService.GetSeatsByFlightAsync(_selectedBooking.FlightId);
-                            }
-                            _selectedSeat = _seats.FirstOrDefault(s => s.SeatNumber == _selectedBooking.SeatNumber);
+                            Debug.WriteLine("[CheckInForm] Already checked in - showing boarding pass");
+                            await HandleViewBoardingPass();
+                            return;
                         }
                         else
                         {
-                            _selectedSeat = null;
+                            Debug.WriteLine("[CheckInForm] Not checked in - showing seat selection");
+                            await HandleSeatSelection();
+                            return;
                         }
-
-                        var boardingPass = CreateBoardingPassFromBooking(_selectedBooking, _selectedSeat);
-                        ShowBoardingPassDialog(boardingPass);
-
-                        ResetFormAfterBoardingPass();
-                        return;
                     }
-
-                    var activeBookings = bookingsFromServer.Where(b => !b.IsCheckedIn).ToList();
-                    if (!activeBookings.Any())
-                    {
-                        MessageBox.Show("No active (not checked-in) bookings found for this passenger on the server.", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ResetForm();
-                        return;
-                    }
-
-                    _selectedBooking = activeBookings.First();
-                    // Set our booking reference for tracking
-                    _myBookingReference = _selectedBooking.BookingId.ToString();
-                    DisplayBookingDetails(_selectedBooking);
-
-                    await LoadSeatsForFlightAsync(_selectedBooking.FlightId);
-                    return;
                 }
                 else
                 {
+                    Debug.WriteLine($"[CheckInForm] No bookings found for passport: {passportNumberToSearch}");
                     MessageBox.Show("No bookings found for this passport number on the server.", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ResetForm();
                 }
             }
             catch (Exception ex)
             {
+                Debug.WriteLine($"[CheckInForm] Search error: {ex.Message}");
+                Debug.WriteLine($"[CheckInForm] Stack trace: {ex.StackTrace}");
                 MessageBox.Show($"Error searching bookings on server: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ResetForm();
             }
         }
 
-        private void DisplayBookingDetails(Booking booking)
+        private async Task HandleViewBoardingPass()
         {
-            if (booking == null)
+            if (_selectedBooking.SeatId > 0)
             {
-                DisplayBookingDetails(null, null, null);
-                grpSeatSelection.Visible = false;
-                btnCheckIn.Visible = false;
-                return;
+                if (_seats == null || !_seats.Any() || !_seats.Any(s => s.SeatId == _selectedBooking.SeatId))
+                {
+                    _seats = await _apiService.GetSeatsByFlightAsync(_selectedBooking.FlightId);
+                }
+                _selectedSeat = _seats.FirstOrDefault(s => s.SeatId == _selectedBooking.SeatId);
             }
-
-            Passenger passenger = booking.Passenger;
-            if (passenger == null && booking.PassengerId > 0 && _passengers != null)
+            else if (_selectedBooking.Seat != null && !string.IsNullOrEmpty(_selectedBooking.Seat.SeatNumber))
             {
-                passenger = _passengers.FirstOrDefault(p => p.PassengerId == booking.PassengerId);
-            }
-
-            Flight flight = booking.Flight;
-            if (flight == null && booking.FlightId > 0 && _flights != null)
-            {
-                flight = _flights.FirstOrDefault(f => f.FlightId == booking.FlightId);
-            }
-
-            DisplayBookingDetails(booking, passenger, flight);
-
-            if (grpBookingDetails.Visible && passenger != null && flight != null)
-            {
-                grpSeatSelection.Visible = true;
-                btnCheckIn.Visible = true;
-                btnCheckIn.Enabled = false;
+                if (_seats == null || !_seats.Any())
+                {
+                    _seats = await _apiService.GetSeatsByFlightAsync(_selectedBooking.FlightId);
+                }
+                _selectedSeat = _seats.FirstOrDefault(s => s.SeatNumber == _selectedBooking.Seat.SeatNumber);
             }
             else
             {
-                grpSeatSelection.Visible = false;
-                btnCheckIn.Visible = false;
+                _selectedSeat = null;
+            }
+
+            var boardingPass = CreateBoardingPassFromBooking(_selectedBooking, _selectedSeat);
+            ShowBoardingPassDialog(boardingPass);
+            ResetFormAfterBoardingPass();
+        }
+
+        private async Task HandleSeatSelection()
+        {
+            try
+            {
+                if (_selectedBooking == null)
+                {
+                    MessageBox.Show("Захиалгын мэдээлэл байхгүй байна.", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Set our booking reference for tracking
+                _myBookingReference = _selectedBooking.BookingId.ToString();
+
+                Debug.WriteLine($"[CheckInForm] HandleSeatSelection: Processing booking {_selectedBooking.BookingId} for flight {_selectedBooking.FlightId}");
+
+                // Display booking details first
+                DisplayBookingDetails(_selectedBooking);
+
+                // Load seats for the flight
+                await LoadSeatsForFlightAsync(_selectedBooking.FlightId);
+
+                // Make sure the UI is visible and enabled
+                if (grpBookingDetails != null)
+                {
+                    grpBookingDetails.Visible = true;
+                }
+
+                if (grpSeatSelection != null)
+                {
+                    grpSeatSelection.Visible = true;
+                }
+
+                if (btnCheckIn != null)
+                {
+                    btnCheckIn.Visible = true;
+                    btnCheckIn.Enabled = false; // Will be enabled when seat is selected
+                }
+
+                if (lblSelectedSeat != null)
+                {
+                    lblSelectedSeat.Text = "Selected Seat: (None)";
+                }
+
+                // Clear any previous seat selection
+                _selectedSeat = null;
+
+                Debug.WriteLine($"[CheckInForm] HandleSeatSelection: UI updated for booking {_selectedBooking.BookingId}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[CheckInForm] HandleSeatSelection error: {ex.Message}");
+                MessageBox.Show($"Суудал сонгох хэсэг харуулахад алдаа гарлаа: {ex.Message}",
+                    "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void DisplayBookingDetails(Booking booking, Passenger passenger, Flight flight)
+        private void DisplayBookingDetails(Booking booking)
         {
-            if (booking == null || passenger == null || flight == null)
+            try
             {
-                lblBookingRef.Text = booking != null ? $"Booking Reference: {booking.BookingReference}" : "Booking Reference: Error";
-                lblPassengerInfo.Text = passenger != null ? $"Passenger: {passenger.FirstName} {passenger.LastName} (Passport: {passenger.PassportNumber})" : "Passenger: Error loading data";
-                lblFlightInfo.Text = flight != null ? $"Flight: {flight.FlightNumber} ({flight.DepartureAirport} to {flight.ArrivalAirport}) - Departs: {flight.DepartureTime:g}" : "Flight: Error loading data";
-
-                if (booking == null && passenger == null && flight == null)
+                if (booking == null)
                 {
-                    grpBookingDetails.Visible = false;
+                    Debug.WriteLine("[CheckInForm] DisplayBookingDetails: booking is null");
+                    if (grpBookingDetails != null)
+                        grpBookingDetails.Visible = false;
+                    if (grpSeatSelection != null)
+                        grpSeatSelection.Visible = false;
+                    if (btnCheckIn != null)
+                        btnCheckIn.Visible = false;
+                    return;
+                }
+
+                Debug.WriteLine($"[CheckInForm] DisplayBookingDetails: Displaying booking {booking.BookingId}");
+
+                Passenger passenger = booking.Passenger;
+                Flight flight = booking.Flight;
+
+                if (passenger == null || flight == null)
+                {
+                    Debug.WriteLine($"[CheckInForm] DisplayBookingDetails: Missing data - Passenger: {passenger != null}, Flight: {flight != null}");
+
+                    // Try to display what we can
+                    if (lblBookingRef != null)
+                        lblBookingRef.Text = $"Booking Reference: {booking.BookingId}";
+
+                    if (lblPassengerInfo != null)
+                        lblPassengerInfo.Text = passenger != null
+                            ? $"Passenger: {passenger.FirstName} {passenger.LastName} (Passport: {passenger.PassportNumber})"
+                            : "Passenger: Loading...";
+
+                    if (lblFlightInfo != null)
+                        lblFlightInfo.Text = flight != null
+                            ? $"Flight: {flight.FlightNumber} ({flight.DepartureAirport} to {flight.ArrivalAirport}) - Departs: {flight.DepartureTime:g}"
+                            : "Flight: Loading...";
                 }
                 else
                 {
-                    grpBookingDetails.Visible = true;
-                    MessageBox.Show("Could not retrieve complete booking details. Some information may be missing.", "Partial Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // We have complete data
+                    if (lblBookingRef != null)
+                        lblBookingRef.Text = $"Booking Reference: {booking.BookingId}";
+
+                    if (lblPassengerInfo != null)
+                        lblPassengerInfo.Text = $"Passenger: {passenger.FirstName} {passenger.LastName} (Passport: {passenger.PassportNumber})";
+
+                    if (lblFlightInfo != null)
+                        lblFlightInfo.Text = $"Flight: {flight.FlightNumber} ({flight.DepartureAirport} to {flight.ArrivalAirport}) - Departs: {flight.DepartureTime:g}";
                 }
-                return;
+
+                // Show the booking details group
+                if (grpBookingDetails != null)
+                {
+                    grpBookingDetails.Visible = true;
+                    Debug.WriteLine("[CheckInForm] DisplayBookingDetails: Made grpBookingDetails visible");
+                }
+
+                // For non-checked-in bookings, prepare for seat selection
+                if (!booking.IsCheckedIn)
+                {
+                    if (grpSeatSelection != null)
+                    {
+                        grpSeatSelection.Visible = true;
+                        Debug.WriteLine("[CheckInForm] DisplayBookingDetails: Made grpSeatSelection visible");
+                    }
+
+                    if (btnCheckIn != null)
+                    {
+                        btnCheckIn.Visible = true;
+                        btnCheckIn.Enabled = false; // Will be enabled when seat is selected
+                        Debug.WriteLine("[CheckInForm] DisplayBookingDetails: Made btnCheckIn visible");
+                    }
+                }
             }
-
-            lblBookingRef.Text = $"Booking Reference: {booking.BookingReference}";
-            lblPassengerInfo.Text = $"Passenger: {passenger.FirstName} {passenger.LastName} (Passport: {passenger.PassportNumber})";
-            lblFlightInfo.Text = $"Flight: {flight.FlightNumber} ({flight.DepartureAirport} to {flight.ArrivalAirport}) - Departs: {flight.DepartureTime:g}";
-
-            grpBookingDetails.Visible = true;
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[CheckInForm] DisplayBookingDetails error: {ex.Message}");
+                MessageBox.Show($"Захиалгын мэдээлэл харуулахад алдаа гарлаа: {ex.Message}",
+                    "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void UpdateSeatDisplay(int flightId)
@@ -630,12 +792,11 @@ namespace FlightCheckInSystem.FormsApp
                 btnCheckIn.Enabled = false;
 
                 // Perform check-in via API (this will handle the actual seat booking in database)
-                var response = await _apiService.CheckInAsync(_selectedBooking.BookingId, _selectedSeat.SeatId != 0 ? _selectedSeat.SeatId : _selectedSeat.Id);
+                var response = await _apiService.CheckInAsync(_selectedBooking.BookingId, _selectedSeat.SeatId != 0 ? _selectedSeat.SeatId : _selectedSeat.SeatId);
                 if (response != null && response.Success)
                 {
                     _selectedBooking.IsCheckedIn = true;
-                    _selectedBooking.SeatNumber = _selectedSeat.SeatNumber;
-                    _selectedBooking.SeatId = _selectedSeat.SeatId != 0 ? _selectedSeat.SeatId : _selectedSeat.Id;
+                    _selectedBooking.SeatId = _selectedSeat.SeatId != 0 ? _selectedSeat.SeatId : _selectedSeat.SeatId;
 
                     var actualSeatInList = _seats?.FirstOrDefault(s => s.FlightId == _selectedBooking.FlightId && s.SeatNumber == _selectedSeat.SeatNumber);
                     if (actualSeatInList != null) actualSeatInList.IsBooked = true;
@@ -717,7 +878,7 @@ namespace FlightCheckInSystem.FormsApp
                 DepartureAirport = booking.Flight.DepartureAirport,
                 ArrivalAirport = booking.Flight.ArrivalAirport,
                 DepartureTime = booking.Flight.DepartureTime,
-                SeatNumber = seat?.SeatNumber ?? booking.SeatNumber ?? "TBD",
+                SeatNumber = seat?.SeatNumber ?? booking.Seat?.SeatNumber ?? "TBD",
                 BoardingTime = booking.Flight.DepartureTime.AddMinutes(-45)
             };
         }

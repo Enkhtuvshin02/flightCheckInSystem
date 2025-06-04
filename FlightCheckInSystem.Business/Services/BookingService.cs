@@ -103,61 +103,52 @@ namespace FlightCheckInSystem.Business.Services
 
         public async Task<IEnumerable<Seat>> GetAvailableSeatsAsync(int flightId)
         {
-                        var allSeats = await _seatRepository.GetSeatsByFlightIdAsync(flightId);
-            
-                        var bookings = await _bookingRepository.GetBookingsByFlightIdAsync(flightId);
-            
-                        var bookedSeatIds = new HashSet<int>(bookings.Where(b => b.SeatId.HasValue).Select(b => b.SeatId.Value));
-            
-                        return allSeats.Where(s => !bookedSeatIds.Contains(s.Id));
+            var allSeats = await _seatRepository.GetSeatsByFlightIdAsync(flightId);
+            var bookings = await _bookingRepository.GetBookingsByFlightIdAsync(flightId);
+            var bookedSeatIds = new HashSet<int>(bookings.Where(b => b.SeatId.HasValue).Select(b => b.SeatId.Value));
+            return allSeats.Where(s => !bookedSeatIds.Contains(s.SeatId));
         }
 
         public async Task<(bool success, string message, Booking booking)> BookFlightAsync(Passenger passenger, Flight flight, Seat seat)
         {
-                        if (passenger == null)
+            if (passenger == null)
                 return (false, "Passenger information is required", null);
-                
             if (flight == null)
                 return (false, "Flight information is required", null);
-                
             if (seat == null)
                 return (false, "Seat selection is required", null);
 
-                        var existingPassenger = await _passengerRepository.GetPassengerByPassportNumberAsync(passenger.PassportNumber);
+            var existingPassenger = await _passengerRepository.GetPassengerByPassportNumberAsync(passenger.PassportNumber);
             int passengerId;
-            
             if (existingPassenger == null)
             {
-                                var newPassenger = await _passengerRepository.CreatePassengerAsync(passenger);
+                var newPassenger = await _passengerRepository.CreatePassengerAsync(passenger);
                 if (newPassenger == null)
                     return (false, "Failed to create passenger record", null);
-                    
-                passengerId = newPassenger.Id;
+                passengerId = newPassenger.PassengerId;
             }
             else
             {
-                passengerId = existingPassenger.Id;
+                passengerId = existingPassenger.PassengerId;
             }
-            
-                        var availableSeats = await GetAvailableSeatsAsync(flight.Id);
-            if (!availableSeats.Any(s => s.Id == seat.Id))
+
+            var availableSeats = await GetAvailableSeatsAsync(flight.FlightId);
+            if (!availableSeats.Any(s => s.SeatId == seat.SeatId))
                 return (false, "Selected seat is no longer available", null);
-                
-                        var booking = new Booking
+
+            var booking = new Booking
             {
                 PassengerId = passengerId,
-                FlightId = flight.Id,
-                SeatId = seat.Id,
-                BookingReference = GenerateBookingReference(),
-                BookingStatus = Core.Enums.BookingStatus.Confirmed,
-                BookingDate = DateTime.Now,
+                FlightId = flight.FlightId,
+                SeatId = seat.SeatId,
                 IsCheckedIn = false
             };
-            
-            var createdBooking = await _bookingRepository.CreateBookingAsync(booking);
-            if (createdBooking == null)
+
+            var bookingId = await _bookingRepository.AddBookingAsync(booking);
+            if (bookingId <= 0)
                 return (false, "Failed to create booking", null);
-                
+
+            var createdBooking = await _bookingRepository.GetBookingByIdAsync(bookingId);
             return (true, "Booking created successfully", createdBooking);
         }
         
