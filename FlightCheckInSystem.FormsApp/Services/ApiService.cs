@@ -148,6 +148,11 @@ namespace FlightCheckInSystem.FormsApp.Services
                         var seats = response.Data as List<Seat>;
                         message += $" | Seats count: {seats?.Count ?? 0}";
                     }
+                    else if (typeof(T) == typeof(List<Passenger>)) // Added for passengers
+                    {
+                        var passengers = response.Data as List<Passenger>;
+                        message += $" | Passengers count: {passengers?.Count ?? 0}";
+                    }
                     else if (typeof(T) == typeof(Flight))
                     {
                         var flight = response.Data as Flight;
@@ -476,6 +481,45 @@ namespace FlightCheckInSystem.FormsApp.Services
                 return new List<Booking>();
             }
         }
+
+        public async Task<List<Passenger>> GetPassengersAsync() // Added GetPassengersAsync method
+        {
+            string endpoint = $"{GetCurrentBaseUrl()}/api/passengers";
+            try
+            {
+                LogApiCall("GET", endpoint);
+
+                var response = await _httpClient.GetAsync(endpoint);
+
+                Debug.WriteLine($"[ApiService] Received HTTP response: {(int)response.StatusCode} {response.StatusCode} from {endpoint}");
+
+                response.EnsureSuccessStatusCode();
+
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"[ApiService] Response content: {responseContent.Substring(0, Math.Min(responseContent.Length, 500))}...");
+
+                var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<Passenger>>>(responseContent, _jsonOptions);
+                LogApiResponse(endpoint, apiResponse);
+
+                if (apiResponse != null && apiResponse.Success)
+                {
+                    Debug.WriteLine($"[ApiService] Successfully retrieved {apiResponse.Data?.Count ?? 0} passengers");
+                    return apiResponse.Data;
+                }
+                else
+                {
+                    Debug.WriteLine($"[ApiService] API returned unsuccessful response: {apiResponse?.Message}");
+                    return new List<Passenger>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ApiService] Error getting passengers: {ex.Message}");
+                LogApiResponse<List<Passenger>>(endpoint, null, ex);
+                return new List<Passenger>();
+            }
+        }
+
 
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {

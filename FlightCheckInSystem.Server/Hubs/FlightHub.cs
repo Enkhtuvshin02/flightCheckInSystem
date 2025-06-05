@@ -107,6 +107,7 @@ namespace FlightCheckInSystem.Server.Hubs
                 var flight = await _flightRepository.GetFlightByIdAsync(flightId);
                 if (flight == null)
                 {
+                    _logger.LogWarning($"Flight with ID {flightId} not found when getting seats.");
                     await Clients.Caller.SendAsync("ReceiveFlightSeats", "", "[]");
                     return;
                 }
@@ -132,12 +133,18 @@ namespace FlightCheckInSystem.Server.Hubs
             try
             {
                 var flight = await _flightRepository.GetFlightByIdAsync(flightId);
-                if (flight == null) return;
+                if (flight == null)
+                {
+                    _logger.LogWarning($"Flight with ID {flightId} not found during seat reservation.");
+                    await Clients.Caller.SendAsync("SeatReservationFailed", "", seatNumber, "Flight not found.");
+                    return;
+                }
 
                 // Суудал аль хэдийн эзэгдсэн эсэхийг шалгах
                 var seat = await _seatRepository.GetSeatByNumberAndFlightAsync(seatNumber, flightId);
                 if (seat != null && seat.IsBooked)
                 {
+                    _logger.LogWarning($"Seat {seatNumber} on flight {flight.FlightNumber} is already booked (DB).");
                     await Clients.Caller.SendAsync("SeatReservationFailed", flight.FlightNumber, seatNumber, "Seat is already booked");
                     return;
                 }
@@ -149,14 +156,15 @@ namespace FlightCheckInSystem.Server.Hubs
                 }
 
                 // Өөр хэрэглэгчээр захиалагдсан эсэхийг шалгах
-                if (SeatReservations[flight.FlightNumber].ContainsKey(seatNumber))
+                if (SeatReservations[flight.FlightNumber].TryGetValue(seatNumber, out var existingReservation))
                 {
-                    var existingReservation = SeatReservations[flight.FlightNumber][seatNumber];
-                    if (existingReservation.BookingReference != bookingReference)
+                    if (existingReservation.ConnectionId != Context.ConnectionId) // Check if it's reserved by *another* connection
                     {
-                        await Clients.Caller.SendAsync("SeatReservationFailed", flight.FlightNumber, seatNumber, "Seat is already reserved");
+                        _logger.LogWarning($"Seat {seatNumber} on flight {flight.FlightNumber} is already reserved by another client ({existingReservation.ConnectionId}).");
+                        await Clients.Caller.SendAsync("SeatReservationFailed", flight.FlightNumber, seatNumber, "Seat is already reserved by another user");
                         return;
                     }
+                    // If it's reserved by the same connection, it's a re-reservation or confirmation attempt, no need to fail.
                 }
 
                 // Захиалга үүсгэх эсвэл шинэчлэх
@@ -171,11 +179,12 @@ namespace FlightCheckInSystem.Server.Hubs
                 await Clients.Group($"Flight_{flight.FlightNumber}")
                     .SendAsync("SeatReserved", flight.FlightNumber, seatNumber, bookingReference);
 
-                _logger.LogInformation($"Seat {seatNumber} reserved for flight {flight.FlightNumber}");
+                _logger.LogInformation($"Seat {seatNumber} reserved for flight {flight.FlightNumber} by {Context.ConnectionId}");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error reserving seat {seatNumber} for flight ID {flightId}");
+                await Clients.Caller.SendAsync("SeatReservationFailed", "", seatNumber, $"Server error: {ex.Message}");
             }
         }
 
@@ -186,15 +195,22 @@ namespace FlightCheckInSystem.Server.Hubs
                 var flight = await _flightRepository.GetFlightByIdAsync(flightId);
                 if (flight == null) return;
 
-                if (SeatReservations.ContainsKey(flight.FlightNumber) &&
-                    SeatReservations[flight.FlightNumber].ContainsKey(seatNumber))
+                if (SeatReservations.ContainsKey(flight.FlightNumber))
                 {
-                    SeatReservations[flight.FlightNumber].Remove(seatNumber);
+                    var flightReservations = SeatReservations[flight.FlightNumber];
+                    if (flightReservations.TryGetValue(seatNumber, out var reservation) && reservation.ConnectionId == Context.ConnectionId)
+                    {
+                        flightReservations.Remove(seatNumber);
 
-                    await Clients.Group($"Flight_{flight.FlightNumber}")
-                        .SendAsync("SeatReservationReleased", flight.FlightNumber, seatNumber);
+                        await Clients.Group($"Flight_{flight.FlightNumber}")
+                            .SendAsync("SeatReservationReleased", flight.FlightNumber, seatNumber);
 
-                    _logger.LogInformation($"Seat reservation released for {seatNumber} on flight {flight.FlightNumber}");
+                        _logger.LogInformation($"Seat reservation released for {seatNumber} on flight {flight.FlightNumber} by {Context.ConnectionId}");
+                    }
+                    else if (reservation != null && reservation.ConnectionId != Context.ConnectionId)
+                    {
+                        _logger.LogWarning($"Client {Context.ConnectionId} tried to release seat {seatNumber} reserved by {reservation.ConnectionId}. Ignored.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -212,13 +228,14 @@ namespace FlightCheckInSystem.Server.Hubs
                     SeatReservations[flightNumber].ContainsKey(seatNumber))
                 {
                     SeatReservations[flightNumber].Remove(seatNumber);
+                    _logger.LogInformation($"Temporary reservation for seat {seatNumber} on flight {flightNumber} removed after booking confirmation.");
                 }
 
                 // Баталгаажсан захиалгыг мэдэгдэх
                 await Clients.Group($"Flight_{flightNumber}")
                     .SendAsync("SeatBooked", flightNumber, seatNumber, bookingReference);
 
-                _logger.LogInformation($"Seat {seatNumber} booking confirmed for flight {flightNumber}");
+                _logger.LogInformation($"Seat {seatNumber} booking confirmed for flight {flightNumber} with booking reference {bookingReference}");
             }
             catch (Exception ex)
             {
@@ -230,8 +247,12 @@ namespace FlightCheckInSystem.Server.Hubs
         {
             try
             {
-                foreach (var flightReservations in SeatReservations.Values)
+                var flightsToNotify = new HashSet<string>();
+                foreach (var flightReservationsEntry in SeatReservations.ToList()) // ToList to modify while iterating
                 {
+                    var flightNumber = flightReservationsEntry.Key;
+                    var flightReservations = flightReservationsEntry.Value;
+
                     var reservationsToRemove = flightReservations
                         .Where(kvp => kvp.Value.ConnectionId == connectionId)
                         .ToList();
@@ -239,8 +260,15 @@ namespace FlightCheckInSystem.Server.Hubs
                     foreach (var reservation in reservationsToRemove)
                     {
                         flightReservations.Remove(reservation.Key);
-                        _logger.LogInformation($"Cleaned up reservation for seat {reservation.Key}");
+                        flightsToNotify.Add(flightNumber);
+                        _logger.LogInformation($"Cleaned up reservation for seat {reservation.Key} by disconnected client {connectionId}");
                     }
+                }
+
+                foreach (var flightNumber in flightsToNotify)
+                {
+                    await Clients.Group($"Flight_{flightNumber}")
+                        .SendAsync("RefreshSeatsForFlight", flightNumber); // Notify clients to refresh
                 }
             }
             catch (Exception ex)
@@ -272,7 +300,7 @@ namespace FlightCheckInSystem.Server.Hubs
                 // Захиалагдсан боловч баталгаажаагүй суудлыг түр хаагдсан гэж харуулах
                 if (!seat.IsBooked && reservations.ContainsKey(seat.SeatNumber))
                 {
-                    seatCopy.IsBooked = true;
+                    seatCopy.IsBooked = true; // Mark as temporarily reserved
                 }
 
                 result.Add(seatCopy);

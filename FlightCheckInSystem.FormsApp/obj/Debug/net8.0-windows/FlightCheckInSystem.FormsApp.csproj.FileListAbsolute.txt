@@ -68,4 +68,3 @@ C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\obj\
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\obj\Debug\net8.0-windows\ref\FlightCheckInSystem.FormsApp.dll
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\runtimes\linux-musl-s390x\native\libe_sqlite3.so
 C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
-C:\Users\user\source\repos\FlightCheckInSystem\FlightCheckInSystem.FormsApp\obj\Debug\net8.0-windows\FlightCheckInSystem.FormsApp.BookingSelectionForm.resources

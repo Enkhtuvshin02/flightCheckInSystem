@@ -19,7 +19,10 @@ namespace FlightCheckInSystem.FormsApp.Services
         public event Action<string, string, string> SeatReserved;
         public event Action<string, string> SeatReservationReleased;
         public event Action<string, string, string> SeatReservationFailed;
+        // Inside SeatStatusSignalRService.cs (example, not provided in files)
+        public event Action<string> RefreshSeatsForFlight;
 
+     
         public SeatStatusSignalRService(string hubUrl)
         {
             _connection = new HubConnectionBuilder()
